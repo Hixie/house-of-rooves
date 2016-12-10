@@ -1,0 +1,10 @@
+name: house_of_rooves
+description: A new flutter project.
+dependencies:
+  flutter:
+    sdk: flutter
+  home_automation_tools:
+    git: git://github.com/Hixie/dart-home-automation-tools.git
+dependency_overrides:
+  home_automation_tools:
+    path: ../dart-home-automation-tools/
