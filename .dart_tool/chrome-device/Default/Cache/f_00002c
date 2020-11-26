@@ -1,0 +1,848 @@
+define(['dart_sdk', 'packages/home_automation_tools/src/common.dart', 'packages/home_automation_tools/src/watch_stream.dart'], (function load__packages__home_automation_tools__src__devices__remy_dart(dart_sdk, packages__home_automation_tools__src__common$46dart, packages__home_automation_tools__src__watch_stream$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const _interceptors = dart_sdk._interceptors;
+  const io = dart_sdk.io;
+  const convert = dart_sdk.convert;
+  const _js_helper = dart_sdk._js_helper;
+  const collection = dart_sdk.collection;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const common = packages__home_automation_tools__src__common$46dart.src__common;
+  const watch_stream = packages__home_automation_tools__src__watch_stream$46dart.src__watch_stream;
+  var remy = Object.create(dart.library);
+  var $toString = dartx.toString;
+  var $join = dartx.join;
+  var $isEmpty = dartx.isEmpty;
+  var $first = dartx.first;
+  var $length = dartx.length;
+  var $toList = dartx.toList;
+  var $_get = dartx._get;
+  var $skip = dartx.skip;
+  var $map = dartx.map;
+  var $containsKey = dartx.containsKey;
+  var $split = dartx.split;
+  var $_set = dartx._set;
+  var $sublist = dartx.sublist;
+  var $where = dartx.where;
+  var $values = dartx.values;
+  var $add = dartx.add;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $removeAt = dartx.removeAt;
+  var $addAll = dartx.addAll;
+  var $removeRange = dartx.removeRange;
+  var $keys = dartx.keys;
+  var $indexOf = dartx.indexOf;
+  var $substring = dartx.substring;
+  var $any = dartx.any;
+  var $putIfAbsent = dartx.putIfAbsent;
+  var $remove = dartx.remove;
+  var CompleterOfNull = () => (CompleterOfNull = dart.constFn(async.Completer$(core.Null)))();
+  var StringL = () => (StringL = dart.constFn(dart.legacy(core.String)))();
+  var JSArrayOfStringL = () => (JSArrayOfStringL = dart.constFn(_interceptors.JSArray$(StringL())))();
+  var StackTraceL = () => (StackTraceL = dart.constFn(dart.legacy(core.StackTrace)))();
+  var dynamicAndStackTraceLTobottom = () => (dynamicAndStackTraceLTobottom = dart.constFn(dart.fnType(core.Null, [dart.dynamic, StackTraceL()])))();
+  var StateErrorL = () => (StateErrorL = dart.constFn(dart.legacy(core.StateError)))();
+  var boolL = () => (boolL = dart.constFn(dart.legacy(core.bool)))();
+  var dynamicToboolL = () => (dynamicToboolL = dart.constFn(dart.fnType(boolL(), [dart.dynamic])))();
+  var TimerL = () => (TimerL = dart.constFn(dart.legacy(async.Timer)))();
+  var TimerLTovoid = () => (TimerLTovoid = dart.constFn(dart.fnType(dart.void, [TimerL()])))();
+  var intL = () => (intL = dart.constFn(dart.legacy(core.int)))();
+  var ListOfintL = () => (ListOfintL = dart.constFn(core.List$(intL())))();
+  var ListLOfintL = () => (ListLOfintL = dart.constFn(dart.legacy(ListOfintL())))();
+  var FutureOfNull = () => (FutureOfNull = dart.constFn(async.Future$(core.Null)))();
+  var FutureLOfNull = () => (FutureLOfNull = dart.constFn(dart.legacy(FutureOfNull())))();
+  var JSArrayOfFutureLOfNull = () => (JSArrayOfFutureLOfNull = dart.constFn(_interceptors.JSArray$(FutureLOfNull())))();
+  var RemyButtonL = () => (RemyButtonL = dart.constFn(dart.legacy(remy.RemyButton)))();
+  var IdentityMapOfStringL$RemyButtonL = () => (IdentityMapOfStringL$RemyButtonL = dart.constFn(_js_helper.IdentityMap$(StringL(), RemyButtonL())))();
+  var RemyMessageL = () => (RemyMessageL = dart.constFn(dart.legacy(remy.RemyMessage)))();
+  var _HashSetOfRemyMessageL = () => (_HashSetOfRemyMessageL = dart.constFn(collection._HashSet$(RemyMessageL())))();
+  var RemyToDoL = () => (RemyToDoL = dart.constFn(dart.legacy(remy.RemyToDo)))();
+  var _HashSetOfRemyToDoL = () => (_HashSetOfRemyToDoL = dart.constFn(collection._HashSet$(RemyToDoL())))();
+  var LinkedHashSetOfStringL = () => (LinkedHashSetOfStringL = dart.constFn(collection.LinkedHashSet$(StringL())))();
+  var StringLToRemyButtonL = () => (StringLToRemyButtonL = dart.constFn(dart.fnType(RemyButtonL(), [StringL()])))();
+  var RemyButtonLToboolL = () => (RemyButtonLToboolL = dart.constFn(dart.fnType(boolL(), [RemyButtonL()])))();
+  var LinkedHashSetOfRemyButtonL = () => (LinkedHashSetOfRemyButtonL = dart.constFn(collection.LinkedHashSet$(RemyButtonL())))();
+  var SyncIterableOfListLOfintL = () => (SyncIterableOfListLOfintL = dart.constFn(_js_helper.SyncIterable$(ListLOfintL())))();
+  var CompleterOfboolL = () => (CompleterOfboolL = dart.constFn(async.Completer$(boolL())))();
+  var JSArrayOfintL = () => (JSArrayOfintL = dart.constFn(_interceptors.JSArray$(intL())))();
+  var StreamTransformerBaseOfListLOfintL$ListLOfintL = () => (StreamTransformerBaseOfListLOfintL$ListLOfintL = dart.constFn(common.StreamTransformerBase$(ListLOfintL(), ListLOfintL())))();
+  var _RemyMessageParserL = () => (_RemyMessageParserL = dart.constFn(dart.legacy(remy._RemyMessageParser)))();
+  var VoidTo_RemyMessageParserL = () => (VoidTo_RemyMessageParserL = dart.constFn(dart.fnType(_RemyMessageParserL(), [])))();
+  var StreamSinkOfListLOfintL = () => (StreamSinkOfListLOfintL = dart.constFn(async.StreamSink$(ListLOfintL())))();
+  var StreamSinkLOfListLOfintL = () => (StreamSinkLOfListLOfintL = dart.constFn(dart.legacy(StreamSinkOfListLOfintL())))();
+  var WatchStreamOfboolL = () => (WatchStreamOfboolL = dart.constFn(watch_stream.WatchStream$(boolL())))();
+  var WatchStreamLOfboolL = () => (WatchStreamLOfboolL = dart.constFn(dart.legacy(WatchStreamOfboolL())))();
+  var IdentityMapOfStringL$WatchStreamLOfboolL = () => (IdentityMapOfStringL$WatchStreamLOfboolL = dart.constFn(_js_helper.IdentityMap$(StringL(), WatchStreamLOfboolL())))();
+  var StreamControllerOfStringL = () => (StreamControllerOfStringL = dart.constFn(async.StreamController$(StringL())))();
+  var StreamControllerLOfStringL = () => (StreamControllerLOfStringL = dart.constFn(dart.legacy(StreamControllerOfStringL())))();
+  var IdentityMapOfStringL$StreamControllerLOfStringL = () => (IdentityMapOfStringL$StreamControllerLOfStringL = dart.constFn(_js_helper.IdentityMap$(StringL(), StreamControllerLOfStringL())))();
+  var RemyNotificationL = () => (RemyNotificationL = dart.constFn(dart.legacy(remy.RemyNotification)))();
+  var StreamControllerOfRemyNotificationL = () => (StreamControllerOfRemyNotificationL = dart.constFn(async.StreamController$(RemyNotificationL())))();
+  var _IdentityHashSetOfStringL = () => (_IdentityHashSetOfStringL = dart.constFn(collection._IdentityHashSet$(StringL())))();
+  var VoidToNull = () => (VoidToNull = dart.constFn(dart.fnType(core.Null, [])))();
+  var HashSetOfStringL = () => (HashSetOfStringL = dart.constFn(collection.HashSet$(StringL())))();
+  var RemyNotificationLToStringL = () => (RemyNotificationLToStringL = dart.constFn(dart.fnType(StringL(), [RemyNotificationL()])))();
+  var AlwaysOnWatchStreamOfboolL = () => (AlwaysOnWatchStreamOfboolL = dart.constFn(watch_stream.AlwaysOnWatchStream$(boolL())))();
+  var RemyNotificationLToboolL = () => (RemyNotificationLToboolL = dart.constFn(dart.fnType(boolL(), [RemyNotificationL()])))();
+  var VoidToWatchStreamLOfboolL = () => (VoidToWatchStreamLOfboolL = dart.constFn(dart.fnType(WatchStreamLOfboolL(), [])))();
+  var VoidToStreamControllerLOfStringL = () => (VoidToStreamControllerLOfStringL = dart.constFn(dart.fnType(StreamControllerLOfStringL(), [])))();
+  const CT = Object.create(null);
+  var L0 = "package:home_automation_tools/src/devices/remy.dart";
+  var L1 = "file:///C:/dev/dart-home-automation-tools/lib/src/devices/remy.dart";
+  dart.defineLazy(CT, {
+    get C0() {
+      return C0 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 60000000
+      });
+    },
+    get C1() {
+      return C1 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 1000000
+      });
+    }
+  }, false);
+  var id$ = dart.privateName(remy, "RemyButton.id");
+  var classes$ = dart.privateName(remy, "RemyButton.classes");
+  var label$ = dart.privateName(remy, "RemyButton.label");
+  remy.RemyButton = class RemyButton extends core.Object {
+    get id() {
+      return this[id$];
+    }
+    set id(value) {
+      super.id = value;
+    }
+    get classes() {
+      return this[classes$];
+    }
+    set classes(value) {
+      super.classes = value;
+    }
+    get label() {
+      return this[label$];
+    }
+    set label(value) {
+      super.label = value;
+    }
+    toString() {
+      return "button " + dart.str(this.id) + ": \"" + dart.str(this.label) + "\" " + dart.str(this.classes);
+    }
+  };
+  (remy.RemyButton.new = function(id, classes, label) {
+    this[id$] = id;
+    this[classes$] = classes;
+    this[label$] = label;
+    ;
+  }).prototype = remy.RemyButton.prototype;
+  dart.addTypeTests(remy.RemyButton);
+  dart.addTypeCaches(remy.RemyButton);
+  dart.setMethodSignature(remy.RemyButton, () => ({
+    __proto__: dart.getMethods(remy.RemyButton.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(remy.RemyButton, L0);
+  dart.setFieldSignature(remy.RemyButton, () => ({
+    __proto__: dart.getFields(remy.RemyButton.__proto__),
+    id: dart.finalFieldType(dart.legacy(core.String)),
+    classes: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(core.String)))),
+    label: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(remy.RemyButton, ['toString']);
+  var label$0 = dart.privateName(remy, "RemyNotification.label");
+  var classes$0 = dart.privateName(remy, "RemyNotification.classes");
+  var escalationLevel$ = dart.privateName(remy, "RemyNotification.escalationLevel");
+  remy.RemyNotification = class RemyNotification extends core.Object {
+    get label() {
+      return this[label$0];
+    }
+    set label(value) {
+      super.label = value;
+    }
+    get classes() {
+      return this[classes$0];
+    }
+    set classes(value) {
+      super.classes = value;
+    }
+    get escalationLevel() {
+      return this[escalationLevel$];
+    }
+    set escalationLevel(value) {
+      super.escalationLevel = value;
+    }
+    toString() {
+      return "message: \"" + dart.str(this.label) + "\" (" + dart.str(this.escalationLevel) + ") " + dart.str(this.classes);
+    }
+  };
+  (remy.RemyNotification.new = function(label, classes, escalationLevel) {
+    this[label$0] = label;
+    this[classes$0] = classes;
+    this[escalationLevel$] = escalationLevel;
+    ;
+  }).prototype = remy.RemyNotification.prototype;
+  dart.addTypeTests(remy.RemyNotification);
+  dart.addTypeCaches(remy.RemyNotification);
+  dart.setMethodSignature(remy.RemyNotification, () => ({
+    __proto__: dart.getMethods(remy.RemyNotification.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(remy.RemyNotification, L0);
+  dart.setFieldSignature(remy.RemyNotification, () => ({
+    __proto__: dart.getFields(remy.RemyNotification.__proto__),
+    label: dart.finalFieldType(dart.legacy(core.String)),
+    classes: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(core.String)))),
+    escalationLevel: dart.finalFieldType(dart.legacy(core.int))
+  }));
+  dart.defineExtensionMethods(remy.RemyNotification, ['toString']);
+  var buttons$ = dart.privateName(remy, "RemyMessage.buttons");
+  remy.RemyMessage = class RemyMessage extends remy.RemyNotification {
+    get buttons() {
+      return this[buttons$];
+    }
+    set buttons(value) {
+      super.buttons = value;
+    }
+    toString() {
+      return dart.str(super.toString()) + " " + dart.str(this.buttons);
+    }
+  };
+  (remy.RemyMessage.new = function(label, classes, escalationLevel, buttons) {
+    this[buttons$] = buttons;
+    remy.RemyMessage.__proto__.new.call(this, label, classes, escalationLevel);
+    ;
+  }).prototype = remy.RemyMessage.prototype;
+  dart.addTypeTests(remy.RemyMessage);
+  dart.addTypeCaches(remy.RemyMessage);
+  dart.setLibraryUri(remy.RemyMessage, L0);
+  dart.setFieldSignature(remy.RemyMessage, () => ({
+    __proto__: dart.getFields(remy.RemyMessage.__proto__),
+    buttons: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(remy.RemyButton))))
+  }));
+  dart.defineExtensionMethods(remy.RemyMessage, ['toString']);
+  var id$0 = dart.privateName(remy, "RemyToDo.id");
+  var label$1 = dart.privateName(remy, "RemyToDo.label");
+  var classes$1 = dart.privateName(remy, "RemyToDo.classes");
+  var level$ = dart.privateName(remy, "RemyToDo.level");
+  remy.RemyToDo = class RemyToDo extends core.Object {
+    get id() {
+      return this[id$0];
+    }
+    set id(value) {
+      super.id = value;
+    }
+    get label() {
+      return this[label$1];
+    }
+    set label(value) {
+      super.label = value;
+    }
+    get classes() {
+      return this[classes$1];
+    }
+    set classes(value) {
+      super.classes = value;
+    }
+    get level() {
+      return this[level$];
+    }
+    set level(value) {
+      super.level = value;
+    }
+    toString() {
+      return "todo " + dart.str(this.id) + ": \"" + dart.str(this.label) + "\" (" + dart.str(this.level) + ") " + dart.str(this.classes);
+    }
+  };
+  (remy.RemyToDo.new = function(id, label, classes, level) {
+    this[id$0] = id;
+    this[label$1] = label;
+    this[classes$1] = classes;
+    this[level$] = level;
+    ;
+  }).prototype = remy.RemyToDo.prototype;
+  dart.addTypeTests(remy.RemyToDo);
+  dart.addTypeCaches(remy.RemyToDo);
+  dart.setMethodSignature(remy.RemyToDo, () => ({
+    __proto__: dart.getMethods(remy.RemyToDo.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(remy.RemyToDo, L0);
+  dart.setFieldSignature(remy.RemyToDo, () => ({
+    __proto__: dart.getFields(remy.RemyToDo.__proto__),
+    id: dart.finalFieldType(dart.legacy(core.String)),
+    label: dart.finalFieldType(dart.legacy(core.String)),
+    classes: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(core.String)))),
+    level: dart.finalFieldType(dart.legacy(core.int))
+  }));
+  dart.defineExtensionMethods(remy.RemyToDo, ['toString']);
+  var buttons$0 = dart.privateName(remy, "RemyUi.buttons");
+  var messages$ = dart.privateName(remy, "RemyUi.messages");
+  var todos$ = dart.privateName(remy, "RemyUi.todos");
+  remy.RemyUi = class RemyUi extends core.Object {
+    get buttons() {
+      return this[buttons$0];
+    }
+    set buttons(value) {
+      super.buttons = value;
+    }
+    get messages() {
+      return this[messages$];
+    }
+    set messages(value) {
+      super.messages = value;
+    }
+    get todos() {
+      return this[todos$];
+    }
+    set todos(value) {
+      super.todos = value;
+    }
+    toString() {
+      return "RemyUi:\n" + dart.str(this.messages[$join]("\n")) + "\n" + dart.str(this.todos[$join]("\n")) + "\n" + dart.str(this.buttons[$join]("\n"));
+    }
+  };
+  (remy.RemyUi.new = function(buttons, messages, todos) {
+    this[buttons$0] = buttons;
+    this[messages$] = messages;
+    this[todos$] = todos;
+    ;
+  }).prototype = remy.RemyUi.prototype;
+  dart.addTypeTests(remy.RemyUi);
+  dart.addTypeCaches(remy.RemyUi);
+  dart.setMethodSignature(remy.RemyUi, () => ({
+    __proto__: dart.getMethods(remy.RemyUi.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(remy.RemyUi, L0);
+  dart.setFieldSignature(remy.RemyUi, () => ({
+    __proto__: dart.getFields(remy.RemyUi.__proto__),
+    buttons: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(remy.RemyButton)))),
+    messages: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(remy.RemyMessage)))),
+    todos: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(remy.RemyToDo))))
+  }));
+  dart.defineExtensionMethods(remy.RemyUi, ['toString']);
+  var _server = dart.privateName(remy, "_server");
+  var _closed = dart.privateName(remy, "_closed");
+  var _keepAlive = dart.privateName(remy, "_keepAlive");
+  var _pendingMessages = dart.privateName(remy, "_pendingMessages");
+  var _currentState = dart.privateName(remy, "_currentState");
+  var _signalPendingMessage = dart.privateName(remy, "_signalPendingMessage");
+  var _connect = dart.privateName(remy, "_connect");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var C0;
+  var _listen = dart.privateName(remy, "_listen");
+  var _writeLoop = dart.privateName(remy, "_writeLoop");
+  var _disconnect = dart.privateName(remy, "_disconnect");
+  var C1;
+  var _handleMessage = dart.privateName(remy, "_handleMessage");
+  var _parseEscalationLevel = dart.privateName(remy, "_parseEscalationLevel");
+  var _send = dart.privateName(remy, "_send");
+  var username$ = dart.privateName(remy, "Remy.username");
+  var password$ = dart.privateName(remy, "Remy.password");
+  var onLog$ = dart.privateName(remy, "Remy.onLog");
+  var onNotification$ = dart.privateName(remy, "Remy.onNotification");
+  var onUiUpdate$ = dart.privateName(remy, "Remy.onUiUpdate");
+  var onConnected$ = dart.privateName(remy, "Remy.onConnected");
+  var onDisconnected$ = dart.privateName(remy, "Remy.onDisconnected");
+  remy.Remy = class Remy extends core.Object {
+    get username() {
+      return this[username$];
+    }
+    set username(value) {
+      super.username = value;
+    }
+    get password() {
+      return this[password$];
+    }
+    set password(value) {
+      super.password = value;
+    }
+    get onLog() {
+      return this[onLog$];
+    }
+    set onLog(value) {
+      super.onLog = value;
+    }
+    get onNotification() {
+      return this[onNotification$];
+    }
+    set onNotification(value) {
+      super.onNotification = value;
+    }
+    get onUiUpdate() {
+      return this[onUiUpdate$];
+    }
+    set onUiUpdate(value) {
+      super.onUiUpdate = value;
+    }
+    get onConnected() {
+      return this[onConnected$];
+    }
+    set onConnected(value) {
+      super.onConnected = value;
+    }
+    get onDisconnected() {
+      return this[onDisconnected$];
+    }
+    set onDisconnected(value) {
+      super.onDisconnected = value;
+    }
+    [_connect](host, port) {
+      return async.async(core.Null, (function* _connect() {
+        let t1;
+        do {
+          try {
+            if (host == null) {
+              let hosts = (yield io.InternetAddress.lookup("remy.rooves.house"));
+              if (dart.test(hosts[$isEmpty])) dart.throw(core.Exception.new("Cannot lookup Remy's internet address: no results"));
+              host = hosts[$first];
+            }
+            this[_server] = (yield io.SecureSocket.connect(host, port));
+            this[_server].encoding = convert.utf8;
+            if (this.onUiUpdate != null) {
+              this[_server].write("enable-ui   ");
+              yield this[_server].flush().catchError(dart.fn((error, stack) => dart.throw(core.Exception.new("could not connect to Remy")), dynamicAndStackTraceLTobottom()), {test: dart.fn(error => StateErrorL().is(error), dynamicToboolL())});
+            }
+            if (this.onConnected != null) this.onConnected();
+            this[_keepAlive] = async.Timer.periodic(C0 || CT.C0, dart.fn(t => this.ping(), TimerLTovoid()));
+            yield async.Future.any(core.Null, JSArrayOfFutureLOfNull().of([this[_listen](this[_server].cast(ListLOfintL()).transform(ListLOfintL(), remy._RemyMessageParser.getTransformer(3))), this[_writeLoop](), this[_closed].future]));
+          } catch (e) {
+            let error = dart.getThrown(e);
+            if (this.onLog != null) {
+              t1 = "error listening to Remy: " + dart.str(error);
+              this.onLog(t1);
+            }
+          }
+          this[_disconnect]();
+          if (!dart.test(this[_closed].isCompleted)) yield FutureOfNull().delayed(C1 || CT.C1);
+        } while (!dart.test(this[_closed].isCompleted));
+      }).bind(this));
+    }
+    [_disconnect]() {
+      let t1, t1$;
+      t1 = this[_keepAlive];
+      t1 == null ? null : t1.cancel();
+      this[_keepAlive] = null;
+      if (this[_signalPendingMessage] != null && !dart.test(this[_signalPendingMessage].isCompleted)) this[_signalPendingMessage].complete(false);
+      t1$ = this[_server];
+      t1$ == null ? null : t1$.destroy();
+      this[_server] = null;
+      if (this.onDisconnected != null) this.onDisconnected();
+    }
+    [_listen](messages) {
+      return async.async(core.Null, (function* _listen() {
+        let iter = async.StreamIterator.new(messages);
+        try {
+          while (yield iter.moveNext()) {
+            let bytes = iter.current;
+            this[_handleMessage](bytes);
+          }
+        } finally {
+          yield iter.cancel();
+        }
+        return null;
+      }).bind(this));
+    }
+    get currentState() {
+      return this[_currentState];
+    }
+    [_handleMessage](bytes) {
+      let t1, t1$, t1$0, t1$1, t1$2, t1$3, t1$4, t1$5, t1$6;
+      if (bytes[$length] === 0) {
+        return;
+      }
+      let parts = remy.Remy._nullSplit(bytes, 2)[$toList]();
+      if (convert.utf8.decode(parts[$_get](0)) === "update") {
+        if (this.onUiUpdate != null) {
+          let buttons = new (IdentityMapOfStringL$RemyButtonL()).new();
+          let messages = new (_HashSetOfRemyMessageL()).new();
+          let todos = new (_HashSetOfRemyToDoL()).new();
+          for (let entry of parts[$skip](1)) {
+            let data = remy.Remy._nullSplit(entry, 1)[$map](StringL(), dart.bind(convert.utf8, 'decode'))[$toList]();
+            if (dart.test(data[$isEmpty])) {
+              if (this.onLog != null) {
+                t1 = "invalid data packet from Remy (has empty entry in UI update): " + dart.str(convert.utf8.decode(bytes));
+                this.onLog(t1);
+              }
+            } else if (data[$_get](0) === "button") {
+              if (dart.notNull(data[$length]) < 4) {
+                if (this.onLog != null) {
+                  t1$ = "invalid data packet from Remy (insufficient data in button packet): " + dart.str(convert.utf8.decode(bytes));
+                  this.onLog(t1$);
+                }
+              } else if (dart.test(buttons[$containsKey](data[$_get](1)))) {
+                if (this.onLog != null) {
+                  t1$0 = "received duplicate button ID";
+                  this.onLog(t1$0);
+                }
+              } else {
+                buttons[$_set](data[$_get](1), new remy.RemyButton.new(data[$_get](1), LinkedHashSetOfStringL().from(data[$_get](2)[$split](" ")), data[$_get](3)));
+              }
+            } else if (data[$_get](0) === "message") {
+              if (dart.notNull(data[$length]) < 4) {
+                if (this.onLog != null) {
+                  t1$1 = "invalid data packet from Remy (insufficient data in message packet): " + dart.str(convert.utf8.decode(bytes));
+                  this.onLog(t1$1);
+                }
+              } else {
+                messages.add(new remy.RemyMessage.new(data[$_get](1), LinkedHashSetOfStringL().from(data[$_get](2)[$split](" ")), this[_parseEscalationLevel](data[$_get](3)), data[$sublist](4)[$map](RemyButtonL(), dart.fn(id => {
+                  let t1;
+                  if (dart.test(buttons[$containsKey](id))) return buttons[$_get](id);
+                  if (this.onLog != null) {
+                    t1 = "unknown button ID in message \"" + dart.str(data[$_get](1)) + "\" from Remy: " + dart.str(id);
+                    this.onLog(t1);
+                  }
+                  return null;
+                }, StringLToRemyButtonL()))[$where](dart.fn(button => button != null, RemyButtonLToboolL()))[$toList]()));
+              }
+            } else if (data[$_get](0) === "todo") {
+              if (dart.notNull(data[$length]) < 5) {
+                if (this.onLog != null) {
+                  t1$2 = "invalid data packet from Remy (insufficient data in todo packet): " + dart.str(convert.utf8.decode(bytes));
+                  this.onLog(t1$2);
+                }
+              } else {
+                todos.add(new remy.RemyToDo.new(data[$_get](1), data[$_get](2), LinkedHashSetOfStringL().from(data[$_get](3)[$split](" ")), this[_parseEscalationLevel](data[$_get](4))));
+              }
+            } else {
+              if (this.onLog != null) {
+                t1$3 = "unexpected data from Remy: " + dart.str(convert.utf8.decode(bytes));
+                this.onLog(t1$3);
+              }
+            }
+          }
+          this[_currentState] = new remy.RemyUi.new(LinkedHashSetOfRemyButtonL().from(buttons[$values]), messages, todos);
+          t1$4 = this.currentState;
+          this.onUiUpdate(t1$4);
+        }
+      } else {
+        let data = remy.Remy._nullSplit(parts[$_get](0), 1)[$map](StringL(), dart.bind(convert.utf8, 'decode'))[$toList]();
+        if (dart.notNull(data[$length]) < 3) {
+          if (this.onLog != null) {
+            t1$5 = "invalid data packet from Remy (insufficient data in notification packet): " + dart.str(convert.utf8.decode(bytes));
+            this.onLog(t1$5);
+          }
+        } else {
+          if (this.onNotification != null) {
+            t1$6 = new remy.RemyNotification.new(data[$_get](1), LinkedHashSetOfStringL().from(data[$_get](2)[$split](" ")), this[_parseEscalationLevel](data[$_get](0)));
+            this.onNotification(t1$6);
+          }
+        }
+      }
+    }
+    static _nullSplit(bytes, nullTarget) {
+      return new (SyncIterableOfListLOfintL()).new(function* _nullSplit() {
+        let start = 0;
+        let index = 0;
+        let nullCount = 0;
+        while (index < dart.notNull(bytes[$length])) {
+          if (bytes[$_get](index) === 0) {
+            nullCount = nullCount + 1;
+            if (nullCount === nullTarget) {
+              yield bytes[$sublist](start, index - (dart.notNull(nullTarget) - 1));
+              nullCount = 0;
+              start = index + 1;
+            }
+          } else {
+            nullCount = 0;
+          }
+          index = index + 1;
+        }
+        yield bytes[$sublist](start, index);
+      });
+    }
+    [_parseEscalationLevel](value) {
+      let t1;
+      let escalationLevel = core.int.tryParse(value);
+      if (escalationLevel == null) {
+        if (this.onLog != null) {
+          t1 = "unexpected \"numeric\" data from Remy: " + dart.str(value);
+          this.onLog(t1);
+        }
+        escalationLevel = 0;
+      }
+      return escalationLevel;
+    }
+    pushButton(button) {
+      this.pushButtonById(button.id);
+    }
+    pushButtonById(name) {
+      this[_send](dart.str(this.username) + " " + dart.str(this.password) + " " + dart.str(name) + "   ");
+    }
+    ping() {
+      if (dart.test(this[_pendingMessages][$isEmpty]) && this[_server] != null) this[_send]("   ");
+    }
+    [_send](message) {
+      this[_pendingMessages][$add](message);
+      if (this[_signalPendingMessage] != null && !dart.test(this[_signalPendingMessage].isCompleted)) this[_signalPendingMessage].complete(true);
+    }
+    [_writeLoop]() {
+      return async.async(core.Null, (function* _writeLoop() {
+        try {
+          do {
+            while (dart.test(this[_pendingMessages][$isNotEmpty]))
+              this[_server].write(this[_pendingMessages][$removeAt](0));
+            this[_signalPendingMessage] = CompleterOfboolL().new();
+            yield this[_server].flush();
+          } while (dart.test(yield this[_signalPendingMessage].future));
+        } finally {
+          this[_signalPendingMessage] = null;
+        }
+      }).bind(this));
+    }
+    dispose() {
+      this[_closed].complete();
+    }
+  };
+  (remy.Remy.new = function(opts) {
+    let host = opts && 'host' in opts ? opts.host : null;
+    let port = opts && 'port' in opts ? opts.port : 12649;
+    let username = opts && 'username' in opts ? opts.username : null;
+    let password = opts && 'password' in opts ? opts.password : null;
+    let onLog = opts && 'onLog' in opts ? opts.onLog : null;
+    let onNotification = opts && 'onNotification' in opts ? opts.onNotification : null;
+    let onUiUpdate = opts && 'onUiUpdate' in opts ? opts.onUiUpdate : null;
+    let onConnected = opts && 'onConnected' in opts ? opts.onConnected : null;
+    let onDisconnected = opts && 'onDisconnected' in opts ? opts.onDisconnected : null;
+    this[_server] = null;
+    this[_closed] = CompleterOfNull().new();
+    this[_keepAlive] = null;
+    this[_pendingMessages] = JSArrayOfStringL().of([]);
+    this[_currentState] = null;
+    this[_signalPendingMessage] = null;
+    this[username$] = username;
+    this[password$] = password;
+    this[onLog$] = onLog;
+    this[onNotification$] = onNotification;
+    this[onUiUpdate$] = onUiUpdate;
+    this[onConnected$] = onConnected;
+    this[onDisconnected$] = onDisconnected;
+    if (!(port != null)) dart.assertFailed(null, L1, 73, 12, "port != null");
+    this[_connect](host, port);
+  }).prototype = remy.Remy.prototype;
+  dart.addTypeTests(remy.Remy);
+  dart.addTypeCaches(remy.Remy);
+  dart.setMethodSignature(remy.Remy, () => ({
+    __proto__: dart.getMethods(remy.Remy.__proto__),
+    [_connect]: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(io.InternetAddress), dart.legacy(core.int)]),
+    [_disconnect]: dart.fnType(dart.void, []),
+    [_listen]: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(async.Stream$(dart.legacy(core.List$(dart.legacy(core.int)))))]),
+    [_handleMessage]: dart.fnType(dart.void, [dart.legacy(core.List$(dart.legacy(core.int)))]),
+    [_parseEscalationLevel]: dart.fnType(dart.legacy(core.int), [dart.legacy(core.String)]),
+    pushButton: dart.fnType(dart.void, [dart.legacy(remy.RemyButton)]),
+    pushButtonById: dart.fnType(dart.void, [dart.legacy(core.String)]),
+    ping: dart.fnType(dart.void, []),
+    [_send]: dart.fnType(dart.void, [dart.legacy(core.String)]),
+    [_writeLoop]: dart.fnType(dart.legacy(async.Future$(core.Null)), []),
+    dispose: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(remy.Remy, () => ({
+    __proto__: dart.getGetters(remy.Remy.__proto__),
+    currentState: dart.legacy(remy.RemyUi)
+  }));
+  dart.setLibraryUri(remy.Remy, L0);
+  dart.setFieldSignature(remy.Remy, () => ({
+    __proto__: dart.getFields(remy.Remy.__proto__),
+    username: dart.finalFieldType(dart.legacy(core.String)),
+    password: dart.finalFieldType(dart.legacy(core.String)),
+    onLog: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(core.String)]))),
+    onNotification: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(remy.RemyNotification)]))),
+    onUiUpdate: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(remy.RemyUi)]))),
+    onConnected: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, []))),
+    onDisconnected: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, []))),
+    [_server]: dart.fieldType(dart.legacy(io.Socket)),
+    [_closed]: dart.fieldType(dart.legacy(async.Completer$(core.Null))),
+    [_keepAlive]: dart.fieldType(dart.legacy(async.Timer)),
+    [_pendingMessages]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String)))),
+    [_currentState]: dart.fieldType(dart.legacy(remy.RemyUi)),
+    [_signalPendingMessage]: dart.fieldType(dart.legacy(async.Completer$(dart.legacy(core.bool))))
+  }));
+  var _buffer = dart.privateName(remy, "_buffer");
+  var _index = dart.privateName(remy, "_index");
+  var _nullCount = dart.privateName(remy, "_nullCount");
+  remy._RemyMessageParser = class _RemyMessageParser extends common.StreamTransformerInstance$(dart.legacy(core.List$(dart.legacy(core.int))), dart.legacy(core.List$(dart.legacy(core.int)))) {
+    static getTransformer(nullTarget) {
+      return new (StreamTransformerBaseOfListLOfintL$ListLOfintL()).new(dart.fn(() => new remy._RemyMessageParser.new(nullTarget), VoidTo_RemyMessageParserL()));
+    }
+    handleData(event, output) {
+      ListLOfintL().as(event);
+      StreamSinkLOfListLOfintL().as(output);
+      this[_buffer][$addAll](event);
+      while (dart.notNull(this[_index]) < dart.notNull(this[_buffer][$length])) {
+        if (this[_buffer][$_get](this[_index]) === 0) {
+          this[_nullCount] = dart.notNull(this[_nullCount]) + 1;
+          if (this[_nullCount] == this.nullTarget) {
+            output.add(this[_buffer][$sublist](0, dart.notNull(this[_index]) - (dart.notNull(this.nullTarget) - 1)));
+            this[_buffer][$removeRange](0, dart.notNull(this[_index]) + 1);
+            this[_index] = -1;
+            this[_nullCount] = 0;
+          }
+        } else {
+          this[_nullCount] = 0;
+        }
+        this[_index] = dart.notNull(this[_index]) + 1;
+      }
+      return false;
+    }
+    handleDone(output) {
+      StreamSinkLOfListLOfintL().as(output);
+    }
+  };
+  (remy._RemyMessageParser.new = function(nullTarget) {
+    this[_buffer] = JSArrayOfintL().of([]);
+    this[_index] = 0;
+    this[_nullCount] = 0;
+    this.nullTarget = nullTarget;
+    if (!(dart.notNull(this.nullTarget) > 0)) dart.assertFailed(null, L1, 322, 12, "nullTarget > 0");
+  }).prototype = remy._RemyMessageParser.prototype;
+  dart.addTypeTests(remy._RemyMessageParser);
+  dart.addTypeCaches(remy._RemyMessageParser);
+  dart.setMethodSignature(remy._RemyMessageParser, () => ({
+    __proto__: dart.getMethods(remy._RemyMessageParser.__proto__),
+    handleData: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object), dart.legacy(core.Object)]),
+    handleDone: dart.fnType(dart.void, [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(remy._RemyMessageParser, L0);
+  dart.setFieldSignature(remy._RemyMessageParser, () => ({
+    __proto__: dart.getFields(remy._RemyMessageParser.__proto__),
+    nullTarget: dart.finalFieldType(dart.legacy(core.int)),
+    [_buffer]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.int)))),
+    [_index]: dart.fieldType(dart.legacy(core.int)),
+    [_nullCount]: dart.fieldType(dart.legacy(core.int))
+  }));
+  var _remy = dart.privateName(remy, "_remy");
+  var _notificationStatuses = dart.privateName(remy, "_notificationStatuses");
+  var _notificationsWithArguments = dart.privateName(remy, "_notificationsWithArguments");
+  var _notifications = dart.privateName(remy, "_notifications");
+  var _ready = dart.privateName(remy, "_ready");
+  var _lastLabels = dart.privateName(remy, "_lastLabels");
+  var _handleUiUpdate = dart.privateName(remy, "_handleUiUpdate");
+  var _handleNotification = dart.privateName(remy, "_handleNotification");
+  var _log = dart.privateName(remy, "_log");
+  var onLog$0 = dart.privateName(remy, "RemyMultiplexer.onLog");
+  remy.RemyMultiplexer = class RemyMultiplexer extends core.Object {
+    get onLog() {
+      return this[onLog$0];
+    }
+    set onLog(value) {
+      super.onLog = value;
+    }
+    get ready() {
+      return this[_ready].future;
+    }
+    get notifications() {
+      return this[_notifications].stream;
+    }
+    get currentState() {
+      return this[_remy].currentState;
+    }
+    [_handleUiUpdate](ui) {
+      if (!dart.test(this[_ready].isCompleted)) this[_ready].complete();
+      let labels = HashSetOfStringL().from(ui.messages[$map](dart.dynamic, dart.fn(notification => notification.label, RemyNotificationLToStringL())));
+      for (let label of this[_notificationStatuses][$keys])
+        this[_notificationStatuses][$_get](label).add(labels.contains(label));
+      let labelPrefixes = HashSetOfStringL().from(this[_notificationsWithArguments][$keys]);
+      for (let label of labels) {
+        if (dart.test(this[_lastLabels].contains(label))) continue;
+        let spaceIndex = label[$indexOf](" ");
+        if (spaceIndex <= 0) continue;
+        let prefix = label[$substring](0, spaceIndex);
+        if (dart.test(labelPrefixes.contains(prefix))) this[_notificationsWithArguments][$_get](prefix).add(label[$substring](spaceIndex + 1));
+      }
+      this[_lastLabels] = labels;
+    }
+    [_handleNotification](notification) {
+      this[_notifications].add(notification);
+    }
+    getStreamForNotification(label) {
+      return this[_notificationStatuses][$putIfAbsent](label, dart.fn(() => {
+        let result = new (AlwaysOnWatchStreamOfboolL()).new();
+        if (this[_remy].currentState != null) result.add(this[_remy].currentState.messages[$any](dart.fn(notification => notification.label == label, RemyNotificationLToboolL())));
+        return result;
+      }, VoidToWatchStreamLOfboolL()));
+    }
+    getStreamForNotificationWithArgument(label) {
+      return this[_notificationsWithArguments][$putIfAbsent](label, dart.fn(() => StreamControllerOfStringL().broadcast({onCancel: dart.fn(() => this[_notificationsWithArguments][$remove](label), VoidToStreamControllerLOfStringL())}), VoidToStreamControllerLOfStringL())).stream;
+    }
+    hasNotification(label) {
+      if (!(this[_remy].currentState != null)) dart.assertFailed(null, L1, 447, 12, "_remy.currentState != null");
+      return this[_remy].currentState.messages[$any](dart.fn(notification => notification.label == label, RemyNotificationLToboolL()));
+    }
+    pushButton(button) {
+      this[_log]("pushing button " + dart.str(button.id));
+      this[_remy].pushButton(button);
+    }
+    pushButtonById(name) {
+      this[_log]("pushing button " + dart.str(name));
+      this[_remy].pushButtonById(name);
+    }
+    [_log](message) {
+      let t1;
+      if (this.onLog != null) {
+        t1 = message;
+        this.onLog(t1);
+      }
+    }
+  };
+  (remy.RemyMultiplexer.new = function(username, password, opts) {
+    let onLog = opts && 'onLog' in opts ? opts.onLog : null;
+    this[_remy] = null;
+    this[_notificationStatuses] = new (IdentityMapOfStringL$WatchStreamLOfboolL()).new();
+    this[_notificationsWithArguments] = new (IdentityMapOfStringL$StreamControllerLOfStringL()).new();
+    this[_notifications] = StreamControllerOfRemyNotificationL().broadcast();
+    this[_ready] = CompleterOfNull().new();
+    this[_lastLabels] = new (_IdentityHashSetOfStringL()).new();
+    this[onLog$0] = onLog;
+    this[_remy] = new remy.Remy.new({username: username, password: password, onUiUpdate: dart.bind(this, _handleUiUpdate), onNotification: dart.bind(this, _handleNotification), onLog: dart.bind(this, _log), onConnected: dart.fn(() => {
+        this[_log]("connected");
+      }, VoidToNull()), onDisconnected: dart.fn(() => {
+        this[_log]("disconnected");
+      }, VoidToNull())});
+  }).prototype = remy.RemyMultiplexer.prototype;
+  dart.addTypeTests(remy.RemyMultiplexer);
+  dart.addTypeCaches(remy.RemyMultiplexer);
+  dart.setMethodSignature(remy.RemyMultiplexer, () => ({
+    __proto__: dart.getMethods(remy.RemyMultiplexer.__proto__),
+    [_handleUiUpdate]: dart.fnType(dart.void, [dart.legacy(remy.RemyUi)]),
+    [_handleNotification]: dart.fnType(dart.void, [dart.legacy(remy.RemyNotification)]),
+    getStreamForNotification: dart.fnType(dart.legacy(watch_stream.WatchStream$(dart.legacy(core.bool))), [dart.legacy(core.String)]),
+    getStreamForNotificationWithArgument: dart.fnType(dart.legacy(async.Stream$(dart.legacy(core.String))), [dart.legacy(core.String)]),
+    hasNotification: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.String)]),
+    pushButton: dart.fnType(dart.void, [dart.legacy(remy.RemyButton)]),
+    pushButtonById: dart.fnType(dart.void, [dart.legacy(core.String)]),
+    [_log]: dart.fnType(dart.void, [dart.legacy(core.String)])
+  }));
+  dart.setGetterSignature(remy.RemyMultiplexer, () => ({
+    __proto__: dart.getGetters(remy.RemyMultiplexer.__proto__),
+    ready: dart.legacy(async.Future$(core.Null)),
+    notifications: dart.legacy(async.Stream$(dart.legacy(remy.RemyNotification))),
+    currentState: dart.legacy(remy.RemyUi)
+  }));
+  dart.setLibraryUri(remy.RemyMultiplexer, L0);
+  dart.setFieldSignature(remy.RemyMultiplexer, () => ({
+    __proto__: dart.getFields(remy.RemyMultiplexer.__proto__),
+    onLog: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, [dart.legacy(core.String)]))),
+    [_remy]: dart.fieldType(dart.legacy(remy.Remy)),
+    [_notificationStatuses]: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(watch_stream.WatchStream$(dart.legacy(core.bool)))))),
+    [_notificationsWithArguments]: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(async.StreamController$(dart.legacy(core.String)))))),
+    [_notifications]: dart.finalFieldType(dart.legacy(async.StreamController$(dart.legacy(remy.RemyNotification)))),
+    [_ready]: dart.finalFieldType(dart.legacy(async.Completer$(core.Null))),
+    [_lastLabels]: dart.fieldType(dart.legacy(core.Set$(dart.legacy(core.String))))
+  }));
+  dart.trackLibraries("packages/home_automation_tools/src/devices/remy.dart", {
+    "package:home_automation_tools/src/devices/remy.dart": remy
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["remy.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAee;;;;;;IACK;;;;;;IACL;;;;;;;AAEQ,YAAA,AAA+B,sBAAtB,WAAE,kBAAI,cAAK,iBAAG;IAAQ;;kCAL9B,IAAS,SAAc;IAAvB;IAAS;IAAc;;EAAM;;;;;;;;;;;;;;;;;;;;IAUtC;;;;;;IACK;;;;;;IACR;;;;;;;AAEW,YAAA,AAA+C,0BAAnC,cAAK,kBAAI,wBAAe,gBAAG;IAAQ;;wCALxC,OAAY,SAAc;IAA1B;IAAY;IAAc;;EAAgB;;;;;;;;;;;;;;;;;;IAY/C;;;;;;;AAEF,YAA8B,UAArB,oBAAW,eAAE;IAAQ;;mCAJxC,OAAmB,SAAa;IAAsB;AAC3D,8CAAM,KAAK,EAAE,OAAO,EAAE,eAAe;;EAAC;;;;;;;;;;;;;;IAQ/B;;;;;;IACA;;;;;;IACK;;;;;;IACR;;;;;;;AAEW,YAAA,AAAsC,oBAA/B,WAAE,kBAAI,cAAK,kBAAI,cAAK,gBAAG;IAAQ;;gCANvC,IAAS,OAAY,SAAc;IAAnC;IAAS;IAAY;IAAc;;EAAM;;;;;;;;;;;;;;;;;;;;;IAWvC;;;;;;IACC;;;;;;IACH;;;;;;;AAGhB,YAAA,AAA6E,wBAAjE,AAAS,qBAAK,SAAM,gBAAI,AAAM,kBAAK,SAAM,gBAAI,AAAQ,oBAAK;IAAO;;8BAN/D,SAAc,UAAe;IAA7B;IAAc;IAAe;;EAAM;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAyBxC;;;;;;IACA;;;;;;IACK;;;;;;IACQ;;;;;;IACJ;;;;;;IACH;;;;;;IACA;;;;;;eAQmB,MAAU;AAA3B;;AACnB;AACE;AACE,gBAAI,AAAK,IAAD,IAAI;AACkB,2BACxB,MAAsB,0BAAO;AACjC,4BAAI,AAAM,KAAD,aACP,AACyD,WAD/C,mBACN;AACY,cAAlB,OAAO,AAAM,KAAD;;AAEkC,YAAhD,iBAAU,MAAmB,wBAAQ,IAAI,EAAE,IAAI;AACxB,YAAvB,AAAQ,yBAAW;AACnB,gBAAI,mBAAc;AACsB,cAAtC,AAAQ,oBAAM;AAKT,cAJL,MAAM,AAAQ,AAAQ,iCAChB,SAAS,OAAkB,UACvB,WAAU,mBAAU,wEAClB,QAAS,SAAgB,iBAAN,KAAK;;AAGtC,gBAAI,oBAAe,MAAM,AAAW,AAAE;AAEe,YADrD,mBAAiB,kCACgB,QAAO,KAAM;AAO5C,YANF,MAAa,4BAAkB,6BAC7B,cAAQ,AACH,AACA,2DAA6B,uCAAe,MACjD,oBACA,AAAQ;;gBAEH;AACP,gBAAI,cAAS,MAA8C;mBAAlC,AAAiC,uCAAN,KAAK;cAAtC,AAAK;;;AAEb,UAAb;AACA,yBAAK,AAAQ,4BACX,AAA0D,MAAhD;4BACJ,AAAQ;MACpB;;;;AAGsB,WAApB;0BAAY;AACK,MAAjB,mBAAa;AACb,UAAI,+BAAyB,mBAAS,AAAsB,0CAC1D,AAAsB,AAAe,qCAAN;AACf,YAAlB;2BAAS;AACK,MAAd,gBAAU;AACV,UAAI,uBAAkB,MAAM,AAAc,AAAE;IAC9C;cAEuC;AAAnB;AAClB,4CAA8B,QAAQ;;;gBAAjB;AAAwC,YAArB,qBAAe,KAAK;;;UAAvC;;AACrB,cAAO;MACT;;;AAO2B;IAAa;qBAGV;;AAC5B,UAAI,AAAM,AAAO,KAAR,cAAW;AAElB;;AAEc,kBAAQ,AAAqB,qBAAV,KAAK,EAAE;AAC1C,UAAI,AAAK,AAAiB,oBAAV,AAAK,KAAA,QAAC,QAAO;AAC3B,YAAI,mBAAc;AACc,wBAA8B;AACrC,yBAAe;AAClB,sBAAY;AAChC,mBAAe,QAAS,AAAM,MAAD,QAAM;AACd,uBACf,AAAqB,AAAyB,qBAAnC,KAAK,EAAE,oBAAoB,UAAL;AACrC,0BAAI,AAAK,IAAD;AACN,kBAAI,cAAS,MAE+E;qBAAtF,AAAqF,4EAApB,AAAK,oBAAO,KAAK;gBADtF,AAAK;;kBAEF,KAAI,AAAI,AAAI,IAAJ,QAAC,OAAM;AACpB,kBAAgB,aAAZ,AAAK,IAAD,aAAU;AAChB,oBAAI,cAAS,MAEqF;wBAA5F,AAA2F,kFAApB,AAAK,oBAAO,KAAK;kBAD5F,AAAK;;oBAEF,eAAI,AAAQ,OAAD,eAAa,AAAI,IAAA,QAAC;AAClC,oBAAI,cAAS,MAA2C;yBAA/B;kBAAN,AAAK;;;AAGuC,gBAD/D,AAAO,OAAA,QAAC,AAAI,IAAA,QAAC,IAAU,wBACnB,AAAI,IAAA,QAAC,IAAQ,8BAAiB,AAAI,AAAI,IAAJ,QAAC,WAAS,OAAO,AAAI,IAAA,QAAC;;kBAEzD,KAAI,AAAI,AAAI,IAAJ,QAAC,OAAM;AACpB,kBAAgB,aAAZ,AAAK,IAAD,aAAU;AAChB,oBAAI,cAAS,MAEsF;yBAA7F,AAA4F,mFAApB,AAAK,oBAAO,KAAK;kBAD7F,AAAK;;;AAkBL,gBAfF,AAAS,QAAD,KAAS,yBACf,AAAI,IAAA,QAAC,IACD,8BAAiB,AAAI,AAAI,IAAJ,QAAC,WAAS,OACnC,4BAAsB,AAAI,IAAA,QAAC,KAC3B,AACK,AACA,AAOA,AACA,IAVD,WACS,wBACQ,QAAQ;;AACvB,gCAAI,AAAQ,OAAD,eAAa,EAAE,IAAG,MAAO,AAAO,QAAA,QAAC,EAAE;AAC9C,sBAAI,cAAS,MAEoD;yBAA3D,AAA0D,6CAAzB,AAAI,IAAA,QAAC,MAAG,4BAAc,EAAE;oBAD7D,AAAK;;AAEP,wBAAO;oDAEF,QAAY,UAAW,AAAO,MAAD,IAAI;;kBAI3C,KAAI,AAAI,AAAI,IAAJ,QAAC,OAAM;AACpB,kBAAgB,aAAZ,AAAK,IAAD,aAAU;AAChB,oBAAI,cAAS,MAEmF;yBAA1F,AAAyF,gFAApB,AAAK,oBAAO,KAAK;kBAD1F,AAAK;;;AAQL,gBALF,AAAM,KAAD,KAAS,sBACZ,AAAI,IAAA,QAAC,IACL,AAAI,IAAA,QAAC,IACD,8BAAiB,AAAI,AAAI,IAAJ,QAAC,WAAS,OACnC,4BAAsB,AAAI,IAAA,QAAC;;;AAI/B,kBAAI,cAAS,MAC8C;uBAAnD,AAAkD,yCAApB,AAAK,oBAAO,KAAK;gBAArD,AAAK;;;;AAOV,UAJD,sBAAoB,oBACd,kCAAqB,AAAQ,OAAD,YAChC,QAAQ,EACR,KAAK;AAEiB,iBAAb;UAAX,AAAU;;;AAGO,mBACf,AAAwB,AAAyB,qBAAtC,AAAK,KAAA,QAAC,IAAI,oBAAoB,UAAL;AACxC,YAAgB,aAAZ,AAAK,IAAD,aAAU;AAChB,cAAI,cAAS,MAE2F;mBAAlG,AAAiG,wFAApB,AAAK,oBAAO,KAAK;YADlG,AAAK;;;AAGP,cAAI,uBAAkB;AAKlB,mBAJiB,8BACjB,AAAI,IAAA,QAAC,IACD,8BAAiB,AAAI,AAAI,IAAJ,QAAC,WAAS,OACnC,4BAAsB,AAAI,IAAA,QAAC;YAH7B,AAAc;;;;IAQtB;sBAEgD,OAAW;AAAtB;AAC/B,oBAAQ;AACR,oBAAQ;AACR,wBAAY;AAChB,eAAO,AAAM,KAAD,gBAAG,AAAM,KAAD;AAClB,cAAI,AAAK,AAAQ,KAAR,QAAC,KAAK,MAAK;AACJ,YAAd,YAAA,AAAU,SAAD,GAAI;AACb,gBAAI,AAAU,SAAD,KAAI,UAAU;AACzB,oBAAM,AAAM,KAAD,WAAS,KAAK,EAAE,AAAM,KAAD,IAAe,aAAX,UAAU,IAAG;AACpC,cAAb,YAAY;AACK,cAAjB,QAAQ,AAAM,KAAD,GAAG;;;AAGL,YAAb,YAAY;;AAEJ,UAAV,QAAA,AAAM,KAAD,GAAI;;AAEX,cAAM,AAAM,KAAD,WAAS,KAAK,EAAE,KAAK;MAClC;;4BAEiC;;AAC3B,4BAAsB,kBAAS,KAAK;AACxC,UAAI,AAAgB,eAAD,IAAI;AACrB,YAAI,cAAS,MAA0D;eAA9C,AAA6C,qDAAN,KAAK;UAAlD,AAAK;;AACL,QAAnB,kBAAkB;;AAEpB,YAAO,gBAAe;IACxB;eAE2B;AACA,MAAzB,oBAAe,AAAO,MAAD;IACvB;mBAE2B;AAC2B,MAApD,YAAmD,SAA3C,iBAAQ,eAAK,iBAAQ,eAAK,IAAI;IACxC;;AAGE,oBAAI,AAAiB,qCAAW,iBAAW,MAAM,AAAqB,YAAf;IACzD;YAIkB;AACa,MAA7B,AAAiB,6BAAI,OAAO;AAC5B,UAAI,+BAAyB,mBAAS,AAAsB,0CAC1D,AAAsB,AAAc,qCAAL;IACnC;;AAEuB;AACrB;AACE;AAGE,6BAAO,AAAiB;AACqB,cAA3C,AAAQ,oBAAM,AAAiB,kCAAS;AACG,YAA7C,8BAA4B;AACP,YAArB,MAAM,AAAQ;6BACP,MAAM,AAAsB;;AAET,UAA5B,8BAAwB;;MAE5B;;;AAGoB,MAAlB,AAAQ;IACV;;;QA7PkB;QACZ;QACW;QACA;QACV;QACA;QACA;QACA;QACA;IAcA;IACS,gBAAc;IACxB;IAEa,yBAA2B;IA+DvC;IA2IS;IAlOC;IACA;IACV;IACA;IACA;IACA;IACA;AAEL,UAAO,AAAK,IAAD,IAAI;AACK,IAApB,eAAS,IAAI,EAAE,IAAI;EACrB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0BA2PQ;AACN,YAAW,4DACP,cAAU,gCAAmB,UAAU;IAC7C;eAS0B,OAA6B;uBAA7B;oCAA6B;AAChC,MAArB,AAAQ,uBAAO,KAAK;AACpB,aAAc,aAAP,6BAAS,AAAQ;AACtB,YAAI,AAAO,AAAS,qBAAR,kBAAW;AACN,UAAf,mBAAW,aAAX,oBAAc;AACd,cAAI,AAAW,oBAAG;AACyC,YAAzD,AAAO,MAAD,KAAK,AAAQ,wBAAQ,GAAU,aAAP,iBAAqB,aAAX,mBAAa;AACnB,YAAlC,AAAQ,4BAAY,GAAU,aAAP,gBAAS;AACrB,YAAX,eAAS,CAAC;AACI,YAAd,mBAAa;;;AAGD,UAAd,mBAAa;;AAEJ,QAAX,eAAO,aAAP,gBAAU;;AAEZ,YAAO;IACT;;oCAGsC;IAAS;;0CArCvB;IAYR,gBAAe;IAC3B,eAAS;IACT,mBAAa;IAdO;AACtB,UAAkB,aAAX,mBAAa;EACtB;;;;;;;;;;;;;;;;;;;;;;;;;;;IAuDkB;;;;;;;AAWQ,YAAA,AAAO;IAAM;;AAGO,YAAA,AAAe;IAAM;;AAExC,YAAA,AAAM;IAAY;sBAIjB;AAC1B,qBAAK,AAAO,2BAAa,AAAO,AAAU;AAC9B,mBAAa,wBACrB,AAAG,AAAS,EAAV,8BAAc,QAAkB,gBAAiB,AAAa,YAAD;AACnE,eAAY,QAAS,AAAsB;AACe,QAAxD,AAAqB,AAAQ,mCAAP,KAAK,MAAM,AAAO,MAAD,UAAU,KAAK;AAC5C,0BACJ,wBAAqB,AAA4B;AACzD,eAAY,QAAS,OAAM;AACzB,sBAAI,AAAY,2BAAS,KAAK,IAAG;AAC7B,yBAAa,AAAM,KAAD,WAAS;AAC/B,YAAI,AAAW,UAAD,IAAI,GAAG;AACd,qBAAS,AAAM,KAAD,aAAW,GAAG,UAAU;AAC7C,sBAAI,AAAc,aAAD,UAAU,MAAM,IAC/B,AAA2B,AACtB,AAAoC,yCADb,MAAM,MACzB,AAAM,KAAD,aAAW,AAAW,UAAD,GAAG;;AAEtB,MAApB,oBAAc,MAAM;IACtB;0BAE0C;AACR,MAAhC,AAAe,yBAAI,YAAY;IACjC;6BAKkD;AAChD,YAAO,AAAsB,2CAAY,KAAK,EAAE;AAC5B,qBAAa;AAC/B,YAAI,AAAM,4BAAgB,MACxB,AAAO,AAC6D,MAD9D,KAAK,AAAM,AAAa,AAAS,wCACnC,QAAkB,gBAAiB,AAAa,AAAM,YAAP,UAAU,KAAK;AACpE,cAAO,OAAM;;IAEjB;yCAK2D;AACzD,YAAO,AAA4B,AAIhC,iDAJ4C,KAAK,EAAE,cACzC,iDACC,cAAM,AAA4B,2CAAO,KAAK;IAG9D;oBAE4B;AAC1B,YAAO,AAAM,AAAa,4BAAG;AAC7B,YAAO,AAAM,AAAa,AACrB,yCAAI,QAAkB,gBAAiB,AAAa,AAAM,YAAP,UAAU,KAAK;IACzE;eAE2B;AACU,MAAnC,WAAK,AAA6B,6BAAX,AAAO,MAAD;AACL,MAAxB,AAAM,uBAAW,MAAM;IACzB;mBAE2B;AACG,MAA5B,WAAK,AAAsB,6BAAL,IAAI;AACA,MAA1B,AAAM,2BAAe,IAAI;IAC3B;WAEiB;;AACf,UAAI,cAAS,MAAoB;aAAR,OAAO;QAAb,AAAK;;IAC1B;;uCAtGuB,UAAiB;QAAgB;IAkBnD;IAEgC,8BACN;IACa,oCACN;IACG,uBACjC;IAGc,eAAa;IAMvB,oBAAkB;IAlC0B;AAarD,IAZD,cAAY,6BACA,QAAQ,YACR,QAAQ,wBACN,kDACI,6CACT,0BACM;AACM,QAAjB,WAAK;wCAES;AACM,QAApB,WAAK;;EAGX","file":"../../../../../packages/home_automation_tools/src/devices/remy.dart.lib.js"}');
+  // Exports:
+  return {
+    src__devices__remy: remy
+  };
+}));
+
+//# sourceMappingURL=remy.dart.lib.js.map

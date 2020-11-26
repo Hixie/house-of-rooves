@@ -1,0 +1,715 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/home_automation_tools/src/devices/cloudbit.dart', 'packages/house_of_rooves/backend.dart', 'packages/house_of_rooves/common.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/animation/curves.dart', 'packages/flutter/src/animation/animation_controller.dart', 'packages/flutter/src/animation/listener_helpers.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/rendering/custom_paint.dart'], (function load__packages__house_of_rooves__doors_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__home_automation_tools__src__devices__cloudbit$46dart, packages__house_of_rooves__backend$46dart, packages__house_of_rooves__common$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__animation__curves$46dart, packages__flutter__src__animation__animation_controller$46dart, packages__flutter__src__animation__listener_helpers$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__rendering__custom_paint$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const cloudbit = packages__home_automation_tools__src__devices__cloudbit$46dart.src__devices__cloudbit;
+  const backend = packages__house_of_rooves__backend$46dart.backend;
+  const common = packages__house_of_rooves__common$46dart.common;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const curves = packages__flutter__src__animation__curves$46dart.src__animation__curves;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  const animations = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animations;
+  const animation = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animation;
+  const theme = packages__flutter__src__material__icon_button$46dart.src__material__theme;
+  const colors = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const custom_paint = packages__flutter__src__rendering__custom_paint$46dart.src__rendering__custom_paint;
+  var doors = Object.create(dart.library);
+  var VoidToNull = () => (VoidToNull = dart.constFn(dart.fnType(core.Null, [])))();
+  var _LocationL = () => (_LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))();
+  var DoorDiagramL = () => (DoorDiagramL = dart.constFn(dart.legacy(doors.DoorDiagram)))();
+  var _DoorPainterL = () => (_DoorPainterL = dart.constFn(dart.legacy(doors._DoorPainter)))();
+  const CT = Object.create(null);
+  var L0 = "package:house_of_rooves/doors.dart";
+  dart.defineLazy(CT, {
+    get C2() {
+      return C2 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "frontDoor",
+        [_Location_column]: 15,
+        [_Location_line]: 73,
+        [_Location_file]: null
+      });
+    },
+    get C3() {
+      return C3 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "garageDoor",
+        [_Location_column]: 15,
+        [_Location_line]: 74,
+        [_Location_file]: null
+      });
+    },
+    get C4() {
+      return C4 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "backDoor",
+        [_Location_column]: 15,
+        [_Location_line]: 75,
+        [_Location_file]: null
+      });
+    },
+    get C1() {
+      return C1 = dart.constList([C2 || CT.C2, C3 || CT.C3, C4 || CT.C4], _LocationL());
+    },
+    get C0() {
+      return C0 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C1 || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 72,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/doors.dart"
+      });
+    },
+    get C7() {
+      return C7 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 72,
+        [_Location_file]: null
+      });
+    },
+    get C6() {
+      return C6 = dart.constList([C7 || CT.C7], _LocationL());
+    },
+    get C5() {
+      return C5 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C6 || CT.C6,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 71,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/doors.dart"
+      });
+    },
+    get C10() {
+      return C10 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 71,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C9 = dart.constList([C10 || CT.C10], _LocationL());
+    },
+    get C8() {
+      return C8 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C9 || CT.C9,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 70,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/doors.dart"
+      });
+    },
+    get C13() {
+      return C13 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 9,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C14 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 70,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C12 = dart.constList([C13 || CT.C13, C14 || CT.C14], _LocationL());
+    },
+    get C11() {
+      return C11 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C12 || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 68,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/doors.dart"
+      });
+    },
+    get C17() {
+      return C17 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 7,
+        [_Location_line]: 67,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C18 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 7,
+        [_Location_line]: 68,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C16 = dart.constList([C17 || CT.C17, C18 || CT.C18], _LocationL());
+    },
+    get C15() {
+      return C15 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C16 || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 66,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/doors.dart"
+      });
+    },
+    get C19() {
+      return C19 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 200000
+      });
+    },
+    get C20() {
+      return C20 = dart.const({
+        __proto__: curves.Cubic.prototype,
+        [Cubic_d]: 1,
+        [Cubic_c]: 0.2,
+        [Cubic_b]: 0,
+        [Cubic_a]: 0.4
+      });
+    },
+    get C21() {
+      return C21 = dart.const({
+        __proto__: ui.Size.prototype,
+        [OffsetBase__dy]: 100,
+        [OffsetBase__dx]: 100
+      });
+    },
+    get C24() {
+      return C24 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 7,
+        [_Location_line]: 185,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C25 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 7,
+        [_Location_line]: 186,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C23 = dart.constList([C24 || CT.C24, C25 || CT.C25], _LocationL());
+    },
+    get C22() {
+      return C22 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C23 || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 184,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/doors.dart"
+      });
+    },
+    get C26() {
+      return C26 = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 11990,
+        [OffsetBase__dx]: 6535
+      });
+    },
+    get C27() {
+      return C27 = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 4880,
+        [OffsetBase__dx]: 5935
+      });
+    },
+    get C28() {
+      return C28 = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 0,
+        [OffsetBase__dx]: 5410
+      });
+    },
+    get C29() {
+      return C29 = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 0,
+        [OffsetBase__dx]: 7390
+      });
+    }
+  }, false);
+  doors.DoorsPage = class DoorsPage extends framework.StatefulWidget {
+    createState() {
+      return new doors._DoorsPageState.new();
+    }
+  };
+  (doors.DoorsPage.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    doors.DoorsPage.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = doors.DoorsPage.prototype;
+  dart.addTypeTests(doors.DoorsPage);
+  dart.addTypeCaches(doors.DoorsPage);
+  dart.setMethodSignature(doors.DoorsPage, () => ({
+    __proto__: dart.getMethods(doors.DoorsPage.__proto__),
+    createState: dart.fnType(dart.legacy(doors._DoorsPageState), [])
+  }));
+  dart.setLibraryUri(doors.DoorsPage, L0);
+  var _bit1Subscription = dart.privateName(doors, "_bit1Subscription");
+  var _bit2Subscription = dart.privateName(doors, "_bit2Subscription");
+  var _bit3Subscription = dart.privateName(doors, "_bit3Subscription");
+  var _frontDoor = dart.privateName(doors, "_frontDoor");
+  var _garageDoor = dart.privateName(doors, "_garageDoor");
+  var _backDoor = dart.privateName(doors, "_backDoor");
+  var _initCloudbit = dart.privateName(doors, "_initCloudbit");
+  var _handleBit1 = dart.privateName(doors, "_handleBit1");
+  var _handleBit2 = dart.privateName(doors, "_handleBit2");
+  var _handleBit3 = dart.privateName(doors, "_handleBit3");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var C2;
+  var C3;
+  var C4;
+  var C1;
+  var C0;
+  var C7;
+  var C6;
+  var C5;
+  var C10;
+  var C9;
+  var C8;
+  var C13;
+  var C14;
+  var C12;
+  var C11;
+  var C17;
+  var C18;
+  var C16;
+  var C15;
+  doors._DoorsPageState = class _DoorsPageState extends framework.State$(dart.legacy(doors.DoorsPage)) {
+    initState() {
+      super.initState();
+      this[_initCloudbit]();
+    }
+    [_initCloudbit]() {
+      return async.async(dart.void, (function* _initCloudbit() {
+        let doorBits = new cloudbit.BitDemultiplexer.new((yield backend.cloud.getDevice("243c201de435")).values, 3);
+        if (!dart.test(this.mounted)) return;
+        this[_bit1Subscription] = doorBits._get(1).listen(dart.bind(this, _handleBit1));
+        this[_bit2Subscription] = doorBits._get(2).listen(dart.bind(this, _handleBit2));
+        this[_bit3Subscription] = doorBits._get(3).listen(dart.bind(this, _handleBit3));
+      }).bind(this));
+    }
+    dispose() {
+      let t0, t0$, t0$0;
+      t0 = this[_bit1Subscription];
+      t0 == null ? null : t0.cancel();
+      t0$ = this[_bit2Subscription];
+      t0$ == null ? null : t0$.cancel();
+      t0$0 = this[_bit3Subscription];
+      t0$0 == null ? null : t0$0.cancel();
+      super.dispose();
+    }
+    [_handleBit1](value) {
+      this.setState(dart.fn(() => {
+        this[_frontDoor] = value;
+      }, VoidToNull()));
+    }
+    [_handleBit2](value) {
+      this.setState(dart.fn(() => {
+        this[_garageDoor] = value;
+      }, VoidToNull()));
+    }
+    [_handleBit3](value) {
+      this.setState(dart.fn(() => {
+        this[_backDoor] = value;
+      }, VoidToNull()));
+    }
+    build(context) {
+      return new common.MainScreen.new({title: "Doors", body: new container.Container.new({padding: new edge_insets.EdgeInsets.all(16.0), child: new basic.SizedBox.expand({child: new basic.FittedBox.new({child: new doors.DoorDiagram.new({frontDoor: this[_frontDoor], garageDoor: this[_garageDoor], backDoor: this[_backDoor], $creationLocationd_0dea112b090073317d4: C0 || CT.C0}), $creationLocationd_0dea112b090073317d4: C5 || CT.C5}), $creationLocationd_0dea112b090073317d4: C8 || CT.C8}), $creationLocationd_0dea112b090073317d4: C11 || CT.C11}), $creationLocationd_0dea112b090073317d4: C15 || CT.C15});
+    }
+  };
+  (doors._DoorsPageState.new = function() {
+    this[_bit1Subscription] = null;
+    this[_bit2Subscription] = null;
+    this[_bit3Subscription] = null;
+    this[_frontDoor] = null;
+    this[_garageDoor] = null;
+    this[_backDoor] = null;
+    doors._DoorsPageState.__proto__.new.call(this);
+    ;
+  }).prototype = doors._DoorsPageState.prototype;
+  dart.addTypeTests(doors._DoorsPageState);
+  dart.addTypeCaches(doors._DoorsPageState);
+  dart.setMethodSignature(doors._DoorsPageState, () => ({
+    __proto__: dart.getMethods(doors._DoorsPageState.__proto__),
+    [_initCloudbit]: dart.fnType(dart.legacy(async.Future$(dart.void)), []),
+    [_handleBit1]: dart.fnType(dart.void, [dart.legacy(core.bool)]),
+    [_handleBit2]: dart.fnType(dart.void, [dart.legacy(core.bool)]),
+    [_handleBit3]: dart.fnType(dart.void, [dart.legacy(core.bool)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(doors._DoorsPageState, L0);
+  dart.setFieldSignature(doors._DoorsPageState, () => ({
+    __proto__: dart.getFields(doors._DoorsPageState.__proto__),
+    [_bit1Subscription]: dart.fieldType(dart.legacy(async.StreamSubscription$(dart.legacy(core.bool)))),
+    [_bit2Subscription]: dart.fieldType(dart.legacy(async.StreamSubscription$(dart.legacy(core.bool)))),
+    [_bit3Subscription]: dart.fieldType(dart.legacy(async.StreamSubscription$(dart.legacy(core.bool)))),
+    [_frontDoor]: dart.fieldType(dart.legacy(core.bool)),
+    [_garageDoor]: dart.fieldType(dart.legacy(core.bool)),
+    [_backDoor]: dart.fieldType(dart.legacy(core.bool))
+  }));
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var C19;
+  var Cubic_d = dart.privateName(curves, "Cubic.d");
+  var Cubic_c = dart.privateName(curves, "Cubic.c");
+  var Cubic_b = dart.privateName(curves, "Cubic.b");
+  var Cubic_a = dart.privateName(curves, "Cubic.a");
+  var C20;
+  var frontDoor$ = dart.privateName(doors, "DoorDiagram.frontDoor");
+  var garageDoor$ = dart.privateName(doors, "DoorDiagram.garageDoor");
+  var backDoor$ = dart.privateName(doors, "DoorDiagram.backDoor");
+  var duration$ = dart.privateName(doors, "DoorDiagram.duration");
+  var curve$ = dart.privateName(doors, "DoorDiagram.curve");
+  doors.DoorDiagram = class DoorDiagram extends framework.StatefulWidget {
+    get frontDoor() {
+      return this[frontDoor$];
+    }
+    set frontDoor(value) {
+      super.frontDoor = value;
+    }
+    get garageDoor() {
+      return this[garageDoor$];
+    }
+    set garageDoor(value) {
+      super.garageDoor = value;
+    }
+    get backDoor() {
+      return this[backDoor$];
+    }
+    set backDoor(value) {
+      super.backDoor = value;
+    }
+    get duration() {
+      return this[duration$];
+    }
+    set duration(value) {
+      super.duration = value;
+    }
+    get curve() {
+      return this[curve$];
+    }
+    set curve(value) {
+      super.curve = value;
+    }
+    createState() {
+      return new doors._DoorDiagramState.new();
+    }
+  };
+  (doors.DoorDiagram.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let frontDoor = opts && 'frontDoor' in opts ? opts.frontDoor : null;
+    let garageDoor = opts && 'garageDoor' in opts ? opts.garageDoor : null;
+    let backDoor = opts && 'backDoor' in opts ? opts.backDoor : null;
+    let duration = opts && 'duration' in opts ? opts.duration : C19 || CT.C19;
+    let curve = opts && 'curve' in opts ? opts.curve : C20 || CT.C20;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[frontDoor$] = frontDoor;
+    this[garageDoor$] = garageDoor;
+    this[backDoor$] = backDoor;
+    this[duration$] = duration;
+    this[curve$] = curve;
+    doors.DoorDiagram.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = doors.DoorDiagram.prototype;
+  dart.addTypeTests(doors.DoorDiagram);
+  dart.addTypeCaches(doors.DoorDiagram);
+  dart.setMethodSignature(doors.DoorDiagram, () => ({
+    __proto__: dart.getMethods(doors.DoorDiagram.__proto__),
+    createState: dart.fnType(dart.legacy(doors._DoorDiagramState), [])
+  }));
+  dart.setLibraryUri(doors.DoorDiagram, L0);
+  dart.setFieldSignature(doors.DoorDiagram, () => ({
+    __proto__: dart.getFields(doors.DoorDiagram.__proto__),
+    frontDoor: dart.finalFieldType(dart.legacy(core.bool)),
+    garageDoor: dart.finalFieldType(dart.legacy(core.bool)),
+    backDoor: dart.finalFieldType(dart.legacy(core.bool)),
+    duration: dart.finalFieldType(dart.legacy(core.Duration)),
+    curve: dart.finalFieldType(dart.legacy(curves.Curve))
+  }));
+  var _frontController = dart.privateName(doors, "_frontController");
+  var _garageController = dart.privateName(doors, "_garageController");
+  var _backController = dart.privateName(doors, "_backController");
+  var _frontValue = dart.privateName(doors, "_frontValue");
+  var _garageValue = dart.privateName(doors, "_garageValue");
+  var _backValue = dart.privateName(doors, "_backValue");
+  var _tick = dart.privateName(doors, "_tick");
+  var _init = dart.privateName(doors, "_init");
+  var _curve = dart.privateName(doors, "_curve");
+  var _update = dart.privateName(doors, "_update");
+  var OffsetBase__dy = dart.privateName(ui, "OffsetBase._dy");
+  var OffsetBase__dx = dart.privateName(ui, "OffsetBase._dx");
+  var C21;
+  var C24;
+  var C25;
+  var C23;
+  var C22;
+  const State_TickerProviderStateMixin$36 = class State_TickerProviderStateMixin extends framework.State$(dart.legacy(doors.DoorDiagram)) {};
+  (State_TickerProviderStateMixin$36.new = function() {
+    ticker_provider.TickerProviderStateMixin$(dart.legacy(doors.DoorDiagram))[dart.mixinNew].call(this);
+    State_TickerProviderStateMixin$36.__proto__.new.call(this);
+  }).prototype = State_TickerProviderStateMixin$36.prototype;
+  dart.applyMixin(State_TickerProviderStateMixin$36, ticker_provider.TickerProviderStateMixin$(dart.legacy(doors.DoorDiagram)));
+  doors._DoorDiagramState = class _DoorDiagramState extends State_TickerProviderStateMixin$36 {
+    initState() {
+      super.initState();
+      this.reassemble();
+    }
+    reassemble() {
+      let t0, t0$, t0$0, t0$1, t0$2, t0$3;
+      super.reassemble();
+      t0 = this[_frontController];
+      t0 == null ? null : t0.dispose();
+      t0$ = this[_frontValue];
+      t0$ == null ? null : t0$.removeListener(dart.bind(this, _tick));
+      this[_frontController] = this[_init](this.widget.frontDoor);
+      this[_frontValue] = this[_curve](this[_frontController]);
+      t0$0 = this[_garageController];
+      t0$0 == null ? null : t0$0.dispose();
+      t0$1 = this[_garageValue];
+      t0$1 == null ? null : t0$1.removeListener(dart.bind(this, _tick));
+      this[_garageController] = this[_init](this.widget.garageDoor);
+      this[_garageValue] = this[_curve](this[_garageController]);
+      t0$2 = this[_backController];
+      t0$2 == null ? null : t0$2.dispose();
+      t0$3 = this[_backValue];
+      t0$3 == null ? null : t0$3.removeListener(dart.bind(this, _tick));
+      this[_backController] = this[_init](this.widget.backDoor);
+      this[_backValue] = this[_curve](this[_backController]);
+    }
+    [_init](state) {
+      return new animation_controller.AnimationController.new({duration: this.widget.duration, value: dart.equals(state, true) ? 1.0 : 0.0, vsync: this});
+    }
+    [_curve](parent) {
+      let t0;
+      t0 = new animations.CurvedAnimation.new({parent: parent, curve: this.widget.curve});
+      return (() => {
+        t0.addListener(dart.bind(this, _tick));
+        return t0;
+      })();
+    }
+    [_tick]() {
+      this.setState(dart.fn(() => {
+      }, VoidToNull()));
+    }
+    didUpdateWidget(oldWidget) {
+      DoorDiagramL().as(oldWidget);
+      super.didUpdateWidget(oldWidget);
+      this[_update](this[_frontController], this.widget.frontDoor, oldWidget.frontDoor);
+      this[_update](this[_garageController], this.widget.garageDoor, oldWidget.garageDoor);
+      this[_update](this[_backController], this.widget.backDoor, oldWidget.backDoor);
+    }
+    [_update](door, newState, oldState) {
+      if (dart.equals(newState, oldState) || newState == null) return;
+      if (oldState == null) {
+        door.value = dart.test(newState) ? 1.0 : 0.0;
+      } else if (dart.test(newState)) {
+        door.forward();
+      } else {
+        door.reverse();
+      }
+    }
+    dispose() {
+      super.dispose();
+      this[_frontController].dispose();
+      this[_frontValue].removeListener(dart.bind(this, _tick));
+      this[_garageController].dispose();
+      this[_garageValue].removeListener(dart.bind(this, _tick));
+      this[_backController].dispose();
+      this[_backValue].removeListener(dart.bind(this, _tick));
+    }
+    build(context) {
+      return new basic.CustomPaint.new({size: C21 || CT.C21, painter: new doors._DoorPainter.new(this.widget.frontDoor == null ? null : 1.0 - dart.notNull(this[_frontValue].value), this.widget.garageDoor == null ? null : 1.0 - dart.notNull(this[_garageValue].value), this.widget.backDoor == null ? null : 1.0 - dart.notNull(this[_backValue].value), theme.Theme.of(context).accentColor), $creationLocationd_0dea112b090073317d4: C22 || CT.C22});
+    }
+  };
+  (doors._DoorDiagramState.new = function() {
+    this[_frontController] = null;
+    this[_garageController] = null;
+    this[_backController] = null;
+    this[_frontValue] = null;
+    this[_garageValue] = null;
+    this[_backValue] = null;
+    doors._DoorDiagramState.__proto__.new.call(this);
+    ;
+  }).prototype = doors._DoorDiagramState.prototype;
+  dart.addTypeTests(doors._DoorDiagramState);
+  dart.addTypeCaches(doors._DoorDiagramState);
+  dart.setMethodSignature(doors._DoorDiagramState, () => ({
+    __proto__: dart.getMethods(doors._DoorDiagramState.__proto__),
+    [_init]: dart.fnType(dart.legacy(animation_controller.AnimationController), [dart.legacy(core.bool)]),
+    [_curve]: dart.fnType(dart.legacy(animation.Animation$(dart.legacy(core.double))), [dart.legacy(animation.Animation$(dart.legacy(core.double)))]),
+    [_tick]: dart.fnType(dart.void, []),
+    didUpdateWidget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    [_update]: dart.fnType(dart.void, [dart.legacy(animation_controller.AnimationController), dart.legacy(core.bool), dart.legacy(core.bool)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(doors._DoorDiagramState, L0);
+  dart.setFieldSignature(doors._DoorDiagramState, () => ({
+    __proto__: dart.getFields(doors._DoorDiagramState.__proto__),
+    [_frontController]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_garageController]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_backController]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_frontValue]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_garageValue]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double)))),
+    [_backValue]: dart.fieldType(dart.legacy(animation.Animation$(dart.legacy(core.double))))
+  }));
+  var _doorPaint = dart.privateName(doors, "_doorPaint");
+  var _houseOutlinePaint = dart.privateName(doors, "_houseOutlinePaint");
+  var _paintSwingDoor = dart.privateName(doors, "_paintSwingDoor");
+  var _paintSlideDoor = dart.privateName(doors, "_paintSlideDoor");
+  var C26;
+  var C27;
+  var C28;
+  var C29;
+  doors._DoorPainter = class _DoorPainter extends custom_paint.CustomPainter {
+    [_paintSwingDoor](canvas, hinge, length, angle) {
+      canvas.save();
+      canvas.translate(hinge.dx, hinge.dy);
+      canvas.rotate(angle);
+      canvas.drawLine(ui.Offset.zero, new ui.Offset.new(length, 0.0), this[_doorPaint]);
+      canvas.restore();
+    }
+    [_paintSlideDoor](canvas, start, end, state) {
+      let dy = new ui.Offset.new(0.0, dart.notNull(this[_doorPaint].strokeWidth) / 2.0);
+      let middle = end['+'](start['-'](end)['/'](2.0));
+      let slide = middle['-'](start)['*'](state);
+      canvas.drawLine(start['+'](dy._negate()), middle['+'](dy._negate()), this[_doorPaint]);
+      canvas.drawLine(middle['+'](dy)['+'](slide._negate()), end['+'](dy)['+'](slide._negate()), this[_doorPaint]);
+    }
+    paint(canvas, size) {
+      let t0;
+      canvas.save();
+      canvas.scale(dart.notNull(size.width) / 11710.0, dart.notNull(size.height) / 12090.0);
+      canvas.translate(50.0, 50.0);
+      let houseOutline = (t0 = ui.Path.new(), (() => {
+        t0.moveTo(5410.0, 0.0);
+        t0.relativeMoveTo(1980.0, 0.0);
+        t0.relativeLineTo(4220.0, 0.0);
+        t0.relativeLineTo(0.0, 3330.0);
+        t0.relativeLineTo(-635.0, 0.0);
+        t0.relativeLineTo(0.0, 1600.0);
+        t0.relativeLineTo(635.0, 0.0);
+        t0.relativeLineTo(0.0, 2790.0);
+        t0.relativeLineTo(0.0, 4270.0);
+        t0.relativeLineTo(-4075.0, 0.0);
+        t0.relativeMoveTo(-1000.0, 0.0);
+        t0.relativeLineTo(-600.0, 0.0);
+        t0.relativeLineTo(0.0, -2590.0);
+        t0.relativeLineTo(-5935.0, 0.0);
+        t0.relativeLineTo(0.0, -6270.0);
+        t0.relativeLineTo(610.0, 0.0);
+        t0.relativeLineTo(0.0, -3150.0);
+        t0.relativeLineTo(4800.0, 0.0);
+        t0.relativeMoveTo(-4800.0, 3150.0);
+        t0.relativeLineTo(5325.0, 0.0);
+        t0.relativeLineTo(0.0, 850.0);
+        t0.relativeMoveTo(0.0, 900.0);
+        t0.relativeLineTo(0.0, 4420.0);
+        return t0;
+      })());
+      canvas.drawPath(houseOutline, this[_houseOutlinePaint]);
+      if (this.front != null) this[_paintSwingDoor](canvas, C26 || CT.C26, 1000.0, -dart.notNull(this.front));
+      if (this.garage != null) this[_paintSwingDoor](canvas, C27 || CT.C27, 900.0, 3.141592653589793 * 3.0 / 2.0 + dart.notNull(this.garage));
+      if (this.back != null) this[_paintSlideDoor](canvas, C28 || CT.C28, C29 || CT.C29, this.back);
+      canvas.restore();
+    }
+    shouldRepaint(oldDelegate) {
+      _DoorPainterL().as(oldDelegate);
+      return oldDelegate.front != this.front || oldDelegate.garage != this.garage || oldDelegate.back != this.back;
+    }
+  };
+  (doors._DoorPainter.new = function(front, garage, back, color) {
+    let t0, t0$;
+    this[_doorPaint] = null;
+    this[_houseOutlinePaint] = null;
+    this.front = front;
+    this.garage = garage;
+    this.back = back;
+    this.color = color;
+    doors._DoorPainter.__proto__.new.call(this);
+    this[_doorPaint] = (t0 = ui.Paint.new(), (() => {
+      t0.strokeWidth = 100.0;
+      t0.color = this.color;
+      t0.style = ui.PaintingStyle.stroke;
+      return t0;
+    })());
+    this[_houseOutlinePaint] = (t0$ = ui.Paint.new(), (() => {
+      t0$.strokeWidth = 200.0;
+      t0$.color = colors.Colors.black;
+      t0$.style = ui.PaintingStyle.stroke;
+      return t0$;
+    })());
+  }).prototype = doors._DoorPainter.prototype;
+  dart.addTypeTests(doors._DoorPainter);
+  dart.addTypeCaches(doors._DoorPainter);
+  dart.setMethodSignature(doors._DoorPainter, () => ({
+    __proto__: dart.getMethods(doors._DoorPainter.__proto__),
+    [_paintSwingDoor]: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Offset), dart.legacy(core.double), dart.legacy(core.double)]),
+    [_paintSlideDoor]: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Offset), dart.legacy(ui.Offset), dart.legacy(core.double)]),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(doors._DoorPainter, L0);
+  dart.setFieldSignature(doors._DoorPainter, () => ({
+    __proto__: dart.getFields(doors._DoorPainter.__proto__),
+    front: dart.finalFieldType(dart.legacy(core.double)),
+    garage: dart.finalFieldType(dart.legacy(core.double)),
+    back: dart.finalFieldType(dart.legacy(core.double)),
+    color: dart.finalFieldType(dart.legacy(ui.Color)),
+    [_doorPaint]: dart.fieldType(dart.legacy(ui.Paint)),
+    [_houseOutlinePaint]: dart.fieldType(dart.legacy(ui.Paint))
+  }));
+  dart.trackLibraries("packages/house_of_rooves/doors.dart", {
+    "package:house_of_rooves/doors.dart": doors
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["doors.dart"],"names":[],"mappings":"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","file":"../../../packages/house_of_rooves/doors.dart.lib.js"}');
+  // Exports:
+  return {
+    doors: doors
+  };
+}));
+
+//# sourceMappingURL=doors.dart.lib.js.map

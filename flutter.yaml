@@ -1,5 +1,1 @@
 name: house_of_rooves
-uses-material-design: true
-assets:
- - images/drawer_header.jpeg
- - credentials.cfg

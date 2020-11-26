@@ -1,0 +1,793 @@
+define(['dart_sdk', 'packages/home_automation_tools/src/devices/cloudbit.dart', 'packages/home_automation_tools/src/common.dart', 'packages/home_automation_tools/src/watch_stream.dart'], (function load__packages__home_automation_tools__src__devices__cloudbit_cloud_dart(dart_sdk, packages__home_automation_tools__src__devices__cloudbit$46dart, packages__home_automation_tools__src__common$46dart, packages__home_automation_tools__src__watch_stream$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const _http = dart_sdk._http;
+  const async = dart_sdk.async;
+  const convert = dart_sdk.convert;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const cloudbit = packages__home_automation_tools__src__devices__cloudbit$46dart.src__devices__cloudbit;
+  const common = packages__home_automation_tools__src__common$46dart.src__common;
+  const watch_stream = packages__home_automation_tools__src__watch_stream$46dart.src__watch_stream;
+  var cloudbit_cloud = Object.create(dart.library);
+  var $putIfAbsent = dartx.putIfAbsent;
+  var $add = dartx.add;
+  var $values = dartx.values;
+  var $round = dartx.round;
+  var $isEmpty = dartx.isEmpty;
+  var $startsWith = dartx.startsWith;
+  var $substring = dartx.substring;
+  var StringL = () => (StringL = dart.constFn(dart.legacy(core.String)))();
+  var _CloudBitL = () => (_CloudBitL = dart.constFn(dart.legacy(cloudbit_cloud._CloudBit)))();
+  var IdentityMapOfStringL$_CloudBitL = () => (IdentityMapOfStringL$_CloudBitL = dart.constFn(_js_helper.IdentityMap$(StringL(), _CloudBitL())))();
+  var VoidTo_CloudBitL = () => (VoidTo_CloudBitL = dart.constFn(dart.fnType(_CloudBitL(), [])))();
+  var CloudBitL = () => (CloudBitL = dart.constFn(dart.legacy(cloudbit.CloudBit)))();
+  var FutureOfCloudBitL = () => (FutureOfCloudBitL = dart.constFn(async.Future$(CloudBitL())))();
+  var HttpClientRequestL = () => (HttpClientRequestL = dart.constFn(dart.legacy(_http.HttpClientRequest)))();
+  var FormatExceptionL = () => (FormatExceptionL = dart.constFn(dart.legacy(core.FormatException)))();
+  var ListL = () => (ListL = dart.constFn(dart.legacy(core.List)))();
+  var IterableL = () => (IterableL = dart.constFn(dart.legacy(core.Iterable)))();
+  var MapL = () => (MapL = dart.constFn(dart.legacy(core.Map)))();
+  var _AsyncStarImplOfCloudBitL = () => (_AsyncStarImplOfCloudBitL = dart.constFn(async._AsyncStarImpl$(CloudBitL())))();
+  var FutureOfNull = () => (FutureOfNull = dart.constFn(async.Future$(core.Null)))();
+  var FutureLOfNull = () => (FutureLOfNull = dart.constFn(dart.legacy(FutureOfNull())))();
+  var JSArrayOfFutureLOfNull = () => (JSArrayOfFutureLOfNull = dart.constFn(_interceptors.JSArray$(FutureLOfNull())))();
+  var CloudBitNotConnectedL = () => (CloudBitNotConnectedL = dart.constFn(dart.legacy(cloudbit_cloud.CloudBitNotConnected)))();
+  var ListOfNull = () => (ListOfNull = dart.constFn(core.List$(core.Null)))();
+  var ListLOfNull = () => (ListLOfNull = dart.constFn(dart.legacy(ListOfNull())))();
+  var ListLOfNullToNull = () => (ListLOfNullToNull = dart.constFn(dart.fnType(core.Null, [ListLOfNull()])))();
+  var intL = () => (intL = dart.constFn(dart.legacy(core.int)))();
+  var HandlerWatchStreamOfintL = () => (HandlerWatchStreamOfintL = dart.constFn(watch_stream.HandlerWatchStream$(intL())))();
+  var FutureOrOfStringL = () => (FutureOrOfStringL = dart.constFn(async.FutureOr$(StringL())))();
+  var FutureOrLOfStringL = () => (FutureOrLOfStringL = dart.constFn(dart.legacy(FutureOrOfStringL())))();
+  var ExceptionL = () => (ExceptionL = dart.constFn(dart.legacy(core.Exception)))();
+  var IdentityMapOfStringL$intL = () => (IdentityMapOfStringL$intL = dart.constFn(_js_helper.IdentityMap$(StringL(), intL())))();
+  var StreamViewOfintL = () => (StreamViewOfintL = dart.constFn(async.StreamView$(intL())))();
+  var boolL = () => (boolL = dart.constFn(dart.legacy(core.bool)))();
+  var _EmptyStreamOfboolL = () => (_EmptyStreamOfboolL = dart.constFn(async._EmptyStream$(boolL())))();
+  var CompleterOfNull = () => (CompleterOfNull = dart.constFn(async.Completer$(core.Null)))();
+  var _StreamHandlerTransformerOfStringL$dynamic = () => (_StreamHandlerTransformerOfStringL$dynamic = dart.constFn(async._StreamHandlerTransformer$(StringL(), dart.dynamic)))();
+  var EventSinkL = () => (EventSinkL = dart.constFn(dart.legacy(async.EventSink)))();
+  var StringLAndEventSinkLToNull = () => (StringLAndEventSinkLToNull = dart.constFn(dart.fnType(core.Null, [StringL(), EventSinkL()])))();
+  var dynamicToNull = () => (dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))();
+  var StackTraceL = () => (StackTraceL = dart.constFn(dart.legacy(core.StackTrace)))();
+  var dynamicAndStackTraceLToNull = () => (dynamicAndStackTraceLToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic, StackTraceL()])))();
+  var VoidToNull = () => (VoidToNull = dart.constFn(dart.fnType(core.Null, [])))();
+  const CT = Object.create(null);
+  var L0 = "package:home_automation_tools/src/devices/cloudbit_cloud.dart";
+  var L1 = "file:///C:/dev/dart-home-automation-tools/lib/src/devices/cloudbit_cloud.dart";
+  dart.defineLazy(CT, {
+    get C0() {
+      return C0 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 20000000
+      });
+    },
+    get C1() {
+      return C1 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 10000000
+      });
+    },
+    get C2() {
+      return C2 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 2000000
+      });
+    },
+    get C3() {
+      return C3 = dart.const({
+        __proto__: cloudbit_cloud.CloudBitRateLimitException.prototype,
+        [CloudBitException_cloudbit]: null,
+        [CloudBitException_message]: "cloudbit rate limit exceeded"
+      });
+    },
+    get C4() {
+      return C4 = dart.const({
+        __proto__: cloudbit_cloud.CloudBitContractViolation.prototype,
+        [CloudBitException_cloudbit]: null,
+        [CloudBitException_message]: "unexpected data received from littlebits cloud (not a list of objects)"
+      });
+    },
+    get C5() {
+      return C5 = dart.const({
+        __proto__: cloudbit_cloud.CloudBitContractViolation.prototype,
+        [CloudBitException_cloudbit]: null,
+        [CloudBitException_message]: "unexpected data received from littlebits cloud (device object does not have \"id\" field)"
+      });
+    },
+    get C6() {
+      return C6 = dart.const({
+        __proto__: cloudbit_cloud.CloudBitContractViolation.prototype,
+        [CloudBitException_cloudbit]: null,
+        [CloudBitException_message]: "unexpected data received from littlebits cloud (unexpected id format)"
+      });
+    },
+    get C7() {
+      return C7 = dart.const({
+        __proto__: convert.LineSplitter.prototype
+      });
+    },
+    get C8() {
+      return C8 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 5000000
+      });
+    },
+    get C9() {
+      return C9 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 1000000
+      });
+    },
+    get C10() {
+      return C10 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 300000000
+      });
+    }
+  }, false);
+  cloudbit_cloud.CloudBitContractViolation = class CloudBitContractViolation extends cloudbit.CloudBitException {};
+  (cloudbit_cloud.CloudBitContractViolation.new = function(message, cloudbit = null) {
+    cloudbit_cloud.CloudBitContractViolation.__proto__.new.call(this, message, cloudbit);
+    ;
+  }).prototype = cloudbit_cloud.CloudBitContractViolation.prototype;
+  dart.addTypeTests(cloudbit_cloud.CloudBitContractViolation);
+  dart.addTypeCaches(cloudbit_cloud.CloudBitContractViolation);
+  dart.setLibraryUri(cloudbit_cloud.CloudBitContractViolation, L0);
+  cloudbit_cloud.CloudBitRateLimitException = class CloudBitRateLimitException extends cloudbit.CloudBitException {};
+  (cloudbit_cloud.CloudBitRateLimitException.new = function(cloudbit = null) {
+    cloudbit_cloud.CloudBitRateLimitException.__proto__.new.call(this, "cloudbit rate limit exceeded", cloudbit);
+    ;
+  }).prototype = cloudbit_cloud.CloudBitRateLimitException.prototype;
+  dart.addTypeTests(cloudbit_cloud.CloudBitRateLimitException);
+  dart.addTypeCaches(cloudbit_cloud.CloudBitRateLimitException);
+  dart.setLibraryUri(cloudbit_cloud.CloudBitRateLimitException, L0);
+  cloudbit_cloud.CloudBitNotConnected = class CloudBitNotConnected extends cloudbit.CloudBitException {};
+  (cloudbit_cloud.CloudBitNotConnected.new = function(cloudbit, message) {
+    cloudbit_cloud.CloudBitNotConnected.__proto__.new.call(this, "cloudbit not connected (" + dart.str(message) + ")", cloudbit);
+    ;
+  }).prototype = cloudbit_cloud.CloudBitNotConnected.prototype;
+  dart.addTypeTests(cloudbit_cloud.CloudBitNotConnected);
+  dart.addTypeCaches(cloudbit_cloud.CloudBitNotConnected);
+  dart.setLibraryUri(cloudbit_cloud.CloudBitNotConnected, L0);
+  var exception$ = dart.privateName(cloudbit_cloud, "CloudBitConnectionFailure.exception");
+  cloudbit_cloud.CloudBitConnectionFailure = class CloudBitConnectionFailure extends cloudbit.CloudBitException {
+    get exception() {
+      return this[exception$];
+    }
+    set exception(value) {
+      super.exception = value;
+    }
+  };
+  (cloudbit_cloud.CloudBitConnectionFailure.new = function(cloudbit, exception) {
+    this[exception$] = exception;
+    cloudbit_cloud.CloudBitConnectionFailure.__proto__.new.call(this, "cloudbit connection failure (" + dart.str(exception) + ")", cloudbit);
+    ;
+  }).prototype = cloudbit_cloud.CloudBitConnectionFailure.prototype;
+  dart.addTypeTests(cloudbit_cloud.CloudBitConnectionFailure);
+  dart.addTypeCaches(cloudbit_cloud.CloudBitConnectionFailure);
+  dart.setLibraryUri(cloudbit_cloud.CloudBitConnectionFailure, L0);
+  dart.setFieldSignature(cloudbit_cloud.CloudBitConnectionFailure, () => ({
+    __proto__: dart.getFields(cloudbit_cloud.CloudBitConnectionFailure.__proto__),
+    exception: dart.finalFieldType(dart.legacy(core.Exception))
+  }));
+  var _devices = dart.privateName(cloudbit_cloud, "_devices");
+  var _httpClient = dart.privateName(cloudbit_cloud, "_httpClient");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var C0;
+  var C1;
+  var C2;
+  var CloudBitException_cloudbit = dart.privateName(cloudbit, "CloudBitException.cloudbit");
+  var CloudBitException_message = dart.privateName(cloudbit, "CloudBitException.message");
+  var C3;
+  var _reportError = dart.privateName(cloudbit_cloud, "_reportError");
+  var C4;
+  var C5;
+  var C6;
+  var authToken$ = dart.privateName(cloudbit_cloud, "LittleBitsCloud.authToken");
+  var onIdentify$ = dart.privateName(cloudbit_cloud, "LittleBitsCloud.onIdentify");
+  var onError$ = dart.privateName(cloudbit_cloud, "LittleBitsCloud.onError");
+  var rateLimitDelay = dart.privateName(cloudbit_cloud, "LittleBitsCloud.rateLimitDelay");
+  var noConnectionDelay = dart.privateName(cloudbit_cloud, "LittleBitsCloud.noConnectionDelay");
+  var reconnectDelay = dart.privateName(cloudbit_cloud, "LittleBitsCloud.reconnectDelay");
+  cloudbit_cloud.LittleBitsCloud = class LittleBitsCloud extends cloudbit.CloudBitProvider {
+    get authToken() {
+      return this[authToken$];
+    }
+    set authToken(value) {
+      super.authToken = value;
+    }
+    get onIdentify() {
+      return this[onIdentify$];
+    }
+    set onIdentify(value) {
+      super.onIdentify = value;
+    }
+    get onError() {
+      return this[onError$];
+    }
+    set onError(value) {
+      super.onError = value;
+    }
+    get rateLimitDelay() {
+      return this[rateLimitDelay];
+    }
+    set rateLimitDelay(value) {
+      super.rateLimitDelay = value;
+    }
+    get noConnectionDelay() {
+      return this[noConnectionDelay];
+    }
+    set noConnectionDelay(value) {
+      super.noConnectionDelay = value;
+    }
+    get reconnectDelay() {
+      return this[reconnectDelay];
+    }
+    set reconnectDelay(value) {
+      super.reconnectDelay = value;
+    }
+    getDevice(deviceId) {
+      let cloudbit = this[_devices][$putIfAbsent](deviceId, dart.fn(() => {
+        let name = deviceId;
+        this.log(deviceId, "adding \"" + dart.str(name) + "\" to cloudbit library (" + dart.str(deviceId) + ")", {level: common.LogLevel.verbose});
+        return new cloudbit_cloud._CloudBit.__(this, deviceId, name);
+      }, VoidTo_CloudBitL()));
+      return FutureOfCloudBitL().value(cloudbit);
+    }
+    openRequest(method, url) {
+      return async.async(HttpClientRequestL(), (function* openRequest() {
+        this.log(null, dart.str(method) + " " + dart.str(url), {level: common.LogLevel.verbose});
+        let request = (yield this[_httpClient].openUrl(method, core.Uri.parse(url)));
+        request.headers.set("authorization", "Bearer " + dart.str(this.authToken));
+        return request;
+      }).bind(this));
+    }
+    listDevices() {
+      return new (_AsyncStarImplOfCloudBitL()).new((function* listDevices(stream) {
+        this.log(null, "obtaining device list...");
+        let data = null;
+        do {
+          let request = (yield this.openRequest("get", "https://api-http.littlebitscloud.cc/v2/devices"));
+          let response = (yield request.close());
+          switch (response.statusCode) {
+            case 429:
+            {
+              yield this[_reportError]({exception: C3 || CT.C3, duration: this.rateLimitDelay});
+              yield response.drain(dart.dynamic);
+              continue;
+            }
+            case 200:
+            {
+              break;
+            }
+            default:
+            {
+              yield response.drain(dart.dynamic);
+              dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected error from littlebits cloud (" + dart.str(response.statusCode) + " " + dart.str(response.reasonPhrase) + ")"));
+            }
+          }
+          let rawData = (yield response.transform(StringL(), convert.utf8.decoder).single);
+          yield response.drain(dart.dynamic);
+          try {
+            data = convert.json.decode(rawData);
+          } catch (e) {
+            let ex = dart.getThrown(e);
+            if (FormatExceptionL().is(ex)) {
+              dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (not JSON: \"" + dart.str(rawData) + "\")"));
+            } else
+              throw e;
+          }
+          if (!ListL().is(data)) dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (not a list: \"" + dart.str(data) + "\")"));
+          break;
+        } while (true);
+        this.log(null, "device list obtained with " + dart.str(dart.dload(data, 'length')) + " device" + (dart.equals(dart.dload(data, 'length'), 1) ? "" : "s"));
+        for (let device of IterableL().as(data)) {
+          if (!MapL().is(device)) dart.throw(C4 || CT.C4);
+          if (!dart.dtest(dart.dsend(device, 'containsKey', ["id"]))) dart.throw(C5 || CT.C5);
+          let id = dart.dsend(device, '_get', ["id"]);
+          if (!StringL().is(id)) dart.throw(C6 || CT.C6);
+          if (stream.add(yield this.getDevice(StringL().as(id)))) return;
+          yield;
+        }
+      }).bind(this)).stream;
+    }
+    [_reportError](opts) {
+      let t2;
+      let exception = opts && 'exception' in opts ? opts.exception : null;
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let connected = opts && 'connected' in opts ? opts.connected : false;
+      let continuation = opts && 'continuation' in opts ? opts.continuation : null;
+      let prerequisites = JSArrayOfFutureLOfNull().of([]);
+      if (duration != null) prerequisites[$add](FutureOfNull().delayed(duration));
+      if (this.onError != null) {
+        if (dart.test(connected) || !CloudBitNotConnectedL().is(exception)) {
+          let errorFuture = (t2 = exception, this.onError(t2));
+          if (errorFuture != null) prerequisites[$add](errorFuture);
+        }
+      }
+      return async.Future.wait(core.Null, prerequisites).then(core.Null, dart.fn(value => {
+        if (continuation != null) continuation();
+      }, ListLOfNullToNull()));
+    }
+    dispose() {
+      this[_httpClient].close({force: true});
+      for (let cloudbit of this[_devices][$values])
+        cloudbit.dispose();
+    }
+  };
+  (cloudbit_cloud.LittleBitsCloud.new = function(opts) {
+    let authToken = opts && 'authToken' in opts ? opts.authToken : null;
+    let onIdentify = opts && 'onIdentify' in opts ? opts.onIdentify : null;
+    let onError = opts && 'onError' in opts ? opts.onError : null;
+    let onLog = opts && 'onLog' in opts ? opts.onLog : null;
+    this[_devices] = new (IdentityMapOfStringL$_CloudBitL()).new();
+    this[_httpClient] = _http.HttpClient.new();
+    this[rateLimitDelay] = C0 || CT.C0;
+    this[noConnectionDelay] = C1 || CT.C1;
+    this[reconnectDelay] = C2 || CT.C2;
+    this[authToken$] = authToken;
+    this[onIdentify$] = onIdentify;
+    this[onError$] = onError;
+    cloudbit_cloud.LittleBitsCloud.__proto__.new.call(this, {onLog: onLog});
+    this[_httpClient].userAgent = null;
+    this.log(null, "initialized littlebits remote cloud manager");
+  }).prototype = cloudbit_cloud.LittleBitsCloud.prototype;
+  dart.addTypeTests(cloudbit_cloud.LittleBitsCloud);
+  dart.addTypeCaches(cloudbit_cloud.LittleBitsCloud);
+  dart.setMethodSignature(cloudbit_cloud.LittleBitsCloud, () => ({
+    __proto__: dart.getMethods(cloudbit_cloud.LittleBitsCloud.__proto__),
+    getDevice: dart.fnType(dart.legacy(async.Future$(dart.legacy(cloudbit.CloudBit))), [dart.legacy(core.String)]),
+    openRequest: dart.fnType(dart.legacy(async.Future$(dart.legacy(_http.HttpClientRequest))), [dart.legacy(core.String), dart.legacy(core.String)]),
+    listDevices: dart.fnType(dart.legacy(async.Stream$(dart.legacy(cloudbit.CloudBit))), []),
+    [_reportError]: dart.fnType(dart.legacy(async.Future$(core.Null)), [], {connected: dart.legacy(core.bool), continuation: dart.legacy(dart.fnType(dart.void, [])), duration: dart.legacy(core.Duration), exception: dart.dynamic}, {}),
+    dispose: dart.fnType(dart.void, [])
+  }));
+  dart.setLibraryUri(cloudbit_cloud.LittleBitsCloud, L0);
+  dart.setFieldSignature(cloudbit_cloud.LittleBitsCloud, () => ({
+    __proto__: dart.getFields(cloudbit_cloud.LittleBitsCloud.__proto__),
+    authToken: dart.finalFieldType(dart.legacy(core.String)),
+    onIdentify: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(core.String), [dart.legacy(core.String)]))),
+    onError: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.dynamic]))),
+    [_devices]: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(cloudbit_cloud._CloudBit)))),
+    [_httpClient]: dart.finalFieldType(dart.legacy(_http.HttpClient)),
+    rateLimitDelay: dart.finalFieldType(dart.legacy(core.Duration)),
+    noConnectionDelay: dart.finalFieldType(dart.legacy(core.Duration)),
+    reconnectDelay: dart.finalFieldType(dart.legacy(core.Duration))
+  }));
+  var _valueStream = dart.privateName(cloudbit_cloud, "_valueStream");
+  var _sending = dart.privateName(cloudbit_cloud, "_sending");
+  var _pendingSendValue = dart.privateName(cloudbit_cloud, "_pendingSendValue");
+  var _events = dart.privateName(cloudbit_cloud, "_events");
+  var _active = dart.privateName(cloudbit_cloud, "_active");
+  var _connected = dart.privateName(cloudbit_cloud, "_connected");
+  var _start = dart.privateName(cloudbit_cloud, "_start");
+  var _end = dart.privateName(cloudbit_cloud, "_end");
+  var _sendValue = dart.privateName(cloudbit_cloud, "_sendValue");
+  var _connect = dart.privateName(cloudbit_cloud, "_connect");
+  var _error = dart.privateName(cloudbit_cloud, "_error");
+  var C7;
+  var _emit = dart.privateName(cloudbit_cloud, "_emit");
+  var C8;
+  var deviceId$ = dart.privateName(cloudbit_cloud, "_CloudBit.deviceId");
+  var displayName$ = dart.privateName(cloudbit_cloud, "_CloudBit.displayName");
+  var C9;
+  var C10;
+  cloudbit_cloud._CloudBit = class _CloudBit extends cloudbit.CloudBit {
+    get deviceId() {
+      return this[deviceId$];
+    }
+    set deviceId(value) {
+      super.deviceId = value;
+    }
+    get displayName() {
+      return this[displayName$];
+    }
+    set displayName(value) {
+      super.displayName = value;
+    }
+    get label() {
+      return async.async(StringL(), (function* label() {
+        do {
+          let request = (yield this.cloud.openRequest("get", "https://api-http.littlebitscloud.cc/v2/devices/" + dart.str(this.deviceId)));
+          let response = (yield request.close());
+          switch (response.statusCode) {
+            case 429:
+            {
+              yield this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitRateLimitException.new(this), duration: this.cloud.rateLimitDelay});
+              yield response.drain(dart.dynamic);
+              continue;
+            }
+            case 200:
+            {
+              break;
+            }
+            default:
+            {
+              yield response.drain(dart.dynamic);
+              dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected error from littlebits cloud (" + dart.str(response.statusCode) + " " + dart.str(response.reasonPhrase) + ")", this));
+            }
+          }
+          let rawData = (yield response.transform(StringL(), convert.utf8.decoder).single);
+          yield response.drain(dart.dynamic);
+          let device = null;
+          try {
+            device = convert.json.decode(rawData);
+          } catch (e) {
+            let ex = dart.getThrown(e);
+            if (FormatExceptionL().is(ex)) {
+              dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (not JSON: \"" + dart.str(rawData) + "\")", this));
+            } else
+              throw e;
+          }
+          if (!MapL().is(device)) dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (not a map: \"" + dart.str(device) + "\")", this));
+          if (!dart.dtest(dart.dsend(device, 'containsKey', ["label"]))) dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (device object does not have \"label\" field)", this));
+          let label = dart.dsend(device, '_get', ["label"]);
+          if (!StringL().is(label)) dart.throw(new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (unexpected label format)", this));
+          return FutureOrLOfStringL().as(label);
+        } while (true);
+      }).bind(this));
+    }
+    [_sendValue](value, opts) {
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let silent = opts && 'silent' in opts ? opts.silent : false;
+      return async.async(core.Null, (function* _sendValue() {
+        if (!(dart.notNull(value) >= 0)) dart.assertFailed(null, L1, 229, 12, "value >= 0");
+        if (!(dart.notNull(value) <= 99)) dart.assertFailed(null, L1, 230, 12, "value <= 99");
+        if (!dart.test(silent)) this.cloud.log(this.deviceId, dart.str(this.displayName) + ": sending " + dart.str(value) + (dart.test(this[_sending]) ? " (previous send already in progress)" : ""));
+        this[_pendingSendValue] = value;
+        if (dart.test(this[_sending])) return;
+        this[_sending] = true;
+        do {
+          let request = null;
+          try {
+            request = (yield this.cloud.openRequest("post", "https://api-http.littlebitscloud.cc/v2/devices/" + dart.str(this.deviceId) + "/output"));
+          } catch (e) {
+            let exception = dart.getThrown(e);
+            let stack = dart.stackTrace(e);
+            this.cloud.log(this.deviceId, dart.str(exception) + "\n" + dart.str(stack), {level: common.LogLevel.verbose});
+            yield this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitConnectionFailure.new(this, ExceptionL().as(exception)), connected: this[_connected], duration: this.cloud.noConnectionDelay});
+            break;
+          }
+          request.headers.contentType = _http.ContentType.new("application", "json");
+          request.headers.contentLength = -1;
+          let _sentValue = this[_pendingSendValue];
+          request.write(convert.json.encode(new (IdentityMapOfStringL$intL()).from(["percent", this[_pendingSendValue], "duration_ms", duration == null ? -1 : duration.inMilliseconds])));
+          let response = null;
+          try {
+            response = (yield request.close());
+          } catch (e$) {
+            let exception = dart.getThrown(e$);
+            let stack = dart.stackTrace(e$);
+            this.cloud.log(this.deviceId, dart.str(exception) + "\n" + dart.str(stack), {level: common.LogLevel.verbose});
+            yield this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitConnectionFailure.new(this, ExceptionL().as(exception)), connected: this[_connected], duration: this.cloud.noConnectionDelay});
+            break;
+          }
+          this.cloud.log(this.deviceId, dart.str(this.displayName) + ": when sending " + dart.str(_sentValue) + ", got " + dart.str(response.statusCode), {level: common.LogLevel.verbose});
+          switch (response.statusCode) {
+            case 429:
+            {
+              yield this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitRateLimitException.new(this), duration: this.cloud.rateLimitDelay});
+              yield response.drain(dart.dynamic);
+              break;
+            }
+            case 404:
+            {
+              let message = (yield response.transform(StringL(), convert.utf8.decoder).join());
+              yield this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitNotConnected.new(this, "trying to send " + dart.str(this[_pendingSendValue]) + ": " + dart.str(message)), connected: this[_connected], duration: this.cloud.noConnectionDelay});
+              break;
+            }
+            case 200:
+            {
+              yield response.drain(dart.dynamic);
+              if (!dart.test(silent)) this.cloud.log(this.deviceId, dart.str(this.displayName) + ": sent " + dart.str(this[_pendingSendValue]) + " successfully!", {level: common.LogLevel.verbose});
+              if (_sentValue == this[_pendingSendValue]) this[_pendingSendValue] = null;
+              yield FutureOfNull().delayed(cloudbit_cloud._CloudBit.resendDelay);
+              break;
+            }
+            default:
+            {
+              yield this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitContractViolation.new("unexpected error from littlebits cloud (" + dart.str(response.statusCode) + " " + dart.str(response.reasonPhrase) + ")", this), duration: this.cloud.rateLimitDelay});
+              yield response.drain(dart.dynamic);
+            }
+          }
+        } while (this[_pendingSendValue] != null);
+        this[_sending] = false;
+      }).bind(this));
+    }
+    set16bitValue(value, opts) {
+      let silent = opts && 'silent' in opts ? opts.silent : false;
+      if (!(dart.notNull(value) >= 0)) dart.assertFailed(null, L1, 315, 12, "value >= 0x0000");
+      if (!(dart.notNull(value) <= 65535)) dart.assertFailed(null, L1, 316, 12, "value <= 0xFFFF");
+      this[_sendValue]((dart.notNull(value) / 65535.0 * 99.0)[$round](), {silent: silent});
+    }
+    setValue(value, opts) {
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let silent = opts && 'silent' in opts ? opts.silent : false;
+      if (!(dart.notNull(value) >= 0)) dart.assertFailed(null, L1, 322, 12, "value >= 0");
+      if (!(dart.notNull(value) <= 1023)) dart.assertFailed(null, L1, 323, 12, "value <= 1023");
+      this[_sendValue]((dart.notNull(value) / 1023.0 * 99.0)[$round](), {duration: duration, silent: silent});
+    }
+    setNumberValue(value, opts) {
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let silent = opts && 'silent' in opts ? opts.silent : false;
+      if (!(dart.notNull(value) >= 0)) dart.assertFailed(null, L1, 330, 12, "value >= 0");
+      if (!(dart.notNull(value) <= 99)) dart.assertFailed(null, L1, 331, 12, "value <= 99");
+      this[_sendValue](value, {duration: duration, silent: silent});
+    }
+    setNumberVolts(value, opts) {
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let silent = opts && 'silent' in opts ? opts.silent : false;
+      if (!(dart.notNull(value) >= 0.0)) dart.assertFailed(null, L1, 337, 12, "value >= 0.0");
+      if (!(dart.notNull(value) <= 5.0)) dart.assertFailed(null, L1, 338, 12, "value <= 5.0");
+      this[_sendValue]((99.0 * dart.notNull(value) / 5.0)[$round](), {duration: duration, silent: silent});
+    }
+    setBooleanValue(value, opts) {
+      let duration = opts && 'duration' in opts ? opts.duration : null;
+      let silent = opts && 'silent' in opts ? opts.silent : false;
+      this[_sendValue](dart.test(value) ? 99 : 0, {duration: duration, silent: silent});
+    }
+    setLedColor(color) {
+    }
+    get values() {
+      return new (StreamViewOfintL()).new(this[_valueStream]);
+    }
+    get button() {
+      return new (_EmptyStreamOfboolL()).new();
+    }
+    [_start](sink) {
+      return async.async(core.Null, (function* _start() {
+        this[_active] = true;
+        while (dart.test(this[_active])) {
+          this.cloud.log(this.deviceId, dart.str(this.displayName) + ": connecting...", {level: common.LogLevel.verbose});
+          try {
+            yield this[_connect](sink);
+          } catch (e) {
+            let error = dart.getThrown(e);
+            let stack = dart.stackTrace(e);
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": unexpected exception " + dart.str(error));
+            this.cloud.log(this.deviceId, stack.toString(), {level: common.LogLevel.verbose});
+          }
+          this.cloud.log(this.deviceId, dart.str(this.displayName) + ": connection lost. (" + (dart.test(this[_active]) ? "still active" : "now inactive anyway") + ")", {level: common.LogLevel.verbose});
+        }
+        this.cloud.log(this.deviceId, dart.str(this.displayName) + ": disconnected, not active", {level: common.LogLevel.verbose});
+      }).bind(this));
+    }
+    [_connect](sink) {
+      return async.async(core.Null, (function* _connect() {
+        this.cloud.log(this.deviceId, dart.str(this.displayName) + ": attempting connection...", {level: common.LogLevel.verbose});
+        let response = null;
+        try {
+          let request = (yield this.cloud.openRequest("get", "https://api-http.littlebitscloud.cc/v2/devices/" + dart.str(this.deviceId) + "/input"));
+          response = (yield request.close());
+        } catch (e) {
+          let error = dart.getThrown(e);
+          let stack = dart.stackTrace(e);
+          this.cloud.log(this.deviceId, "unexpected error: " + dart.str(error));
+          this.cloud.log(this.deviceId, stack.toString(), {level: common.LogLevel.verbose});
+          return this[_error](error);
+        }
+        if (!(response != null)) dart.assertFailed(null, L1, 399, 12, "response != null");
+        switch (response.statusCode) {
+          case 429:
+          {
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": 429 rate-limit; delaying " + dart.str(this.cloud.rateLimitDelay), {level: common.LogLevel.verbose});
+            yield response.drain(dart.dynamic);
+            return this[_error](new cloudbit_cloud.CloudBitRateLimitException.new(this), this.cloud.rateLimitDelay);
+          }
+          case 404:
+          {
+            let message = (yield response.transform(StringL(), convert.utf8.decoder).join());
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": not connected; delaying " + dart.str(this.cloud.noConnectionDelay) + ": 404, " + dart.str(message), {level: common.LogLevel.verbose});
+            return this[_error](new cloudbit_cloud.CloudBitNotConnected.new(this, "attempting to connect to listen to data"), this.cloud.noConnectionDelay);
+          }
+          case 200:
+          {
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": connected", {level: common.LogLevel.verbose});
+            break;
+          }
+          default:
+          {
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": contract violation: " + dart.str(response));
+            yield response.drain(dart.dynamic);
+            return this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected error from littlebits cloud (" + dart.str(response.statusCode) + " " + dart.str(response.reasonPhrase) + ")", this));
+          }
+        }
+        let completer = CompleterOfNull().new();
+        this[_events] = response.transform(StringL(), convert.utf8.decoder).transform(StringL(), C7 || CT.C7).transform(dart.dynamic, new (_StreamHandlerTransformerOfStringL$dynamic()).new({handleData: dart.fn((data, sink) => {
+            if (data[$isEmpty]) return;
+            if (data[$startsWith]("data:")) {
+              try {
+                sink.add(convert.json.decode(data[$substring](5)));
+                return;
+              } catch (e) {
+                let ex = dart.getThrown(e);
+                if (FormatExceptionL().is(ex)) {
+                } else
+                  throw e;
+              }
+            }
+            completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data from CloudBit stream: \"" + dart.str(data) + "\"", this)));
+          }, StringLAndEventSinkLToNull())})).timeout(cloudbit_cloud._CloudBit.idleTimeout).listen(dart.fn(event => {
+          if (!MapL().is(event)) {
+            completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (not a map: \"" + dart.str(event) + "\")", this)));
+            return;
+          }
+          if (!dart.dtest(dart.dsend(event, 'containsKey', ["type"]))) {
+            completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (event does not contain \"type\" value: \"" + dart.str(event) + "\")", this)));
+            return;
+          }
+          let type = dart.dsend(event, '_get', ["type"]);
+          if (!StringL().is(type)) {
+            completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (\"type\" value is not String: \"" + dart.str(event) + "\")", this)));
+            return;
+          }
+          if (dart.equals(type, "input")) {
+            if (!dart.dtest(dart.dsend(event, 'containsKey', ["absolute"]))) {
+              completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (input event does not contain \"absolute\" value: \"" + dart.str(event) + "\")", this)));
+              return;
+            }
+            let value = dart.dsend(event, '_get', ["absolute"]);
+            if (!intL().is(value)) {
+              completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (\"absolute\" value is not numeric: \"" + dart.str(event) + "\")", this)));
+              return;
+            }
+            this[_emit](intL().as(value));
+          } else if (dart.equals(type, "connection_change")) {
+            if (!dart.dtest(dart.dsend(event, 'containsKey', ["state"]))) {
+              completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (connection_change event does not contain \"state\" value: \"" + dart.str(event) + "\")", this)));
+              return;
+            }
+            let state = dart.dsend(event, '_get', ["state"]);
+            if (!intL().is(state)) {
+              completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (\"state\" value is not numeric: \"" + dart.str(event) + "\")", this)));
+              return;
+            }
+            switch (state) {
+              case 0:
+              case 1:
+              {
+                let wasConnected = this[_connected];
+                this[_emit](null);
+                this.cloud[_reportError]({exception: new cloudbit_cloud.CloudBitNotConnected.new(this, "listening for data"), connected: wasConnected});
+                this.cloud.log(this.deviceId, convert.json.encode(event), {level: common.LogLevel.verbose});
+                if (!dart.equals(this[_connected], false)) dart.assertFailed(null, L1, 512, 26, "_connected == false");
+                break;
+              }
+              case 2:
+              {
+                break;
+              }
+              default:
+              {
+                completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (\"state\" value out of range: \"" + dart.str(event) + "\")", this)));
+                return;
+              }
+            }
+          } else {
+            completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpected data received from littlebits cloud (unknown \"type\" value: \"" + dart.str(event) + "\")", this)));
+            return;
+          }
+        }, dynamicToNull()), {onError: dart.fn((exception, stack) => {
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": got exception from events stream: " + dart.str(exception));
+            this.cloud.log(this.deviceId, dart.toString(stack), {level: common.LogLevel.verbose});
+            completer.complete(this[_error](exception));
+          }, dynamicAndStackTraceLToNull()), onDone: dart.fn(() => {
+            completer.complete(this[_error](new cloudbit_cloud.CloudBitContractViolation.new("unexpectedly disconnected from littlebits cloud", this)));
+          }, VoidToNull())});
+        return completer.future;
+      }).bind(this));
+    }
+    [_error](exception, duration = C8 || CT.C8) {
+      return async.async(core.Null, (function* _error() {
+        let t10;
+        this.cloud.log(this.deviceId, dart.str(this.displayName) + ": reporting error \"" + dart.str(exception) + "\" (" + (dart.test(this[_active]) ? "still active" : "now inactive") + ")", {level: common.LogLevel.verbose});
+        if (!(duration != null)) dart.assertFailed(null, L1, 549, 12, "duration != null");
+        let wasConnected = this[_connected];
+        this[_emit](null);
+        if (!!dart.test(this[_connected])) dart.assertFailed(null, L1, 552, 12, "!_connected");
+        t10 = this[_events];
+        t10 == null ? null : t10.cancel();
+        this[_events] = null;
+        let completer = CompleterOfNull().new();
+        this.cloud[_reportError]({exception: exception, duration: duration, connected: wasConnected, continuation: dart.fn(() => {
+            this.cloud.log(this.deviceId, dart.str(this.displayName) + ": post-error continuation (" + (dart.test(this[_active]) ? "still active" : "now inactive") + ")", {level: common.LogLevel.verbose});
+            completer.complete();
+          }, VoidToNull())});
+        if (!!dart.test(this[_connected])) dart.assertFailed(null, L1, 567, 12, "!_connected");
+        return completer.future;
+      }).bind(this));
+    }
+    [_emit](value) {
+      if (!dart.equals(this[_connected], value != null)) this.cloud.log(this.deviceId, dart.str(this.displayName) + ": " + (value == null ? "disconnected" : "connected"), {level: common.LogLevel.verbose});
+      this[_connected] = value != null;
+      this[_valueStream].add(value);
+    }
+    [_end]() {
+      let t10;
+      this.cloud.log(this.deviceId, dart.str(this.displayName) + ": disconnecting.", {level: common.LogLevel.verbose});
+      this[_active] = false;
+      t10 = this[_events];
+      t10 == null ? null : t10.cancel();
+      this[_events] = null;
+    }
+    dispose() {
+      this.cloud.log(this.deviceId, dart.str(this.displayName) + ": disposing...", {level: common.LogLevel.verbose});
+      this[_end]();
+      this[_valueStream].close();
+    }
+  };
+  (cloudbit_cloud._CloudBit.__ = function(cloud, deviceId, displayName) {
+    this[_valueStream] = null;
+    this[_sending] = false;
+    this[_pendingSendValue] = null;
+    this[_events] = null;
+    this[_active] = false;
+    this[_connected] = false;
+    this.cloud = cloud;
+    this[deviceId$] = deviceId;
+    this[displayName$] = displayName;
+    this[_valueStream] = new (HandlerWatchStreamOfintL()).new(dart.bind(this, _start), dart.bind(this, _end));
+  }).prototype = cloudbit_cloud._CloudBit.prototype;
+  dart.addTypeTests(cloudbit_cloud._CloudBit);
+  dart.addTypeCaches(cloudbit_cloud._CloudBit);
+  dart.setMethodSignature(cloudbit_cloud._CloudBit, () => ({
+    __proto__: dart.getMethods(cloudbit_cloud._CloudBit.__proto__),
+    [_sendValue]: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.int)], {duration: dart.legacy(core.Duration), silent: dart.legacy(core.bool)}, {}),
+    set16bitValue: dart.fnType(dart.void, [dart.legacy(core.int)], {silent: dart.legacy(core.bool)}, {}),
+    setValue: dart.fnType(dart.void, [dart.legacy(core.int)], {duration: dart.legacy(core.Duration), silent: dart.legacy(core.bool)}, {}),
+    setNumberValue: dart.fnType(dart.void, [dart.legacy(core.int)], {duration: dart.legacy(core.Duration), silent: dart.legacy(core.bool)}, {}),
+    setNumberVolts: dart.fnType(dart.void, [dart.legacy(core.double)], {duration: dart.legacy(core.Duration), silent: dart.legacy(core.bool)}, {}),
+    setBooleanValue: dart.fnType(dart.void, [dart.legacy(core.bool)], {duration: dart.legacy(core.Duration), silent: dart.legacy(core.bool)}, {}),
+    setLedColor: dart.fnType(dart.void, [dart.legacy(cloudbit.LedColor)]),
+    [_start]: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.Sink$(dart.legacy(core.int)))]),
+    [_connect]: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.Sink$(dart.legacy(core.int)))]),
+    [_error]: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.dynamic], [dart.legacy(core.Duration)]),
+    [_emit]: dart.fnType(dart.void, [dart.legacy(core.int)]),
+    [_end]: dart.fnType(dart.void, []),
+    dispose: dart.fnType(dart.void, [])
+  }));
+  dart.setGetterSignature(cloudbit_cloud._CloudBit, () => ({
+    __proto__: dart.getGetters(cloudbit_cloud._CloudBit.__proto__),
+    label: dart.legacy(async.Future$(dart.legacy(core.String))),
+    values: dart.legacy(async.Stream$(dart.legacy(core.int))),
+    button: dart.legacy(async.Stream$(dart.legacy(core.bool)))
+  }));
+  dart.setLibraryUri(cloudbit_cloud._CloudBit, L0);
+  dart.setFieldSignature(cloudbit_cloud._CloudBit, () => ({
+    __proto__: dart.getFields(cloudbit_cloud._CloudBit.__proto__),
+    cloud: dart.finalFieldType(dart.legacy(cloudbit_cloud.LittleBitsCloud)),
+    deviceId: dart.finalFieldType(dart.legacy(core.String)),
+    displayName: dart.finalFieldType(dart.legacy(core.String)),
+    [_valueStream]: dart.fieldType(dart.legacy(watch_stream.WatchStream$(dart.legacy(core.int)))),
+    [_sending]: dart.fieldType(dart.legacy(core.bool)),
+    [_pendingSendValue]: dart.fieldType(dart.legacy(core.int)),
+    [_events]: dart.fieldType(dart.legacy(async.StreamSubscription)),
+    [_active]: dart.fieldType(dart.legacy(core.bool)),
+    [_connected]: dart.fieldType(dart.legacy(core.bool))
+  }));
+  dart.defineLazy(cloudbit_cloud._CloudBit, {
+    /*cloudbit_cloud._CloudBit.resendDelay*/get resendDelay() {
+      return C9 || CT.C9;
+    },
+    /*cloudbit_cloud._CloudBit.reconnectDuration*/get reconnectDuration() {
+      return C8 || CT.C8;
+    },
+    /*cloudbit_cloud._CloudBit.idleTimeout*/get idleTimeout() {
+      return C10 || CT.C10;
+    }
+  }, true);
+  dart.trackLibraries("packages/home_automation_tools/src/devices/cloudbit_cloud.dart", {
+    "package:home_automation_tools/src/devices/cloudbit_cloud.dart": cloudbit_cloud
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["cloudbit_cloud.dart"],"names":[],"mappings":"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","file":"../../../../../packages/home_automation_tools/src/devices/cloudbit_cloud.dart.lib.js"}');
+  // Exports:
+  return {
+    src__devices__cloudbit_cloud: cloudbit_cloud
+  };
+}));
+
+//# sourceMappingURL=cloudbit_cloud.dart.lib.js.map

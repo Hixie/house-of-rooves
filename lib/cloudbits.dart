@@ -12,7 +12,6 @@ class CloudBitsPage extends StatefulWidget {
 }
 
 class _CloudBitsPageState extends State<CloudBitsPage> {
-
   List<backend.CloudBit> _cloudBits;
   backend.CloudBit _cloudBit;
   bool _loaded = false;
@@ -24,11 +23,11 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
     initLabels().catchError((dynamic exception) {
       assert(() {
         print(exception);
-      });
+      }());
     });
   }
 
-  Future<Null> initLabels() async {
+  Future<void> initLabels() async {
     _cloudBits = await backend.cloud.listDevices().toList();
     _loaded = true;
     if (_cloudBits.isEmpty) {
@@ -38,13 +37,11 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
     } else {
       _selectCloudBit(_cloudBits.first);
     }
-    if (_cloudBits == null)
-      return null;
-    final List<Future<backend.CloudBit>> futures = <Future<backend.CloudBit>>[];
+    if (_cloudBits == null) return null;
     for (backend.CloudBit bit in _cloudBits)
-      futures.add(bit.label.then((String label) { setState(() { _labels[bit] = label; }); }));
-    await Future.wait(futures);
-    return null;
+      setState(() {
+        _labels[bit] = bit.displayName;
+      });
   }
 
   void _selectCloudBit(backend.CloudBit value) {
@@ -57,29 +54,39 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
   Widget build(BuildContext context) {
     return new MainScreen(
       title: 'CloudBits',
-      body: new Block(
+      body: new ListView(
         children: <Widget>[
           new Padding(
             padding: new EdgeInsets.all(16.0),
-            child: _loaded ? _cloudBits != null ? new DropdownButton(
-              items: _cloudBits.map/*<DropdownMenuItem<backend.CloudBit>>*/((backend.CloudBit bit) {
-                return new DropdownMenuItem(
-                  value: bit,
-                  child: new Text(_labels.containsKey(bit) ? _labels[bit] : bit.deviceId),
-                );
-              }).toList(),
-              value: _cloudBit,
-              onChanged: _selectCloudBit,
-            ) : new Text('No CloudBits.') : new Text('Connecting...'),
+            child: _loaded
+                ? _cloudBits != null
+                    ? new DropdownButton(
+                        items: _cloudBits
+                            .map/*<DropdownMenuItem<backend.CloudBit>>*/(
+                                (backend.CloudBit bit) {
+                          return new DropdownMenuItem(
+                            value: bit,
+                            child: new Text(_labels.containsKey(bit)
+                                ? _labels[bit]
+                                : bit.deviceId),
+                          );
+                        }).toList(),
+                        value: _cloudBit,
+                        onChanged: _selectCloudBit,
+                      )
+                    : new Text('No CloudBits.')
+                : new Text('Connecting...'),
           ),
           new Padding(
             padding: new EdgeInsets.all(24.0),
-            child: _cloudBit != null ? new CloudBitCard(cloudBit: _cloudBit) : new Card(
-              child: new Padding(
-                padding: new EdgeInsets.all(24.0),
-                child: new Text('No CloudBit selected.'),
-              ),
-            ),
+            child: _cloudBit != null
+                ? new CloudBitCard(cloudBit: _cloudBit)
+                : new Card(
+                    child: new Padding(
+                      padding: new EdgeInsets.all(24.0),
+                      child: new Text('No CloudBit selected.'),
+                    ),
+                  ),
           ),
         ],
       ),
@@ -88,13 +95,12 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
 }
 
 class CloudBitCard extends StatefulWidget {
-  CloudBitCard({ Key key, this.cloudBit }) : super(key: key);
+  CloudBitCard({Key key, this.cloudBit}) : super(key: key);
   final backend.CloudBit cloudBit;
   _CloudBitCardState createState() => new _CloudBitCardState();
 }
 
 class _CloudBitCardState extends State<CloudBitCard> {
-
   StreamSubscription<int> _subscription;
   int _inputNumber;
   double _inputVolts;
@@ -109,10 +115,10 @@ class _CloudBitCardState extends State<CloudBitCard> {
     _updateSubscription();
   }
 
-  void didUpdateConfig(CloudBitCard oldConfig) {
-    super.didUpdateConfig(oldConfig);
-    if (oldConfig.cloudBit != config.cloudBit)
-      _updateSubscription();
+  @override
+  void didUpdateWidget(CloudBitCard oldwidget) {
+    super.didUpdateWidget(oldwidget);
+    if (oldwidget.cloudBit != widget.cloudBit) _updateSubscription();
   }
 
   void dispose() {
@@ -128,10 +134,13 @@ class _CloudBitCardState extends State<CloudBitCard> {
     _outputValue = 0.0;
     _outputNumber = null;
     _outputVolts = null;
-    _subscription = config.cloudBit.values.listen((int value) {
+    _subscription = widget.cloudBit.values.listen((int value) {
       int number = value != null ? ((value / 1023.0) * 99.0).round() : null;
-      double volts = value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
-      int bitfield = value != null ? backend.BitDemultiplexer.valueToBitField(value, 4) : null;
+      double volts =
+          value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
+      int bitfield = value != null
+          ? backend.BitDemultiplexer.valueToBitField(value, 4)
+          : null;
       setState(() {
         _inputNumber = number;
         _inputVolts = volts;
@@ -142,24 +151,29 @@ class _CloudBitCardState extends State<CloudBitCard> {
 
   void _setOutputValue(double value) {
     int number = value != null ? ((value / 1023.0) * 99.0).round() : null;
-    double volts = value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
-    int bitfield = value != null ? backend.BitDemultiplexer.valueToBitField(value.round(), 4) : null;
+    double volts =
+        value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
+    int bitfield = value != null
+        ? backend.BitDemultiplexer.valueToBitField(value.round(), 4)
+        : null;
     setState(() {
       _outputValue = value;
       _outputNumber = number;
       _outputVolts = volts;
       _outputBitfield = bitfield;
     });
-    config.cloudBit.setValue(value.round());
+    widget.cloudBit.setValue(value.round());
   }
 
   Widget build(BuildContext context) {
-    final TextStyle labelStyle = Theme.of(context).textTheme.headline;
-    final TextStyle valueStyle = labelStyle.copyWith(color: Theme.of(context).accentColor);
+    final TextStyle labelStyle = Theme.of(context).textTheme.headline5;
+    final TextStyle valueStyle =
+        labelStyle.copyWith(color: Theme.of(context).accentColor);
     final TextStyle smallLabelStyle = Theme.of(context).textTheme.caption;
-    final TextStyle smallValueStyle = smallLabelStyle.copyWith(color: Theme.of(context).accentColor);
+    final TextStyle smallValueStyle =
+        smallLabelStyle.copyWith(color: Theme.of(context).accentColor);
     return new Card(
-      child: new BlockBody(
+      child: new ListBody(
         children: <Widget>[
           new Padding(
             padding: new EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
@@ -171,10 +185,18 @@ class _CloudBitCardState extends State<CloudBitCard> {
                     style: labelStyle,
                     text: 'Input value: ',
                     children: <TextSpan>[
-                      new TextSpan(text: _inputNumber != null ? '$_inputNumber' : '-', style: valueStyle),
+                      new TextSpan(
+                          text: _inputNumber != null ? '$_inputNumber' : '-',
+                          style: valueStyle),
                       new TextSpan(text: ' (', style: labelStyle),
-                      new TextSpan(text: _inputVolts != null ? _inputVolts.toStringAsFixed(1) : '-', style: valueStyle),
-                      new TextSpan(text: 'V', style: labelStyle.apply(fontSizeFactor: 0.7)),
+                      new TextSpan(
+                          text: _inputVolts != null
+                              ? _inputVolts.toStringAsFixed(1)
+                              : '-',
+                          style: valueStyle),
+                      new TextSpan(
+                          text: 'V',
+                          style: labelStyle.apply(fontSizeFactor: 0.7)),
                       new TextSpan(text: ') ', style: labelStyle),
                     ],
                   ),
@@ -185,7 +207,7 @@ class _CloudBitCardState extends State<CloudBitCard> {
           ),
           new Padding(
             padding: new EdgeInsets.all(16.0),
-            child: new BlockBody(
+            child: new ListBody(
               children: <Widget>[
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,10 +217,20 @@ class _CloudBitCardState extends State<CloudBitCard> {
                         style: labelStyle,
                         text: 'Output value: ',
                         children: <TextSpan>[
-                          new TextSpan(text: _outputNumber != null ? '$_outputNumber' : '-', style: valueStyle),
+                          new TextSpan(
+                              text: _outputNumber != null
+                                  ? '$_outputNumber'
+                                  : '-',
+                              style: valueStyle),
                           new TextSpan(text: ' (', style: labelStyle),
-                          new TextSpan(text: _outputVolts != null ? _outputVolts.toStringAsFixed(1) : '-', style: valueStyle),
-                          new TextSpan(text: 'V', style: labelStyle.apply(fontSizeFactor: 0.7)),
+                          new TextSpan(
+                              text: _outputVolts != null
+                                  ? _outputVolts.toStringAsFixed(1)
+                                  : '-',
+                              style: valueStyle),
+                          new TextSpan(
+                              text: 'V',
+                              style: labelStyle.apply(fontSizeFactor: 0.7)),
                           new TextSpan(text: ') ', style: labelStyle),
                         ],
                       ),
@@ -224,7 +256,11 @@ class _CloudBitCardState extends State<CloudBitCard> {
                 style: smallLabelStyle,
                 text: 'Device ID: ',
                 children: <TextSpan>[
-                  new TextSpan(text: config.cloudBit != null ? config.cloudBit.deviceId : '-', style: smallValueStyle),
+                  new TextSpan(
+                      text: widget.cloudBit != null
+                          ? widget.cloudBit.deviceId
+                          : '-',
+                      style: smallValueStyle),
                 ],
               ),
             ),
@@ -250,13 +286,16 @@ class Leds extends StatelessWidget {
   final double size;
 
   Widget build(BuildContext context) {
-    Color color = value != null ? this.color ?? Theme.of(context).accentColor : Theme.of(context).disabledColor;
+    Color color = value != null
+        ? this.color ?? Theme.of(context).accentColor
+        : Theme.of(context).disabledColor;
     List<Widget> dots = <Widget>[];
     for (int i = 1; i <= bitCount; i += 1) {
       dots.add(new Container(
         margin: new EdgeInsets.all(2.0),
         decoration: new BoxDecoration(
-          backgroundColor: (value != null) && (value & (1 << (i - 1)) != 0) ? color : null,
+          color:
+              (value != null) && (value & (1 << (i - 1)) != 0) ? color : null,
           shape: BoxShape.circle,
           border: new Border.all(width: size / 10.0, color: color),
         ),

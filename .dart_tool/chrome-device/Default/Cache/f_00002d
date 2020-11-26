@@ -1,0 +1,2273 @@
+define(['dart_sdk', 'packages/home_automation_tools/src/watch_stream.dart'], (function load__packages__home_automation_tools__src__devices__tv_dart(dart_sdk, packages__home_automation_tools__src__watch_stream$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const async = dart_sdk.async;
+  const _interceptors = dart_sdk._interceptors;
+  const collection = dart_sdk.collection;
+  const io = dart_sdk.io;
+  const convert = dart_sdk.convert;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const watch_stream = packages__home_automation_tools__src__watch_stream$46dart.src__watch_stream;
+  var tv = Object.create(dart.library);
+  var $toString = dartx.toString;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $contains = dartx.contains;
+  var $replaceAll = dartx.replaceAll;
+  var $_get = dartx._get;
+  var $add = dartx.add;
+  var $isEmpty = dartx.isEmpty;
+  var $join = dartx.join;
+  var $padLeft = dartx.padLeft;
+  var $substring = dartx.substring;
+  var $first = dartx.first;
+  var $length = dartx.length;
+  var $toList = dartx.toList;
+  var $padRight = dartx.padRight;
+  var CompleterOfNull = () => (CompleterOfNull = dart.constFn(async.Completer$(core.Null)))();
+  var dynamicToNull = () => (dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))();
+  var StringL = () => (StringL = dart.constFn(dart.legacy(core.String)))();
+  var TelevisionRemoteL = () => (TelevisionRemoteL = dart.constFn(dart.legacy(tv.TelevisionRemote)))();
+  var TelevisionOffTimerL = () => (TelevisionOffTimerL = dart.constFn(dart.legacy(tv.TelevisionOffTimer)))();
+  var TelevisionSourceL = () => (TelevisionSourceL = dart.constFn(dart.legacy(tv.TelevisionSource)))();
+  var JSArrayOfStringL = () => (JSArrayOfStringL = dart.constFn(_interceptors.JSArray$(StringL())))();
+  var StringLTovoid = () => (StringLTovoid = dart.constFn(dart.fnType(dart.void, [StringL()])))();
+  var StringLToLvoid = () => (StringLToLvoid = dart.constFn(dart.legacy(StringLTovoid())))();
+  var _HashSetOfStringLToLvoid = () => (_HashSetOfStringLToLvoid = dart.constFn(collection._HashSet$(StringLToLvoid())))();
+  var boolL = () => (boolL = dart.constFn(dart.legacy(core.bool)))();
+  var AlwaysOnWatchStreamOfboolL = () => (AlwaysOnWatchStreamOfboolL = dart.constFn(watch_stream.AlwaysOnWatchStream$(boolL())))();
+  var SocketExceptionL = () => (SocketExceptionL = dart.constFn(dart.legacy(io.SocketException)))();
+  var VoidToNull = () => (VoidToNull = dart.constFn(dart.fnType(core.Null, [])))();
+  var StreamIteratorOfStringL = () => (StreamIteratorOfStringL = dart.constFn(async.StreamIterator$(StringL())))();
+  var intL = () => (intL = dart.constFn(dart.legacy(core.int)))();
+  var ListOfintL = () => (ListOfintL = dart.constFn(core.List$(intL())))();
+  var ListLOfintL = () => (ListLOfintL = dart.constFn(dart.legacy(ListOfintL())))();
+  var TelevisionExceptionL = () => (TelevisionExceptionL = dart.constFn(dart.legacy(tv.TelevisionException)))();
+  var FutureOfNull = () => (FutureOfNull = dart.constFn(async.Future$(core.Null)))();
+  var CompleterLOfNull = () => (CompleterLOfNull = dart.constFn(dart.legacy(CompleterOfNull())))();
+  var ListQueueOfCompleterLOfNull = () => (ListQueueOfCompleterLOfNull = dart.constFn(collection.ListQueue$(CompleterLOfNull())))();
+  var TelevisionTransactionL = () => (TelevisionTransactionL = dart.constFn(dart.legacy(tv.TelevisionTransaction)))();
+  var StringLToNull = () => (StringLToNull = dart.constFn(dart.fnType(core.Null, [StringL()])))();
+  var TelevisionChannelL = () => (TelevisionChannelL = dart.constFn(dart.legacy(tv.TelevisionChannel)))();
+  var FormatExceptionL = () => (FormatExceptionL = dart.constFn(dart.legacy(core.FormatException)))();
+  const CT = Object.create(null);
+  var L1 = "file:///C:/dev/dart-home-automation-tools/lib/src/devices/tv.dart";
+  var L0 = "package:home_automation_tools/src/devices/tv.dart";
+  dart.defineLazy(CT, {
+    get C0() {
+      return C0 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key0",
+        index: 0
+      });
+    },
+    get C1() {
+      return C1 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key1",
+        index: 1
+      });
+    },
+    get C2() {
+      return C2 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key2",
+        index: 2
+      });
+    },
+    get C3() {
+      return C3 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key3",
+        index: 3
+      });
+    },
+    get C4() {
+      return C4 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key4",
+        index: 4
+      });
+    },
+    get C5() {
+      return C5 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key5",
+        index: 5
+      });
+    },
+    get C6() {
+      return C6 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key6",
+        index: 6
+      });
+    },
+    get C7() {
+      return C7 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key7",
+        index: 7
+      });
+    },
+    get C8() {
+      return C8 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key8",
+        index: 8
+      });
+    },
+    get C9() {
+      return C9 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key9",
+        index: 9
+      });
+    },
+    get C10() {
+      return C10 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyDot",
+        index: 10
+      });
+    },
+    get C11() {
+      return C11 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyEnt",
+        index: 11
+      });
+    },
+    get C12() {
+      return C12 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyPower",
+        index: 12
+      });
+    },
+    get C13() {
+      return C13 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyDisplay",
+        index: 13
+      });
+    },
+    get C14() {
+      return C14 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyPowerSource",
+        index: 14
+      });
+    },
+    get C15() {
+      return C15 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyRW",
+        index: 15
+      });
+    },
+    get C16() {
+      return C16 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyPlay",
+        index: 16
+      });
+    },
+    get C17() {
+      return C17 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyFF",
+        index: 17
+      });
+    },
+    get C18() {
+      return C18 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyPause",
+        index: 18
+      });
+    },
+    get C19() {
+      return C19 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyPrev",
+        index: 19
+      });
+    },
+    get C20() {
+      return C20 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyStop",
+        index: 20
+      });
+    },
+    get C21() {
+      return C21 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyNext",
+        index: 21
+      });
+    },
+    get C22() {
+      return C22 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyRecord",
+        index: 22
+      });
+    },
+    get C23() {
+      return C23 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyOption",
+        index: 23
+      });
+    },
+    get C24() {
+      return C24 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keySleep",
+        index: 24
+      });
+    },
+    get C25() {
+      return C25 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyRecordStop",
+        index: 25
+      });
+    },
+    get C26() {
+      return C26 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyPowerSaving",
+        index: 26
+      });
+    },
+    get C27() {
+      return C27 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyClosedCaptions",
+        index: 27
+      });
+    },
+    get C28() {
+      return C28 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyAvMode",
+        index: 28
+      });
+    },
+    get C29() {
+      return C29 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyViewMode",
+        index: 29
+      });
+    },
+    get C30() {
+      return C30 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyFlashback",
+        index: 30
+      });
+    },
+    get C31() {
+      return C31 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyMute",
+        index: 31
+      });
+    },
+    get C32() {
+      return C32 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyVolDown",
+        index: 32
+      });
+    },
+    get C33() {
+      return C33 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyVolUp",
+        index: 33
+      });
+    },
+    get C34() {
+      return C34 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyChannelUp",
+        index: 34
+      });
+    },
+    get C35() {
+      return C35 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyChannelDown",
+        index: 35
+      });
+    },
+    get C36() {
+      return C36 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyInput",
+        index: 36
+      });
+    },
+    get C37() {
+      return C37 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyReserved37",
+        index: 37
+      });
+    },
+    get C38() {
+      return C38 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyMenu",
+        index: 38
+      });
+    },
+    get C39() {
+      return C39 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keySmartCentral",
+        index: 39
+      });
+    },
+    get C40() {
+      return C40 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyEnter",
+        index: 40
+      });
+    },
+    get C41() {
+      return C41 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyUp",
+        index: 41
+      });
+    },
+    get C42() {
+      return C42 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyDown",
+        index: 42
+      });
+    },
+    get C43() {
+      return C43 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyLeft",
+        index: 43
+      });
+    },
+    get C44() {
+      return C44 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyRight",
+        index: 44
+      });
+    },
+    get C45() {
+      return C45 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyReturn",
+        index: 45
+      });
+    },
+    get C46() {
+      return C46 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyExit",
+        index: 46
+      });
+    },
+    get C47() {
+      return C47 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyCh",
+        index: 47
+      });
+    },
+    get C48() {
+      return C48 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyReserved48",
+        index: 48
+      });
+    },
+    get C49() {
+      return C49 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyReserved49",
+        index: 49
+      });
+    },
+    get C50() {
+      return C50 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyA",
+        index: 50
+      });
+    },
+    get C51() {
+      return C51 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyB",
+        index: 51
+      });
+    },
+    get C52() {
+      return C52 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyC",
+        index: 52
+      });
+    },
+    get C53() {
+      return C53 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyD",
+        index: 53
+      });
+    },
+    get C54() {
+      return C54 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyFreeze",
+        index: 54
+      });
+    },
+    get C55() {
+      return C55 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyApp1",
+        index: 55
+      });
+    },
+    get C56() {
+      return C56 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyApp2",
+        index: 56
+      });
+    },
+    get C57() {
+      return C57 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyApp3",
+        index: 57
+      });
+    },
+    get C58() {
+      return C58 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.key2D3D",
+        index: 58
+      });
+    },
+    get C59() {
+      return C59 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyNetFlix",
+        index: 59
+      });
+    },
+    get C60() {
+      return C60 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyAAL",
+        index: 60
+      });
+    },
+    get C61() {
+      return C61 = dart.const({
+        __proto__: tv.TelevisionRemote.prototype,
+        [_name$]: "TelevisionRemote.keyManual",
+        index: 61
+      });
+    },
+    get C62() {
+      return C62 = dart.constList([C0 || CT.C0, C1 || CT.C1, C2 || CT.C2, C3 || CT.C3, C4 || CT.C4, C5 || CT.C5, C6 || CT.C6, C7 || CT.C7, C8 || CT.C8, C9 || CT.C9, C10 || CT.C10, C11 || CT.C11, C12 || CT.C12, C13 || CT.C13, C14 || CT.C14, C15 || CT.C15, C16 || CT.C16, C17 || CT.C17, C18 || CT.C18, C19 || CT.C19, C20 || CT.C20, C21 || CT.C21, C22 || CT.C22, C23 || CT.C23, C24 || CT.C24, C25 || CT.C25, C26 || CT.C26, C27 || CT.C27, C28 || CT.C28, C29 || CT.C29, C30 || CT.C30, C31 || CT.C31, C32 || CT.C32, C33 || CT.C33, C34 || CT.C34, C35 || CT.C35, C36 || CT.C36, C37 || CT.C37, C38 || CT.C38, C39 || CT.C39, C40 || CT.C40, C41 || CT.C41, C42 || CT.C42, C43 || CT.C43, C44 || CT.C44, C45 || CT.C45, C46 || CT.C46, C47 || CT.C47, C48 || CT.C48, C49 || CT.C49, C50 || CT.C50, C51 || CT.C51, C52 || CT.C52, C53 || CT.C53, C54 || CT.C54, C55 || CT.C55, C56 || CT.C56, C57 || CT.C57, C58 || CT.C58, C59 || CT.C59, C60 || CT.C60, C61 || CT.C61], TelevisionRemoteL());
+    },
+    get C63() {
+      return C63 = dart.const({
+        __proto__: tv.TelevisionOffTimer.prototype,
+        [_name$]: "TelevisionOffTimer.disabled",
+        index: 0
+      });
+    },
+    get C64() {
+      return C64 = dart.const({
+        __proto__: tv.TelevisionOffTimer.prototype,
+        [_name$]: "TelevisionOffTimer.min30",
+        index: 1
+      });
+    },
+    get C65() {
+      return C65 = dart.const({
+        __proto__: tv.TelevisionOffTimer.prototype,
+        [_name$]: "TelevisionOffTimer.min60",
+        index: 2
+      });
+    },
+    get C66() {
+      return C66 = dart.const({
+        __proto__: tv.TelevisionOffTimer.prototype,
+        [_name$]: "TelevisionOffTimer.min90",
+        index: 3
+      });
+    },
+    get C67() {
+      return C67 = dart.const({
+        __proto__: tv.TelevisionOffTimer.prototype,
+        [_name$]: "TelevisionOffTimer.min120",
+        index: 4
+      });
+    },
+    get C68() {
+      return C68 = dart.constList([C63 || CT.C63, C64 || CT.C64, C65 || CT.C65, C66 || CT.C66, C67 || CT.C67], TelevisionOffTimerL());
+    },
+    get C69() {
+      return C69 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.analog",
+        index: 0
+      });
+    },
+    get C70() {
+      return C70 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.analogAir",
+        index: 1
+      });
+    },
+    get C71() {
+      return C71 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.analogCable",
+        index: 2
+      });
+    },
+    get C72() {
+      return C72 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.digitalAir",
+        index: 3
+      });
+    },
+    get C73() {
+      return C73 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.digitalCableOnePart",
+        index: 4
+      });
+    },
+    get C74() {
+      return C74 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.digitalCableTwoPart",
+        index: 5
+      });
+    },
+    get C75() {
+      return C75 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.hdmi1",
+        index: 6
+      });
+    },
+    get C76() {
+      return C76 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.hdmi2",
+        index: 7
+      });
+    },
+    get C77() {
+      return C77 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.hdmi3",
+        index: 8
+      });
+    },
+    get C78() {
+      return C78 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.hdmi4",
+        index: 9
+      });
+    },
+    get C79() {
+      return C79 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.input5",
+        index: 10
+      });
+    },
+    get C80() {
+      return C80 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.composite",
+        index: 11
+      });
+    },
+    get C81() {
+      return C81 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.component",
+        index: 12
+      });
+    },
+    get C82() {
+      return C82 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.ethernet",
+        index: 13
+      });
+    },
+    get C83() {
+      return C83 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.storage",
+        index: 14
+      });
+    },
+    get C84() {
+      return C84 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.miracast",
+        index: 15
+      });
+    },
+    get C85() {
+      return C85 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.bluetooth",
+        index: 16
+      });
+    },
+    get C86() {
+      return C86 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.manual",
+        index: 17
+      });
+    },
+    get C87() {
+      return C87 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.unknown",
+        index: 18
+      });
+    },
+    get C88() {
+      return C88 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.switching",
+        index: 19
+      });
+    },
+    get C89() {
+      return C89 = dart.const({
+        __proto__: tv.TelevisionSource.prototype,
+        [_name$]: "TelevisionSource.off",
+        index: 20
+      });
+    },
+    get C90() {
+      return C90 = dart.constList([C69 || CT.C69, C70 || CT.C70, C71 || CT.C71, C72 || CT.C72, C73 || CT.C73, C74 || CT.C74, C75 || CT.C75, C76 || CT.C76, C77 || CT.C77, C78 || CT.C78, C79 || CT.C79, C80 || CT.C80, C81 || CT.C81, C82 || CT.C82, C83 || CT.C83, C84 || CT.C84, C85 || CT.C85, C86 || CT.C86, C87 || CT.C87, C88 || CT.C88, C89 || CT.C89], TelevisionSourceL());
+    },
+    get C91() {
+      return C91 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 750000
+      });
+    },
+    get C92() {
+      return C92 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 10000000
+      });
+    },
+    get C93() {
+      return C93 = dart.const({
+        __proto__: convert.LineSplitter.prototype
+      });
+    },
+    get C94() {
+      return C94 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 150000
+      });
+    },
+    get C95() {
+      return C95 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 40000000
+      });
+    },
+    get C96() {
+      return C96 = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 2000000
+      });
+    }
+  }, false);
+  var television$ = dart.privateName(tv, "TelevisionException.television");
+  var response$ = dart.privateName(tv, "TelevisionException.response");
+  var message$ = dart.privateName(tv, "TelevisionException.message");
+  tv.TelevisionException = class TelevisionException extends core.Object {
+    get television() {
+      return this[television$];
+    }
+    set television(value) {
+      super.television = value;
+    }
+    get response() {
+      return this[response$];
+    }
+    set response(value) {
+      super.response = value;
+    }
+    get message() {
+      return this[message$];
+    }
+    set message(value) {
+      super.message = value;
+    }
+    toString() {
+      if (this.response != null) return dart.str(this.message) + ": \"" + dart.str(this.response) + "\"";
+      return dart.str(this.message) + ".";
+    }
+  };
+  (tv.TelevisionException.new = function(message, response, television) {
+    this[message$] = message;
+    this[response$] = response;
+    this[television$] = television;
+    ;
+  }).prototype = tv.TelevisionException.prototype;
+  dart.addTypeTests(tv.TelevisionException);
+  dart.addTypeCaches(tv.TelevisionException);
+  tv.TelevisionException[dart.implements] = () => [core.Exception];
+  dart.setMethodSignature(tv.TelevisionException, () => ({
+    __proto__: dart.getMethods(tv.TelevisionException.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(tv.TelevisionException, L0);
+  dart.setFieldSignature(tv.TelevisionException, () => ({
+    __proto__: dart.getFields(tv.TelevisionException.__proto__),
+    television: dart.finalFieldType(dart.legacy(tv.Television)),
+    response: dart.finalFieldType(dart.legacy(core.String)),
+    message: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(tv.TelevisionException, ['toString']);
+  tv.TelevisionTimeout = class TelevisionTimeout extends tv.TelevisionException {};
+  (tv.TelevisionTimeout.new = function(message, response, television) {
+    tv.TelevisionTimeout.__proto__.new.call(this, message, response, television);
+    ;
+  }).prototype = tv.TelevisionTimeout.prototype;
+  dart.addTypeTests(tv.TelevisionTimeout);
+  dart.addTypeCaches(tv.TelevisionTimeout);
+  dart.setLibraryUri(tv.TelevisionTimeout, L0);
+  tv.TelevisionErrorResponse = class TelevisionErrorResponse extends tv.TelevisionException {};
+  (tv.TelevisionErrorResponse.new = function(message, response, television) {
+    tv.TelevisionErrorResponse.__proto__.new.call(this, message, response, television);
+    ;
+  }).prototype = tv.TelevisionErrorResponse.prototype;
+  dart.addTypeTests(tv.TelevisionErrorResponse);
+  dart.addTypeCaches(tv.TelevisionErrorResponse);
+  dart.setLibraryUri(tv.TelevisionErrorResponse, L0);
+  var _done = dart.privateName(tv, "_done");
+  var _error = dart.privateName(tv, "_error");
+  var _currentTransaction = dart.privateName(tv, "_currentTransaction");
+  var _socket = dart.privateName(tv, "_socket");
+  var _responses = dart.privateName(tv, "_responses");
+  var _transactionQueue = dart.privateName(tv, "_transactionQueue");
+  var _closeWithError = dart.privateName(tv, "_closeWithError");
+  var television$0 = dart.privateName(tv, "TelevisionTransaction.television");
+  tv.TelevisionTransaction = class TelevisionTransaction extends core.Object {
+    get television() {
+      return this[television$0];
+    }
+    set television(value) {
+      super.television = value;
+    }
+    get done() {
+      return this[_done].future;
+    }
+    sendLine(message) {
+      if (this[_error] != null) dart.throw(this[_error]);
+      if (!dart.equals(this.television[_currentTransaction], this)) dart.assertFailed(null, L1, 72, 12, "television._currentTransaction == this");
+      if (!!dart.test(this[_done].isCompleted)) dart.assertFailed(null, L1, 73, 12, "!_done.isCompleted");
+      if (false) core.print(dart.str(tv._timestamp) + " ==> " + dart.str(message));
+      this.television[_socket].write(dart.str(message) + "\r");
+    }
+    readLine() {
+      return async.async(StringL(), (function* readLine() {
+        if (this[_error] != null) dart.throw(this[_error]);
+        if (!dart.equals(this.television[_currentTransaction], this)) dart.assertFailed(null, L1, 80, 12, "television._currentTransaction == this");
+        if (!!dart.test(this[_done].isCompleted)) dart.assertFailed(null, L1, 81, 12, "!_done.isCompleted");
+        this.television.resetTimeout(tv._responseTimeout, "Timed out awaiting response");
+        yield this.television[_responses].moveNext();
+        if (false) core.print(dart.str(tv._timestamp) + " <== " + dart.str(this.television[_responses].current));
+        return this.television[_responses].current;
+      }).bind(this));
+    }
+    close() {
+      if (this[_error] != null) dart.throw(this[_error]);
+      if (!dart.equals(this.television[_currentTransaction], this)) dart.assertFailed(null, L1, 91, 12, "television._currentTransaction == this");
+      if (!!dart.test(this[_done].isCompleted)) dart.assertFailed(null, L1, 92, 12, "!_done.isCompleted");
+      this[_done].complete();
+      this.television[_currentTransaction] = null;
+      this.television.resetTimeout(tv._inactivityTimeout, "Idle timeout after transaction.");
+      if (this.television[_transactionQueue] != null && dart.test(this.television[_transactionQueue][$isNotEmpty])) this.television[_transactionQueue].removeFirst().complete();
+    }
+    [_closeWithError](error) {
+      if (!dart.equals(this.television[_currentTransaction], this)) dart.assertFailed(null, L1, 103, 12, "television._currentTransaction == this");
+      if (!!dart.test(this[_done].isCompleted)) dart.assertFailed(null, L1, 104, 12, "!_done.isCompleted");
+      if (!(this[_error] == null)) dart.assertFailed(null, L1, 105, 12, "_error == null");
+      this[_error] = error;
+      this[_done].completeError(error);
+      if (this.television[_transactionQueue] != null) {
+        while (dart.test(this.television[_transactionQueue][$isNotEmpty]))
+          this.television[_transactionQueue].removeFirst().completeError(error);
+      }
+    }
+  };
+  (tv.TelevisionTransaction.__ = function(television) {
+    this[_done] = CompleterOfNull().new();
+    this[_error] = null;
+    this[television$0] = television;
+    if (!(this.television != null)) dart.assertFailed(null, L1, 57, 12, "television != null");
+    if (!(this.television[_currentTransaction] == null)) dart.assertFailed(null, L1, 58, 12, "television._currentTransaction == null");
+    this.television[_currentTransaction] = this;
+    this[_done].future.catchError(dart.fn(error => {
+    }, dynamicToNull()));
+  }).prototype = tv.TelevisionTransaction.prototype;
+  dart.addTypeTests(tv.TelevisionTransaction);
+  dart.addTypeCaches(tv.TelevisionTransaction);
+  dart.setMethodSignature(tv.TelevisionTransaction, () => ({
+    __proto__: dart.getMethods(tv.TelevisionTransaction.__proto__),
+    sendLine: dart.fnType(dart.void, [dart.legacy(core.String)]),
+    readLine: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.String))), []),
+    close: dart.fnType(dart.void, []),
+    [_closeWithError]: dart.fnType(dart.void, [dart.legacy(tv.TelevisionException)])
+  }));
+  dart.setGetterSignature(tv.TelevisionTransaction, () => ({
+    __proto__: dart.getGetters(tv.TelevisionTransaction.__proto__),
+    done: dart.legacy(async.Future$(core.Null))
+  }));
+  dart.setLibraryUri(tv.TelevisionTransaction, L0);
+  dart.setFieldSignature(tv.TelevisionTransaction, () => ({
+    __proto__: dart.getFields(tv.TelevisionTransaction.__proto__),
+    television: dart.finalFieldType(dart.legacy(tv.Television)),
+    [_done]: dart.finalFieldType(dart.legacy(async.Completer$(core.Null))),
+    [_error]: dart.fieldType(dart.legacy(tv.TelevisionException))
+  }));
+  var _name$ = dart.privateName(tv, "_name");
+  var C0;
+  var C1;
+  var C2;
+  var C3;
+  var C4;
+  var C5;
+  var C6;
+  var C7;
+  var C8;
+  var C9;
+  var C10;
+  var C11;
+  var C12;
+  var C13;
+  var C14;
+  var C15;
+  var C16;
+  var C17;
+  var C18;
+  var C19;
+  var C20;
+  var C21;
+  var C22;
+  var C23;
+  var C24;
+  var C25;
+  var C26;
+  var C27;
+  var C28;
+  var C29;
+  var C30;
+  var C31;
+  var C32;
+  var C33;
+  var C34;
+  var C35;
+  var C36;
+  var C37;
+  var C38;
+  var C39;
+  var C40;
+  var C41;
+  var C42;
+  var C43;
+  var C44;
+  var C45;
+  var C46;
+  var C47;
+  var C48;
+  var C49;
+  var C50;
+  var C51;
+  var C52;
+  var C53;
+  var C54;
+  var C55;
+  var C56;
+  var C57;
+  var C58;
+  var C59;
+  var C60;
+  var C61;
+  var C62;
+  tv.TelevisionRemote = class TelevisionRemote extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (tv.TelevisionRemote.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = tv.TelevisionRemote.prototype;
+  dart.addTypeTests(tv.TelevisionRemote);
+  dart.addTypeCaches(tv.TelevisionRemote);
+  dart.setMethodSignature(tv.TelevisionRemote, () => ({
+    __proto__: dart.getMethods(tv.TelevisionRemote.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(tv.TelevisionRemote, L0);
+  dart.setFieldSignature(tv.TelevisionRemote, () => ({
+    __proto__: dart.getFields(tv.TelevisionRemote.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(tv.TelevisionRemote, ['toString']);
+  tv.TelevisionRemote.key0 = C0 || CT.C0;
+  tv.TelevisionRemote.key1 = C1 || CT.C1;
+  tv.TelevisionRemote.key2 = C2 || CT.C2;
+  tv.TelevisionRemote.key3 = C3 || CT.C3;
+  tv.TelevisionRemote.key4 = C4 || CT.C4;
+  tv.TelevisionRemote.key5 = C5 || CT.C5;
+  tv.TelevisionRemote.key6 = C6 || CT.C6;
+  tv.TelevisionRemote.key7 = C7 || CT.C7;
+  tv.TelevisionRemote.key8 = C8 || CT.C8;
+  tv.TelevisionRemote.key9 = C9 || CT.C9;
+  tv.TelevisionRemote.keyDot = C10 || CT.C10;
+  tv.TelevisionRemote.keyEnt = C11 || CT.C11;
+  tv.TelevisionRemote.keyPower = C12 || CT.C12;
+  tv.TelevisionRemote.keyDisplay = C13 || CT.C13;
+  tv.TelevisionRemote.keyPowerSource = C14 || CT.C14;
+  tv.TelevisionRemote.keyRW = C15 || CT.C15;
+  tv.TelevisionRemote.keyPlay = C16 || CT.C16;
+  tv.TelevisionRemote.keyFF = C17 || CT.C17;
+  tv.TelevisionRemote.keyPause = C18 || CT.C18;
+  tv.TelevisionRemote.keyPrev = C19 || CT.C19;
+  tv.TelevisionRemote.keyStop = C20 || CT.C20;
+  tv.TelevisionRemote.keyNext = C21 || CT.C21;
+  tv.TelevisionRemote.keyRecord = C22 || CT.C22;
+  tv.TelevisionRemote.keyOption = C23 || CT.C23;
+  tv.TelevisionRemote.keySleep = C24 || CT.C24;
+  tv.TelevisionRemote.keyRecordStop = C25 || CT.C25;
+  tv.TelevisionRemote.keyPowerSaving = C26 || CT.C26;
+  tv.TelevisionRemote.keyClosedCaptions = C27 || CT.C27;
+  tv.TelevisionRemote.keyAvMode = C28 || CT.C28;
+  tv.TelevisionRemote.keyViewMode = C29 || CT.C29;
+  tv.TelevisionRemote.keyFlashback = C30 || CT.C30;
+  tv.TelevisionRemote.keyMute = C31 || CT.C31;
+  tv.TelevisionRemote.keyVolDown = C32 || CT.C32;
+  tv.TelevisionRemote.keyVolUp = C33 || CT.C33;
+  tv.TelevisionRemote.keyChannelUp = C34 || CT.C34;
+  tv.TelevisionRemote.keyChannelDown = C35 || CT.C35;
+  tv.TelevisionRemote.keyInput = C36 || CT.C36;
+  tv.TelevisionRemote.keyReserved37 = C37 || CT.C37;
+  tv.TelevisionRemote.keyMenu = C38 || CT.C38;
+  tv.TelevisionRemote.keySmartCentral = C39 || CT.C39;
+  tv.TelevisionRemote.keyEnter = C40 || CT.C40;
+  tv.TelevisionRemote.keyUp = C41 || CT.C41;
+  tv.TelevisionRemote.keyDown = C42 || CT.C42;
+  tv.TelevisionRemote.keyLeft = C43 || CT.C43;
+  tv.TelevisionRemote.keyRight = C44 || CT.C44;
+  tv.TelevisionRemote.keyReturn = C45 || CT.C45;
+  tv.TelevisionRemote.keyExit = C46 || CT.C46;
+  tv.TelevisionRemote.keyCh = C47 || CT.C47;
+  tv.TelevisionRemote.keyReserved48 = C48 || CT.C48;
+  tv.TelevisionRemote.keyReserved49 = C49 || CT.C49;
+  tv.TelevisionRemote.keyA = C50 || CT.C50;
+  tv.TelevisionRemote.keyB = C51 || CT.C51;
+  tv.TelevisionRemote.keyC = C52 || CT.C52;
+  tv.TelevisionRemote.keyD = C53 || CT.C53;
+  tv.TelevisionRemote.keyFreeze = C54 || CT.C54;
+  tv.TelevisionRemote.keyApp1 = C55 || CT.C55;
+  tv.TelevisionRemote.keyApp2 = C56 || CT.C56;
+  tv.TelevisionRemote.keyApp3 = C57 || CT.C57;
+  tv.TelevisionRemote.key2D3D = C58 || CT.C58;
+  tv.TelevisionRemote.keyNetFlix = C59 || CT.C59;
+  tv.TelevisionRemote.keyAAL = C60 || CT.C60;
+  tv.TelevisionRemote.keyManual = C61 || CT.C61;
+  tv.TelevisionRemote.values = C62 || CT.C62;
+  var C63;
+  var C64;
+  var C65;
+  var C66;
+  var C67;
+  var C68;
+  tv.TelevisionOffTimer = class TelevisionOffTimer extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (tv.TelevisionOffTimer.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = tv.TelevisionOffTimer.prototype;
+  dart.addTypeTests(tv.TelevisionOffTimer);
+  dart.addTypeCaches(tv.TelevisionOffTimer);
+  dart.setMethodSignature(tv.TelevisionOffTimer, () => ({
+    __proto__: dart.getMethods(tv.TelevisionOffTimer.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(tv.TelevisionOffTimer, L0);
+  dart.setFieldSignature(tv.TelevisionOffTimer, () => ({
+    __proto__: dart.getFields(tv.TelevisionOffTimer.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(tv.TelevisionOffTimer, ['toString']);
+  tv.TelevisionOffTimer.disabled = C63 || CT.C63;
+  tv.TelevisionOffTimer.min30 = C64 || CT.C64;
+  tv.TelevisionOffTimer.min60 = C65 || CT.C65;
+  tv.TelevisionOffTimer.min90 = C66 || CT.C66;
+  tv.TelevisionOffTimer.min120 = C67 || CT.C67;
+  tv.TelevisionOffTimer.values = C68 || CT.C68;
+  var C69;
+  var C70;
+  var C71;
+  var C72;
+  var C73;
+  var C74;
+  var C75;
+  var C76;
+  var C77;
+  var C78;
+  var C79;
+  var C80;
+  var C81;
+  var C82;
+  var C83;
+  var C84;
+  var C85;
+  var C86;
+  var C87;
+  var C88;
+  var C89;
+  var C90;
+  tv.TelevisionSource = class TelevisionSource extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (tv.TelevisionSource.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = tv.TelevisionSource.prototype;
+  dart.addTypeTests(tv.TelevisionSource);
+  dart.addTypeCaches(tv.TelevisionSource);
+  dart.setMethodSignature(tv.TelevisionSource, () => ({
+    __proto__: dart.getMethods(tv.TelevisionSource.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(tv.TelevisionSource, L0);
+  dart.setFieldSignature(tv.TelevisionSource, () => ({
+    __proto__: dart.getFields(tv.TelevisionSource.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(tv.TelevisionSource, ['toString']);
+  tv.TelevisionSource.analog = C69 || CT.C69;
+  tv.TelevisionSource.analogAir = C70 || CT.C70;
+  tv.TelevisionSource.analogCable = C71 || CT.C71;
+  tv.TelevisionSource.digitalAir = C72 || CT.C72;
+  tv.TelevisionSource.digitalCableOnePart = C73 || CT.C73;
+  tv.TelevisionSource.digitalCableTwoPart = C74 || CT.C74;
+  tv.TelevisionSource.hdmi1 = C75 || CT.C75;
+  tv.TelevisionSource.hdmi2 = C76 || CT.C76;
+  tv.TelevisionSource.hdmi3 = C77 || CT.C77;
+  tv.TelevisionSource.hdmi4 = C78 || CT.C78;
+  tv.TelevisionSource.input5 = C79 || CT.C79;
+  tv.TelevisionSource.composite = C80 || CT.C80;
+  tv.TelevisionSource.component = C81 || CT.C81;
+  tv.TelevisionSource.ethernet = C82 || CT.C82;
+  tv.TelevisionSource.storage = C83 || CT.C83;
+  tv.TelevisionSource.miracast = C84 || CT.C84;
+  tv.TelevisionSource.bluetooth = C85 || CT.C85;
+  tv.TelevisionSource.manual = C86 || CT.C86;
+  tv.TelevisionSource.unknown = C87 || CT.C87;
+  tv.TelevisionSource.switching = C88 || CT.C88;
+  tv.TelevisionSource.off = C89 || CT.C89;
+  tv.TelevisionSource.values = C90 || CT.C90;
+  var _fieldsToString = dart.privateName(tv, "_fieldsToString");
+  var source$ = dart.privateName(tv, "TelevisionChannel.source");
+  var POWR$ = dart.privateName(tv, "TelevisionChannel.POWR");
+  var RDIN$ = dart.privateName(tv, "TelevisionChannel.RDIN");
+  var IDIN$ = dart.privateName(tv, "TelevisionChannel.IDIN");
+  var DCCH$ = dart.privateName(tv, "TelevisionChannel.DCCH");
+  var DA2P$ = dart.privateName(tv, "TelevisionChannel.DA2P");
+  var DC2U$ = dart.privateName(tv, "TelevisionChannel.DC2U");
+  var DC2L$ = dart.privateName(tv, "TelevisionChannel.DC2L");
+  var DC10$ = dart.privateName(tv, "TelevisionChannel.DC10");
+  var DC11$ = dart.privateName(tv, "TelevisionChannel.DC11");
+  var IAVD$ = dart.privateName(tv, "TelevisionChannel.IAVD");
+  var INP5$ = dart.privateName(tv, "TelevisionChannel.INP5");
+  var ITGD$ = dart.privateName(tv, "TelevisionChannel.ITGD");
+  tv.TelevisionChannel = class TelevisionChannel extends core.Object {
+    get source() {
+      return this[source$];
+    }
+    set source(value) {
+      super.source = value;
+    }
+    get POWR() {
+      return this[POWR$];
+    }
+    set POWR(value) {
+      super.POWR = value;
+    }
+    get RDIN() {
+      return this[RDIN$];
+    }
+    set RDIN(value) {
+      super.RDIN = value;
+    }
+    get IDIN() {
+      return this[IDIN$];
+    }
+    set IDIN(value) {
+      super.IDIN = value;
+    }
+    get DCCH() {
+      return this[DCCH$];
+    }
+    set DCCH(value) {
+      super.DCCH = value;
+    }
+    get DA2P() {
+      return this[DA2P$];
+    }
+    set DA2P(value) {
+      super.DA2P = value;
+    }
+    get DC2U() {
+      return this[DC2U$];
+    }
+    set DC2U(value) {
+      super.DC2U = value;
+    }
+    get DC2L() {
+      return this[DC2L$];
+    }
+    set DC2L(value) {
+      super.DC2L = value;
+    }
+    get DC10() {
+      return this[DC10$];
+    }
+    set DC10(value) {
+      super.DC10 = value;
+    }
+    get DC11() {
+      return this[DC11$];
+    }
+    set DC11(value) {
+      super.DC11 = value;
+    }
+    get IAVD() {
+      return this[IAVD$];
+    }
+    set IAVD(value) {
+      super.IAVD = value;
+    }
+    get INP5() {
+      return this[INP5$];
+    }
+    set INP5(value) {
+      super.INP5 = value;
+    }
+    get ITGD() {
+      return this[ITGD$];
+    }
+    set ITGD(value) {
+      super.ITGD = value;
+    }
+    static fromValues(opts) {
+      let POWR = opts && 'POWR' in opts ? opts.POWR : null;
+      let RDIN = opts && 'RDIN' in opts ? opts.RDIN : null;
+      let IDIN = opts && 'IDIN' in opts ? opts.IDIN : null;
+      let DCCH = opts && 'DCCH' in opts ? opts.DCCH : null;
+      let DA2P = opts && 'DA2P' in opts ? opts.DA2P : null;
+      let DC2U = opts && 'DC2U' in opts ? opts.DC2U : null;
+      let DC2L = opts && 'DC2L' in opts ? opts.DC2L : null;
+      let DC10 = opts && 'DC10' in opts ? opts.DC10 : null;
+      let DC11 = opts && 'DC11' in opts ? opts.DC11 : null;
+      let IAVD = opts && 'IAVD' in opts ? opts.IAVD : null;
+      let INP5 = opts && 'INP5' in opts ? opts.INP5 : null;
+      let source = null;
+      if (POWR === "0") {
+        if (RDIN === "ERR" && IDIN === "ERR" && IAVD === "ERR") {
+          source = tv.TelevisionSource.off;
+        } else {
+          source = tv.TelevisionSource.unknown;
+        }
+      } else if (POWR === "1") {
+        if (RDIN === "ERR" && IDIN === "ERR" && IAVD === "ERR") {
+          source = tv.TelevisionSource.switching;
+        } else if (RDIN === "5000" && IDIN === "50" && IAVD === "1") {
+          source = tv.TelevisionSource.hdmi1;
+        } else if (RDIN === "5100" && IDIN === "51" && IAVD === "2") {
+          source = tv.TelevisionSource.hdmi2;
+        } else if (RDIN === "5200" && IDIN === "52" && IAVD === "3") {
+          source = tv.TelevisionSource.hdmi3;
+        } else if (RDIN === "5300" && IDIN === "53" && IAVD === "4") {
+          source = tv.TelevisionSource.hdmi4;
+        } else if (RDIN === "1100" && IDIN === "11" && IAVD === "5" && INP5 === "0") {
+          source = tv.TelevisionSource.input5;
+        } else if (RDIN === "1100" && IDIN === "11" && IAVD === "5" && INP5 === "1") {
+          source = tv.TelevisionSource.composite;
+        } else if (RDIN === "1100" && IDIN === "11" && IAVD === "5" && INP5 === "2") {
+          source = tv.TelevisionSource.component;
+        } else if (RDIN === "0100" && IDIN === "1") {
+          source = tv.TelevisionSource.analog;
+        } else if (RDIN === "0300" && IDIN === "3") {
+          source = tv.TelevisionSource.digitalAir;
+        } else if (RDIN === "0400" && IDIN === "3") {
+          source = tv.TelevisionSource.digitalCableTwoPart;
+        } else if (RDIN === "-100" && IDIN === "ERR") {
+          source = tv.TelevisionSource.unknown;
+        } else if (IDIN === "11") {
+          source = tv.TelevisionSource.unknown;
+        } else {
+          source = tv.TelevisionSource.unknown;
+        }
+      } else {
+        source = tv.TelevisionSource.unknown;
+      }
+      if (!(source != null)) dart.assertFailed(null, L1, 292, 12, "source != null");
+      return new tv.TelevisionChannel.raw({source: source, POWR: POWR, RDIN: RDIN, IDIN: IDIN, DCCH: DCCH, DA2P: DA2P, DC2U: DC2U, DC2L: DC2L, DC10: DC10, DC11: DC11, IAVD: IAVD, INP5: INP5});
+    }
+    static fromSource(source) {
+      switch (source) {
+        case C70 || CT.C70:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "1"});
+        }
+        case C71 || CT.C71:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "0"});
+        }
+        case C72 || CT.C72:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "3"});
+        }
+        case C74 || CT.C74:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "2"});
+        }
+        case C73 || CT.C73:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "4"});
+        }
+        case C75 || CT.C75:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IAVD: "1"});
+        }
+        case C76 || CT.C76:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IAVD: "2"});
+        }
+        case C77 || CT.C77:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IAVD: "3"});
+        }
+        case C78 || CT.C78:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IAVD: "4"});
+        }
+        case C79 || CT.C79:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IAVD: "5"});
+        }
+        case C80 || CT.C80:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", INP5: "1"});
+        }
+        case C81 || CT.C81:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", INP5: "2"});
+        }
+        case C82 || CT.C82:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "81"});
+        }
+        case C83 || CT.C83:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "82"});
+        }
+        case C84 || CT.C84:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "82", ITGD: 1});
+        }
+        case C85 || CT.C85:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1", IDIN: "82", ITGD: 2});
+        }
+        case C86 || CT.C86:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "1"});
+        }
+        case C89 || CT.C89:
+        {
+          return new tv.TelevisionChannel.raw({source: source, POWR: "0"});
+        }
+        case C69 || CT.C69:
+        case C87 || CT.C87:
+        case C88 || CT.C88:
+        {
+          break;
+        }
+      }
+      dart.throw(new tv.TelevisionException.new("Selected source is too ambiguous", dart.toString(source), null));
+    }
+    static tv(channel) {
+      if (!!channel[$contains](core.RegExp.new("[^0-9.]"))) dart.assertFailed(null, L1, 442, 12, "!channel.contains(new RegExp(r'[^0-9.]'))");
+      let format = channel[$replaceAll](core.RegExp.new("[0-9]"), "#");
+      switch (format) {
+        case "##":
+        {
+          return new tv.TelevisionChannel.raw({source: tv.TelevisionSource.analogAir, IDIN: "1", DCCH: dart.toString(core.int.parse(channel, {radix: 10}))});
+        }
+        case "###":
+        {
+          return new tv.TelevisionChannel.raw({source: tv.TelevisionSource.analogCable, IDIN: "0", DCCH: dart.toString(core.int.parse(channel, {radix: 10}))});
+        }
+        case "##.##":
+        {
+          return new tv.TelevisionChannel.raw({source: tv.TelevisionSource.digitalAir, DA2P: channel[$_get](0) + channel[$_get](1) + channel[$_get](3) + channel[$_get](4)});
+        }
+        case "###.###":
+        {
+          return new tv.TelevisionChannel.raw({source: tv.TelevisionSource.digitalCableTwoPart, DC2U: channel[$_get](0) + channel[$_get](1) + channel[$_get](2), DC2L: channel[$_get](3) + channel[$_get](4) + channel[$_get](5)});
+        }
+        case "0####":
+        {
+          return new tv.TelevisionChannel.raw({source: tv.TelevisionSource.digitalCableOnePart, DC10: channel[$_get](1) + channel[$_get](2) + channel[$_get](3) + channel[$_get](4)});
+        }
+        case "1####":
+        {
+          return new tv.TelevisionChannel.raw({source: tv.TelevisionSource.digitalCableOnePart, DC11: channel[$_get](1) + channel[$_get](2) + channel[$_get](3) + channel[$_get](4)});
+        }
+        default:
+        {
+          dart.throw(new tv.TelevisionException.new("Unknown TV channel format", format, null));
+        }
+      }
+    }
+    [_fieldsToString]() {
+      let buffer = JSArrayOfStringL().of([]);
+      if (this.POWR != null) buffer[$add]("POWR=\"" + dart.str(this.POWR) + "\"");
+      if (this.RDIN != null) buffer[$add]("RDIN=\"" + dart.str(this.RDIN) + "\"");
+      if (this.IDIN != null) buffer[$add]("IDIN=\"" + dart.str(this.IDIN) + "\"");
+      if (this.DCCH != null) buffer[$add]("DCCH=\"" + dart.str(this.DCCH) + "\"");
+      if (this.DA2P != null) buffer[$add]("DA2P=\"" + dart.str(this.DA2P) + "\"");
+      if (this.DC2U != null) buffer[$add]("DC2U=\"" + dart.str(this.DC2U) + "\"");
+      if (this.DC2L != null) buffer[$add]("DC2L=\"" + dart.str(this.DC2L) + "\"");
+      if (this.DC10 != null) buffer[$add]("DC10=\"" + dart.str(this.DC10) + "\"");
+      if (this.DC11 != null) buffer[$add]("DC11=\"" + dart.str(this.DC11) + "\"");
+      if (this.IAVD != null) buffer[$add]("IAVD=\"" + dart.str(this.IAVD) + "\"");
+      if (this.INP5 != null) buffer[$add]("INP5=\"" + dart.str(this.INP5) + "\"");
+      if (dart.test(buffer[$isEmpty])) buffer[$add]("no data");
+      return buffer[$join](" ");
+    }
+    toString(opts) {
+      let detailed = opts && 'detailed' in opts ? opts.detailed : false;
+      if (dart.test(detailed)) return dart.str(this.source) + " (" + dart.str(this[_fieldsToString]()) + ")";
+      switch (this.source) {
+        case C70 || CT.C70:
+        {
+          if (this.DCCH != null) return "analog air channel " + this.DCCH[$padLeft](2, "0");
+          return "last analog air channel";
+        }
+        case C71 || CT.C71:
+        {
+          if (this.DCCH != null) return "analog cable channel " + this.DCCH[$padLeft](3, "0");
+          return "last analog cable channel";
+        }
+        case C72 || CT.C72:
+        {
+          if (this.DA2P != null) return "digital air channel " + this.DA2P[$substring](0, 2)[$padLeft](2, "0") + "." + this.DA2P[$substring](2, 4)[$padLeft](2, "0");
+          return "last digital air channel";
+        }
+        case C73 || CT.C73:
+        {
+          if (this.DC10 != null && this.DC11 != null) return "digital cable channel, either 0" + this.DC10[$padLeft](4, "0") + " or 1" + this.DC11[$padLeft](4, "0");
+          if (this.DC10 != null) return "digital cable channel 0" + this.DC10[$padLeft](4, "0");
+          if (this.DC11 != null) return "digital cable channel 1" + this.DC11[$padLeft](4, "0");
+          return "last one-part digital cable channel";
+        }
+        case C74 || CT.C74:
+        {
+          if (this.DC2U != null && this.DC2L != null) return "digital cable channel " + this.DC2U[$padLeft](3, "0") + "." + this.DC2L[$padLeft](3, "0");
+          if (this.DC2U != null) return "digital cable channel " + this.DC2U[$padLeft](3, "0") + ".???";
+          if (this.DC2L != null) return "digital cable channel ???." + this.DC2L[$padLeft](3, "0");
+          return "last two-part digital cable channel";
+        }
+        case C75 || CT.C75:
+        {
+          return "HDMI1";
+        }
+        case C76 || CT.C76:
+        {
+          return "HDMI2";
+        }
+        case C77 || CT.C77:
+        {
+          return "HDMI3";
+        }
+        case C78 || CT.C78:
+        {
+          return "HDMI4";
+        }
+        case C79 || CT.C79:
+        {
+          return "input 5";
+        }
+        case C80 || CT.C80:
+        {
+          return "composite";
+        }
+        case C81 || CT.C81:
+        {
+          return "component";
+        }
+        case C82 || CT.C82:
+        {
+          return "ethernet";
+        }
+        case C83 || CT.C83:
+        {
+          return "storage";
+        }
+        case C84 || CT.C84:
+        {
+          return "miracast";
+        }
+        case C85 || CT.C85:
+        {
+          return "bluetooth";
+        }
+        case C86 || CT.C86:
+        {
+          return "the manual";
+        }
+        case C88 || CT.C88:
+        {
+          return "switching...";
+        }
+        case C69 || CT.C69:
+        {
+          if (this.DCCH != null) return "analog channel " + dart.str(this.DCCH);
+          return "last analog channel";
+        }
+        case C87 || CT.C87:
+        {
+          return "unknown";
+          break;
+        }
+        case C89 || CT.C89:
+        {
+          return "off";
+          break;
+        }
+      }
+      return null;
+    }
+  };
+  (tv.TelevisionChannel.raw = function(opts) {
+    let source = opts && 'source' in opts ? opts.source : null;
+    let POWR = opts && 'POWR' in opts ? opts.POWR : null;
+    let RDIN = opts && 'RDIN' in opts ? opts.RDIN : null;
+    let IDIN = opts && 'IDIN' in opts ? opts.IDIN : null;
+    let DCCH = opts && 'DCCH' in opts ? opts.DCCH : null;
+    let DA2P = opts && 'DA2P' in opts ? opts.DA2P : null;
+    let DC2U = opts && 'DC2U' in opts ? opts.DC2U : null;
+    let DC2L = opts && 'DC2L' in opts ? opts.DC2L : null;
+    let DC10 = opts && 'DC10' in opts ? opts.DC10 : null;
+    let DC11 = opts && 'DC11' in opts ? opts.DC11 : null;
+    let IAVD = opts && 'IAVD' in opts ? opts.IAVD : null;
+    let INP5 = opts && 'INP5' in opts ? opts.INP5 : null;
+    let ITGD = opts && 'ITGD' in opts ? opts.ITGD : null;
+    this[source$] = source;
+    this[POWR$] = POWR;
+    this[RDIN$] = RDIN;
+    this[IDIN$] = IDIN;
+    this[DCCH$] = DCCH;
+    this[DA2P$] = DA2P;
+    this[DC2U$] = DC2U;
+    this[DC2L$] = DC2L;
+    this[DC10$] = DC10;
+    this[DC11$] = DC11;
+    this[IAVD$] = IAVD;
+    this[INP5$] = INP5;
+    this[ITGD$] = ITGD;
+    ;
+  }).prototype = tv.TelevisionChannel.prototype;
+  dart.addTypeTests(tv.TelevisionChannel);
+  dart.addTypeCaches(tv.TelevisionChannel);
+  dart.setMethodSignature(tv.TelevisionChannel, () => ({
+    __proto__: dart.getMethods(tv.TelevisionChannel.__proto__),
+    [_fieldsToString]: dart.fnType(dart.legacy(core.String), []),
+    toString: dart.fnType(dart.legacy(core.String), [], {detailed: dart.legacy(core.bool)}, {}),
+    [$toString]: dart.fnType(dart.legacy(core.String), [], {detailed: dart.legacy(core.bool)}, {})
+  }));
+  dart.setLibraryUri(tv.TelevisionChannel, L0);
+  dart.setFieldSignature(tv.TelevisionChannel, () => ({
+    __proto__: dart.getFields(tv.TelevisionChannel.__proto__),
+    source: dart.finalFieldType(dart.legacy(tv.TelevisionSource)),
+    POWR: dart.finalFieldType(dart.legacy(core.String)),
+    RDIN: dart.finalFieldType(dart.legacy(core.String)),
+    IDIN: dart.finalFieldType(dart.legacy(core.String)),
+    DCCH: dart.finalFieldType(dart.legacy(core.String)),
+    DA2P: dart.finalFieldType(dart.legacy(core.String)),
+    DC2U: dart.finalFieldType(dart.legacy(core.String)),
+    DC2L: dart.finalFieldType(dart.legacy(core.String)),
+    DC10: dart.finalFieldType(dart.legacy(core.String)),
+    DC11: dart.finalFieldType(dart.legacy(core.String)),
+    IAVD: dart.finalFieldType(dart.legacy(core.String)),
+    INP5: dart.finalFieldType(dart.legacy(core.String)),
+    ITGD: dart.finalFieldType(dart.legacy(core.int))
+  }));
+  dart.defineExtensionMethods(tv.TelevisionChannel, ['toString']);
+  var _connectionStream = dart.privateName(tv, "_connectionStream");
+  var _inactivityTimer = dart.privateName(tv, "_inactivityTimer");
+  var _connecting = dart.privateName(tv, "_connecting");
+  var _abortWatchers = dart.privateName(tv, "_abortWatchers");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var C91;
+  var C92;
+  var C93;
+  var _connect = dart.privateName(tv, "_connect");
+  var C94;
+  var C95;
+  var host$ = dart.privateName(tv, "Television.host");
+  var port$ = dart.privateName(tv, "Television.port");
+  var username$ = dart.privateName(tv, "Television.username");
+  var password$ = dart.privateName(tv, "Television.password");
+  tv.Television = class Television extends core.Object {
+    get host() {
+      return this[host$];
+    }
+    set host(value) {
+      super.host = value;
+    }
+    get port() {
+      return this[port$];
+    }
+    set port(value) {
+      super.port = value;
+    }
+    get username() {
+      return this[username$];
+    }
+    set username(value) {
+      super.username = value;
+    }
+    get password() {
+      return this[password$];
+    }
+    set password(value) {
+      super.password = value;
+    }
+    get connected() {
+      return this[_connectionStream];
+    }
+    [_connect](opts) {
+      let delay = opts && 'delay' in opts ? opts.delay : C91 || CT.C91;
+      let timeout = opts && 'timeout' in opts ? opts.timeout : C92 || CT.C92;
+      return async.async(core.Null, (function* _connect() {
+        let t3;
+        if (this[_socket] != null) {
+          if (!(this[_responses] != null)) dart.assertFailed(null, L1, 623, 14, "_responses != null");
+          if (this[_currentTransaction] == null) this.resetTimeout(tv._inactivityTimeout, "Idle timeout after redundant connection request.");
+          return null;
+        }
+        if (this[_connecting] != null) return this[_connecting];
+        let connectingCompleter = CompleterOfNull().new();
+        this[_connecting] = connectingCompleter.future;
+        try {
+          if (!(this[_responses] == null)) dart.assertFailed(null, L1, 633, 14, "_responses == null");
+          if (!(this[_currentTransaction] == null)) dart.assertFailed(null, L1, 634, 14, "_currentTransaction == null");
+          if (!(this[_inactivityTimer] == null)) dart.assertFailed(null, L1, 635, 14, "_inactivityTimer == null");
+          let host = this.host;
+          if (host == null) {
+            try {
+              let hosts = (yield io.InternetAddress.lookup("tv."));
+              if (dart.test(hosts[$isEmpty])) dart.throw(new tv.TelevisionException.new("Could not resolve TV in DNS", null, this));
+              host = hosts[$first];
+            } catch (e) {
+              let ex = dart.getThrown(e);
+              if (SocketExceptionL().is(ex)) {
+                dart.throw(new tv.TelevisionException.new("Could not resolve TV in DNS", null, this));
+              } else
+                throw e;
+            }
+          }
+          let socket = null;
+          let responses = null;
+          let errors = null;
+          let canceled = false;
+          let timeoutTimer = async.Timer.new(timeout, dart.fn(() => {
+            canceled = true;
+          }, VoidToNull()));
+          try {
+            do {
+              try {
+                if (false) core.print(dart.str(tv._timestamp) + " ---- CONNECTING ----");
+                socket = (yield io.Socket.connect(host, this.port));
+                socket.encoding = convert.utf8;
+                socket.write(dart.str(this.username) + "\r" + dart.str(this.password) + "\r");
+                yield socket.flush();
+                responses = StreamIteratorOfStringL().new(socket.cast(ListLOfintL()).transform(StringL(), convert.utf8.decoder).transform(StringL(), C93 || CT.C93));
+                yield responses.moveNext();
+                if (responses.current !== "Login:") dart.throw(new tv.TelevisionException.new("Did not get login prompt from television", responses.current, this));
+                yield responses.moveNext();
+                if (responses.current !== "Password:") dart.throw(new tv.TelevisionException.new("Did not get password prompt from television", responses.current, this));
+              } catch (e$) {
+                let error = dart.getThrown(e$);
+                if (TelevisionExceptionL().is(error) || SocketExceptionL().is(error) && (error.osError.errorCode === 32 || error.osError.errorCode === 113 || error.osError.errorCode === 104)) {
+                  errors == null ? errors = [] : null;
+                  errors[$add](error);
+                  t3 = socket;
+                  t3 == null ? null : t3.destroy();
+                  socket = null;
+                  yield FutureOfNull().delayed(delay);
+                } else {
+                  dart.rethrow(e$);
+                }
+              }
+            } while (socket == null && !canceled);
+          } finally {
+            timeoutTimer.cancel();
+          }
+          if (socket == null) {
+            if (!dart.test(errors[$isNotEmpty])) dart.assertFailed(null, L1, 705, 16, "errors.isNotEmpty");
+            dart.throw(new tv.TelevisionTimeout.new("timed out trying to connect; " + "had " + dart.str(errors[$length]) + " failure" + (errors[$length] === 1 ? "" : "s") + ", " + "first was: " + dart.str(errors[$first]), null, this));
+          }
+          this[_connectionStream].add(true);
+          this[_socket] = socket;
+          this[_responses] = responses;
+          this[_currentTransaction] = null;
+          this.resetTimeout(tv._inactivityTimeout, "Idle timeout after connection.");
+          this[_socket].done.whenComplete(dart.fn(() => {
+            if (!(socket != null)) dart.assertFailed(null, L1, 720, 16, "socket != null");
+            if (dart.equals(this[_socket], socket)) {
+              if (!dart.equals(this[_responses], responses)) dart.assertFailed(null, L1, 722, 18, "_responses == responses");
+              this.abort("Connection lost.");
+            }
+          }, VoidToNull()));
+        } finally {
+          connectingCompleter.complete();
+          this[_connecting] = null;
+        }
+      }).bind(this));
+    }
+    resetTimeout(duration, message) {
+      let t3;
+      t3 = this[_inactivityTimer];
+      t3 == null ? null : t3.cancel();
+      this[_inactivityTimer] = async.Timer.new(duration, dart.fn(() => {
+        this.abort(message, {timeout: true});
+      }, VoidToNull()));
+    }
+    abort(message, opts) {
+      let t3, t3$, t3$0, t3$1;
+      let timeout = opts && 'timeout' in opts ? opts.timeout : false;
+      if (false) core.print(dart.str(tv._timestamp) + " ---- DISCONNECTING - " + dart.str(message) + " ----");
+      let error = null;
+      if (dart.test(timeout)) {
+        error = new tv.TelevisionTimeout.new(message, null, this);
+      } else {
+        error = new tv.TelevisionException.new(message, null, this);
+      }
+      t3 = this[_currentTransaction];
+      t3 == null ? null : t3[_closeWithError](error);
+      this[_currentTransaction] = null;
+      t3$ = this[_socket];
+      t3$ == null ? null : t3$.destroy();
+      this[_socket] = null;
+      t3$0 = this[_responses];
+      t3$0 == null ? null : t3$0.cancel();
+      this[_responses] = null;
+      t3$1 = this[_inactivityTimer];
+      t3$1 == null ? null : t3$1.cancel();
+      this[_inactivityTimer] = null;
+      this[_connectionStream].add(false);
+      for (let callback of this[_abortWatchers][$toList]())
+        callback(message);
+    }
+    dispose() {
+      this.abort("Shutting down...");
+      this[_connectionStream].close();
+    }
+    openTransaction() {
+      return async.async(TelevisionTransactionL(), (function* openTransaction() {
+        if (this[_currentTransaction] != null) {
+          this[_transactionQueue] == null ? this[_transactionQueue] = new (ListQueueOfCompleterLOfNull()).new() : null;
+          let completer = CompleterOfNull().new();
+          this[_transactionQueue].addLast(completer);
+          yield completer.future;
+          if (!(this[_currentTransaction] == null)) dart.assertFailed(null, L1, 775, 14, "_currentTransaction == null");
+        }
+        if (!(this[_currentTransaction] == null)) dart.assertFailed(null, L1, 780, 12, "_currentTransaction == null");
+        let transaction = new tv.TelevisionTransaction.__(this);
+        if (!dart.equals(this[_currentTransaction], transaction)) dart.assertFailed(null, L1, 782, 12, "_currentTransaction == transaction");
+        return transaction;
+      }).bind(this));
+    }
+    sendMessage(command, argument) {
+      return async.async(TelevisionTransactionL(), (function* sendMessage() {
+        if (!(command != null)) dart.assertFailed(null, L1, 790, 12, "command != null");
+        if (!(command.length === 4)) dart.assertFailed(null, L1, 791, 12, "command.length == 4");
+        if (!(argument != null)) dart.assertFailed(null, L1, 792, 12, "argument != null");
+        let message = dart.str(command) + argument[$padRight](4, " ");
+        yield this[_connect]();
+        let result = (yield this.openTransaction());
+        result.sendLine(message);
+        return result;
+      }).bind(this));
+    }
+    sendCommand(message, opts) {
+      let argument = opts && 'argument' in opts ? opts.argument : "";
+      let errorIsOk = opts && 'errorIsOk' in opts ? opts.errorIsOk : false;
+      return async.async(boolL(), (function* sendCommand() {
+        try {
+          let transaction = (yield this.sendMessage(message, argument));
+          let response = (yield transaction.readLine());
+          transaction.close();
+          if (dart.test(errorIsOk) && response === "ERR") return false;
+          if (response !== "OK") dart.throw(new tv.TelevisionErrorResponse.new("Response to \"" + dart.str(message) + dart.str(argument) + "\" was unexpectedly not \"OK\"", response, this));
+        } catch (e) {
+          let ex = dart.getThrown(e);
+          if (TelevisionExceptionL().is(ex)) {
+            if (dart.test(errorIsOk)) return false;
+            dart.rethrow(e);
+          } else
+            throw e;
+        }
+        return true;
+      }).bind(this));
+    }
+    readRawValue(message, argument = "?") {
+      return async.async(StringL(), (function* readRawValue() {
+        let transaction = (yield this.sendMessage(message, argument));
+        let response = (yield transaction.readLine());
+        transaction.close();
+        return response;
+      }).bind(this));
+    }
+    matchingResponse(message, opts) {
+      let argument = opts && 'argument' in opts ? opts.argument : "?";
+      let desiredResponse = opts && 'desiredResponse' in opts ? opts.desiredResponse : "OK";
+      let delay = opts && 'delay' in opts ? opts.delay : C94 || CT.C94;
+      let timeout = opts && 'timeout' in opts ? opts.timeout : C95 || CT.C95;
+      return async.async(core.Null, (function* matchingResponse() {
+        let canceled = null;
+        let timeoutTimer = async.Timer.new(timeout, dart.fn(() => {
+          this.abort("Timed out awaiting desired response to \"" + dart.str(message) + "\"", {timeout: true});
+        }, VoidToNull()));
+        let handleAbort = dart.fn(message => {
+          canceled = message;
+        }, StringLToNull());
+        this[_abortWatchers].add(handleAbort);
+        try {
+          while (canceled == null) {
+            try {
+              if ((yield this.readRawValue(message, argument)) == desiredResponse) break;
+            } catch (e) {
+              let ex = dart.getThrown(e);
+              if (TelevisionExceptionL().is(ex)) {
+              } else
+                throw e;
+            }
+            yield FutureOfNull().delayed(delay);
+          }
+        } finally {
+          timeoutTimer.cancel();
+          this[_abortWatchers].remove(handleAbort);
+        }
+        if (canceled != null) dart.throw(new tv.TelevisionTimeout.new(canceled, null, this));
+      }).bind(this));
+    }
+    nonErrorResponse(message, opts) {
+      let argument = opts && 'argument' in opts ? opts.argument : "?";
+      let delay = opts && 'delay' in opts ? opts.delay : C94 || CT.C94;
+      let timeout = opts && 'timeout' in opts ? opts.timeout : C95 || CT.C95;
+      let skipOk = opts && 'skipOk' in opts ? opts.skipOk : false;
+      return async.async(core.Null, (function* nonErrorResponse() {
+        let canceled = null;
+        let timeoutTimer = async.Timer.new(timeout, dart.fn(() => {
+          this.abort("Timed out awaiting successful response to \"" + dart.str(message) + "\"", {timeout: true});
+        }, VoidToNull()));
+        let handleAbort = dart.fn(message => {
+          canceled = message;
+        }, StringLToNull());
+        this[_abortWatchers].add(handleAbort);
+        try {
+          while (canceled == null) {
+            try {
+              let transaction = (yield this.sendMessage(message, argument));
+              let response = (yield transaction.readLine());
+              if (dart.test(skipOk) && response === "OK") response = (yield transaction.readLine());
+              transaction.close();
+              if (response !== "ERR") break;
+            } catch (e) {
+              let ex = dart.getThrown(e);
+              if (TelevisionExceptionL().is(ex)) {
+              } else
+                throw e;
+            }
+            yield FutureOfNull().delayed(delay);
+          }
+        } finally {
+          timeoutTimer.cancel();
+          this[_abortWatchers].remove(handleAbort);
+        }
+        if (canceled != null) dart.throw(new tv.TelevisionTimeout.new(canceled, null, this));
+      }).bind(this));
+    }
+    readValue(message, opts) {
+      let argument = opts && 'argument' in opts ? opts.argument : "?";
+      let errorIsNull = opts && 'errorIsNull' in opts ? opts.errorIsNull : true;
+      return async.async(StringL(), (function* readValue() {
+        try {
+          let response = (yield this.readRawValue(message, argument));
+          if (response === "ERR") {
+            if (dart.test(errorIsNull)) return null;
+            dart.throw(new tv.TelevisionErrorResponse.new("Unexpected response to \"" + dart.str(message) + dart.str(argument) + "\"", response, this));
+          }
+          return response;
+        } catch (e) {
+          let ex = dart.getThrown(e);
+          if (TelevisionExceptionL().is(ex)) {
+            if (dart.test(errorIsNull)) return null;
+            dart.rethrow(e);
+          } else
+            throw e;
+        }
+      }).bind(this));
+    }
+    get inputStable() {
+      return this.nonErrorResponse("RDIN", {skipOk: true});
+    }
+    get power() {
+      return async.async(boolL(), (function* power() {
+        let response = (yield this.readValue("POWR", {errorIsNull: false}));
+        switch (response) {
+          case "0":
+          {
+            return false;
+          }
+          case "1":
+          {
+            return true;
+          }
+        }
+        dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"POWR\" message", response, this));
+      }).bind(this));
+    }
+    setPower(value) {
+      return async.async(core.Null, (function* setPower() {
+        let argument = dart.test(value) ? "1" : "0";
+        yield this.matchingResponse("POWR", {argument: argument});
+        yield this.matchingResponse("POWR", {desiredResponse: argument});
+        if (dart.test(value)) yield this.inputStable;
+      }).bind(this));
+    }
+    sendRemote(key) {
+      return async.async(core.Null, (function* sendRemote() {
+        yield this.sendCommand("RCKY", {argument: dart.toString(key.index)});
+      }).bind(this));
+    }
+    showMessage(message) {
+      return async.async(core.Null, (function* showMessage() {
+        yield this.sendCommand("KLCD", {argument: message});
+      }).bind(this));
+    }
+    nextInput() {
+      return async.async(core.Null, (function* nextInput() {
+        yield this.sendCommand("ITGD");
+        yield this.inputStable;
+      }).bind(this));
+    }
+    lastChannel() {
+      return async.async(core.Null, (function* lastChannel() {
+        yield this.sendCommand("ITVD");
+        yield this.inputStable;
+      }).bind(this));
+    }
+    channelUp() {
+      return async.async(core.Null, (function* channelUp() {
+        yield this.sendCommand("CHUP");
+        yield this.inputStable;
+      }).bind(this));
+    }
+    channelDown() {
+      return async.async(core.Null, (function* channelDown() {
+        yield this.sendCommand("CHDW");
+        yield this.inputStable;
+      }).bind(this));
+    }
+    get input() {
+      return async.async(TelevisionChannelL(), (function* input() {
+        let POWR = (yield this.readRawValue("POWR"));
+        let RDIN = (yield this.readRawValue("RDIN"));
+        let IDIN = (yield this.readRawValue("IDIN"));
+        let IAVD = (yield this.readRawValue("IAVD"));
+        let INP5 = (yield this.readRawValue("INP5"));
+        if (RDIN.length !== null && RDIN.length > 0 && RDIN[$_get](0) === "0" || IDIN != null && IDIN.length === 1) {
+          return tv.TelevisionChannel.fromValues({POWR: POWR, RDIN: RDIN, IDIN: IDIN, DCCH: (yield this.readRawValue("DCCH")), DA2P: (yield this.readRawValue("DA2P")), DC2U: (yield this.readRawValue("DC2U")), DC2L: (yield this.readRawValue("DC2L")), DC10: (yield this.readRawValue("DC10")), DC11: (yield this.readRawValue("DC11")), IAVD: IAVD, INP5: INP5});
+        } else {
+          return tv.TelevisionChannel.fromValues({POWR: POWR, RDIN: RDIN, IDIN: IDIN, IAVD: IAVD, INP5: INP5});
+        }
+      }).bind(this));
+    }
+    setInput(value) {
+      return async.async(core.Null, (function* setInput() {
+        if (!(value.RDIN == null)) dart.assertFailed(null, L1, 1001, 12, "value.RDIN == null");
+        yield this.setPower(value.POWR !== "0");
+        if (value.POWR !== "0") {
+          yield this.inputStable;
+          if (value.IDIN != null) yield this.sendCommand("IDIN", {argument: value.IDIN});
+          if (value.DCCH != null) yield this.sendCommand("DCCH", {argument: value.DCCH});
+          if (value.DA2P != null) yield this.sendCommand("DA2P", {argument: value.DA2P});
+          if (value.DC2U != null) yield this.sendCommand("DC2U", {argument: value.DC2U});
+          if (value.DC2L != null) yield this.sendCommand("DC2L", {argument: value.DC2L});
+          if (value.DC10 != null) yield this.sendCommand("DC10", {argument: value.DC10});
+          if (value.DC11 != null) yield this.sendCommand("DC11", {argument: value.DC11});
+          if (value.IAVD != null) {
+            let result = (yield this.sendCommand("IAVD", {argument: value.IAVD, errorIsOk: true}));
+            if (!dart.test(result)) {
+              let current = (yield this.readRawValue("IAVD"));
+              if (current != value.IAVD) dart.throw(new tv.TelevisionErrorResponse.new("Received error response to message \"IAVD" + dart.str(value.IAVD) + "\" but current IAVD status is \"" + dart.str(current) + "\"", null, this));
+            }
+          }
+          if (value.INP5 != null) yield this.sendCommand("INP5", {argument: value.INP5});
+          if (value.ITGD != null && dart.notNull(value.ITGD) > 0) {
+            for (let index = 0; index < dart.notNull(value.ITGD); index = index + 1) {
+              yield this.inputStable;
+              yield this.sendCommand("ITGD");
+            }
+          }
+          yield this.inputStable;
+          if (value.source == tv.TelevisionSource.manual) {
+            yield this.sendRemote(tv.TelevisionRemote.keyManual);
+            yield this.inputStable;
+          }
+        }
+      }).bind(this));
+    }
+    get volume() {
+      return async.async(intL(), (function* volume() {
+        let response = (yield this.readValue("VOLM"));
+        if (response == null) return null;
+        try {
+          return core.int.parse(response, {radix: 10});
+        } catch (e) {
+          let ex = dart.getThrown(e);
+          if (FormatExceptionL().is(ex)) {
+            dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"VOLM\" message", response, this));
+          } else
+            throw e;
+        }
+      }).bind(this));
+    }
+    setVolume(value) {
+      return async.async(core.Null, (function* setVolume() {
+        if (!(dart.notNull(value) >= 0)) dart.assertFailed(null, L1, 1057, 12, "value >= 0");
+        if (!(dart.notNull(value) <= 100)) dart.assertFailed(null, L1, 1058, 12, "value <= 100");
+        yield this.sendCommand("VOLM", {argument: dart.toString(value)});
+      }).bind(this));
+    }
+    get muted() {
+      return async.async(boolL(), (function* muted() {
+        let response = (yield this.readValue("MUTE"));
+        if (response == null) return null;
+        switch (response) {
+          case "1":
+          {
+            return true;
+          }
+          case "2":
+          {
+            return false;
+          }
+        }
+        dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"MUTE\" message", response, this));
+      }).bind(this));
+    }
+    setMuted(value) {
+      return async.async(core.Null, (function* setMuted() {
+        let argument = dart.test(value) ? "1" : "2";
+        yield this.sendCommand("MUTE", {argument: argument});
+      }).bind(this));
+    }
+    toggleMuted() {
+      return async.async(core.Null, (function* toggleMuted() {
+        yield this.sendCommand("MUTE", {argument: "0"});
+      }).bind(this));
+    }
+    get horizontalPosition() {
+      return async.async(intL(), (function* horizontalPosition() {
+        let response = (yield this.readValue("HPOS"));
+        if (response == null) return null;
+        try {
+          return core.int.parse(response, {radix: 10});
+        } catch (e) {
+          let ex = dart.getThrown(e);
+          if (FormatExceptionL().is(ex)) {
+            dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"HPOS\" message", response, this));
+          } else
+            throw e;
+        }
+      }).bind(this));
+    }
+    setHorizontalPosition(value) {
+      return async.async(core.Null, (function* setHorizontalPosition() {
+        if (!(dart.notNull(value) >= -8)) dart.assertFailed(null, L1, 1096, 12, "value >= -8");
+        if (!(dart.notNull(value) <= 8)) dart.assertFailed(null, L1, 1097, 12, "value <= 8");
+        yield this.sendCommand("HPOS", {argument: dart.toString(value)});
+      }).bind(this));
+    }
+    get verticalPosition() {
+      return async.async(intL(), (function* verticalPosition() {
+        let response = (yield this.readValue("VPOS"));
+        if (response == null) return null;
+        try {
+          return core.int.parse(response, {radix: 10});
+        } catch (e) {
+          let ex = dart.getThrown(e);
+          if (FormatExceptionL().is(ex)) {
+            dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"VPOS\" message", response, this));
+          } else
+            throw e;
+        }
+      }).bind(this));
+    }
+    setVerticalPosition(value) {
+      return async.async(core.Null, (function* setVerticalPosition() {
+        if (!(dart.notNull(value) >= -8)) dart.assertFailed(null, L1, 1113, 12, "value >= -8");
+        if (!(dart.notNull(value) <= 8)) dart.assertFailed(null, L1, 1114, 12, "value <= 8");
+        yield this.sendCommand("VPOS", {argument: dart.toString(value)});
+      }).bind(this));
+    }
+    get offTimer() {
+      return async.async(intL(), (function* offTimer() {
+        let response = (yield this.readValue("OFTM"));
+        if (response == null) return null;
+        try {
+          let result = core.int.parse(response, {radix: 10});
+          if (result === 0) return null;
+          return result;
+        } catch (e) {
+          let ex = dart.getThrown(e);
+          if (FormatExceptionL().is(ex)) {
+            dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"OFTM\" message", response, this));
+          } else
+            throw e;
+        }
+      }).bind(this));
+    }
+    setOffTimer(value) {
+      return async.async(core.Null, (function* setOffTimer() {
+        if (!(value != null)) dart.assertFailed(null, L1, 1132, 12, "value != null");
+        yield this.sendCommand("OFTM", {argument: dart.toString(value.index)});
+      }).bind(this));
+    }
+    get name() {
+      return this.readValue("TVNM", {argument: "1"});
+    }
+    get model() {
+      return this.readValue("MNRD", {argument: "1"});
+    }
+    get softwareVersion() {
+      return this.readValue("SWVN", {argument: "1"});
+    }
+    displayMessage(value) {
+      return async.async(core.Null, (function* displayMessage() {
+        if (!(value != null)) dart.assertFailed(null, L1, 1141, 12, "value != null");
+        yield this.sendCommand("KLCD", {argument: value});
+      }).bind(this));
+    }
+    get demoOverlay() {
+      return async.async(boolL(), (function* demoOverlay() {
+        let response = (yield this.readValue("DMSL"));
+        if (response == null) return null;
+        switch (response) {
+          case "0":
+          {
+            return false;
+          }
+          case "1":
+          {
+            return true;
+          }
+        }
+        dart.throw(new tv.TelevisionErrorResponse.new("Unknown response to \"DMSL\" message", response, this));
+      }).bind(this));
+    }
+    setDemoOverlay(value) {
+      return async.async(core.Null, (function* setDemoOverlay() {
+        let argument = dart.test(value) ? "1" : "0";
+        yield this.sendCommand("DMSL", {argument: argument});
+      }).bind(this));
+    }
+  };
+  (tv.Television.new = function(opts) {
+    let host = opts && 'host' in opts ? opts.host : null;
+    let port = opts && 'port' in opts ? opts.port : 10002;
+    let username = opts && 'username' in opts ? opts.username : null;
+    let password = opts && 'password' in opts ? opts.password : null;
+    this[_connectionStream] = null;
+    this[_socket] = null;
+    this[_responses] = null;
+    this[_currentTransaction] = null;
+    this[_inactivityTimer] = null;
+    this[_connecting] = null;
+    this[_abortWatchers] = new (_HashSetOfStringLToLvoid()).new();
+    this[_transactionQueue] = null;
+    this[host$] = host;
+    this[port$] = port;
+    this[username$] = username;
+    this[password$] = password;
+    if (!(this.port != null)) dart.assertFailed(null, L1, 595, 12, "port != null");
+    this[_connectionStream] = new (AlwaysOnWatchStreamOfboolL()).new();
+    this[_connectionStream].add(false);
+  }).prototype = tv.Television.prototype;
+  dart.addTypeTests(tv.Television);
+  dart.addTypeCaches(tv.Television);
+  dart.setMethodSignature(tv.Television, () => ({
+    __proto__: dart.getMethods(tv.Television.__proto__),
+    [_connect]: dart.fnType(dart.legacy(async.Future$(core.Null)), [], {delay: dart.legacy(core.Duration), timeout: dart.legacy(core.Duration)}, {}),
+    resetTimeout: dart.fnType(dart.void, [dart.legacy(core.Duration), dart.legacy(core.String)]),
+    abort: dart.fnType(dart.void, [dart.legacy(core.String)], {timeout: dart.legacy(core.bool)}, {}),
+    dispose: dart.fnType(dart.void, []),
+    openTransaction: dart.fnType(dart.legacy(async.Future$(dart.legacy(tv.TelevisionTransaction))), []),
+    sendMessage: dart.fnType(dart.legacy(async.Future$(dart.legacy(tv.TelevisionTransaction))), [dart.legacy(core.String), dart.legacy(core.String)]),
+    sendCommand: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.bool))), [dart.legacy(core.String)], {argument: dart.legacy(core.String), errorIsOk: dart.legacy(core.bool)}, {}),
+    readRawValue: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.String))), [dart.legacy(core.String)], [dart.legacy(core.String)]),
+    matchingResponse: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.String)], {argument: dart.legacy(core.String), delay: dart.legacy(core.Duration), desiredResponse: dart.legacy(core.String), timeout: dart.legacy(core.Duration)}, {}),
+    nonErrorResponse: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.String)], {argument: dart.legacy(core.String), delay: dart.legacy(core.Duration), skipOk: dart.legacy(core.bool), timeout: dart.legacy(core.Duration)}, {}),
+    readValue: dart.fnType(dart.legacy(async.Future$(dart.legacy(core.String))), [dart.legacy(core.String)], {argument: dart.legacy(core.String), errorIsNull: dart.legacy(core.bool)}, {}),
+    setPower: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.bool)]),
+    sendRemote: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(tv.TelevisionRemote)]),
+    showMessage: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.String)]),
+    nextInput: dart.fnType(dart.legacy(async.Future$(core.Null)), []),
+    lastChannel: dart.fnType(dart.legacy(async.Future$(core.Null)), []),
+    channelUp: dart.fnType(dart.legacy(async.Future$(core.Null)), []),
+    channelDown: dart.fnType(dart.legacy(async.Future$(core.Null)), []),
+    setInput: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(tv.TelevisionChannel)]),
+    setVolume: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.int)]),
+    setMuted: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.bool)]),
+    toggleMuted: dart.fnType(dart.legacy(async.Future$(core.Null)), []),
+    setHorizontalPosition: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.int)]),
+    setVerticalPosition: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.int)]),
+    setOffTimer: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(tv.TelevisionOffTimer)]),
+    displayMessage: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.String)]),
+    setDemoOverlay: dart.fnType(dart.legacy(async.Future$(core.Null)), [dart.legacy(core.bool)])
+  }));
+  dart.setGetterSignature(tv.Television, () => ({
+    __proto__: dart.getGetters(tv.Television.__proto__),
+    connected: dart.legacy(async.Stream$(dart.legacy(core.bool))),
+    inputStable: dart.legacy(async.Future$(core.Null)),
+    power: dart.legacy(async.Future$(dart.legacy(core.bool))),
+    input: dart.legacy(async.Future$(dart.legacy(tv.TelevisionChannel))),
+    volume: dart.legacy(async.Future$(dart.legacy(core.int))),
+    muted: dart.legacy(async.Future$(dart.legacy(core.bool))),
+    horizontalPosition: dart.legacy(async.Future$(dart.legacy(core.int))),
+    verticalPosition: dart.legacy(async.Future$(dart.legacy(core.int))),
+    offTimer: dart.legacy(async.Future$(dart.legacy(core.int))),
+    name: dart.legacy(async.Future$(dart.legacy(core.String))),
+    model: dart.legacy(async.Future$(dart.legacy(core.String))),
+    softwareVersion: dart.legacy(async.Future$(dart.legacy(core.String))),
+    demoOverlay: dart.legacy(async.Future$(dart.legacy(core.bool)))
+  }));
+  dart.setLibraryUri(tv.Television, L0);
+  dart.setFieldSignature(tv.Television, () => ({
+    __proto__: dart.getFields(tv.Television.__proto__),
+    host: dart.finalFieldType(dart.legacy(io.InternetAddress)),
+    port: dart.finalFieldType(dart.legacy(core.int)),
+    username: dart.finalFieldType(dart.legacy(core.String)),
+    password: dart.finalFieldType(dart.legacy(core.String)),
+    [_connectionStream]: dart.fieldType(dart.legacy(watch_stream.WatchStream$(dart.legacy(core.bool)))),
+    [_socket]: dart.fieldType(dart.legacy(io.Socket)),
+    [_responses]: dart.fieldType(dart.legacy(async.StreamIterator$(dart.legacy(core.String)))),
+    [_currentTransaction]: dart.fieldType(dart.legacy(tv.TelevisionTransaction)),
+    [_inactivityTimer]: dart.fieldType(dart.legacy(async.Timer)),
+    [_connecting]: dart.fieldType(dart.legacy(async.Future$(core.Null))),
+    [_abortWatchers]: dart.fieldType(dart.legacy(core.Set$(dart.legacy(dart.fnType(dart.void, [dart.legacy(core.String)]))))),
+    [_transactionQueue]: dart.fieldType(dart.legacy(collection.Queue$(dart.legacy(async.Completer$(core.Null)))))
+  }));
+  dart.copyProperties(tv, {
+    get _timestamp() {
+      return new core.DateTime.now().toIso8601String()[$padRight](26, "0");
+    }
+  });
+  var C96;
+  dart.defineLazy(tv, {
+    /*tv._reconnectDelay*/get _reconnectDelay() {
+      return C91 || CT.C91;
+    },
+    /*tv._connectTimeout*/get _connectTimeout() {
+      return C92 || CT.C92;
+    },
+    /*tv._inactivityTimeout*/get _inactivityTimeout() {
+      return C96 || CT.C96;
+    },
+    /*tv._responseTimeout*/get _responseTimeout() {
+      return C92 || CT.C92;
+    },
+    /*tv._retryDelay*/get _retryDelay() {
+      return C94 || CT.C94;
+    },
+    /*tv._retryTimeout*/get _retryTimeout() {
+      return C95 || CT.C95;
+    },
+    /*tv._debugDumpTraffic*/get _debugDumpTraffic() {
+      return false;
+    }
+  }, true);
+  dart.trackLibraries("packages/home_automation_tools/src/devices/tv.dart", {
+    "package:home_automation_tools/src/devices/tv.dart": tv
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["tv.dart"],"names":[],"mappings":"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","file":"../../../../../packages/home_automation_tools/src/devices/tv.dart.lib.js"}');
+  // Exports:
+  return {
+    src__devices__tv: tv
+  };
+}));
+
+//# sourceMappingURL=tv.dart.lib.js.map

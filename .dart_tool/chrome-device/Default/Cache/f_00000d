@@ -1,0 +1,1392 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/home_automation_tools/src/devices/cloudbit.dart', 'packages/house_of_rooves/backend.dart', 'packages/house_of_rooves/common.dart', 'packages/flutter/src/widgets/scroll_view.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/material/dropdown.dart', 'packages/flutter/src/material/card.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/rendering/flex.dart', 'packages/flutter/src/painting/placeholder_span.dart', 'packages/flutter/src/material/slider.dart', 'packages/flutter/src/painting/box_decoration.dart', 'packages/flutter/src/painting/box_border.dart'], (function load__packages__house_of_rooves__cloudbits_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__home_automation_tools__src__devices__cloudbit$46dart, packages__house_of_rooves__backend$46dart, packages__house_of_rooves__common$46dart, packages__flutter__src__widgets__scroll_view$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__material__dropdown$46dart, packages__flutter__src__material__card$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__rendering__flex$46dart, packages__flutter__src__painting__placeholder_span$46dart, packages__flutter__src__material__slider$46dart, packages__flutter__src__painting__box_decoration$46dart, packages__flutter__src__painting__box_border$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const async = dart_sdk.async;
+  const _interceptors = dart_sdk._interceptors;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const cloudbit = packages__home_automation_tools__src__devices__cloudbit$46dart.src__devices__cloudbit;
+  const backend = packages__house_of_rooves__backend$46dart.backend;
+  const common = packages__house_of_rooves__common$46dart.common;
+  const scroll_view = packages__flutter__src__widgets__scroll_view$46dart.src__widgets__scroll_view;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const dropdown = packages__flutter__src__material__dropdown$46dart.src__material__dropdown;
+  const card = packages__flutter__src__material__card$46dart.src__material__card;
+  const theme = packages__flutter__src__material__icon_button$46dart.src__material__theme;
+  const divider = packages__flutter__src__material__icon_button$46dart.src__material__divider;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const text_span = packages__flutter__src__painting__placeholder_span$46dart.src__painting__text_span;
+  const slider = packages__flutter__src__material__slider$46dart.src__material__slider;
+  const box_decoration = packages__flutter__src__painting__box_decoration$46dart.src__painting__box_decoration;
+  const box_border = packages__flutter__src__painting__box_border$46dart.src__painting__box_border;
+  var cloudbits = Object.create(dart.library);
+  var $isEmpty = dartx.isEmpty;
+  var $first = dartx.first;
+  var $_set = dartx._set;
+  var $containsKey = dartx.containsKey;
+  var $_get = dartx._get;
+  var $map = dartx.map;
+  var $toList = dartx.toList;
+  var $round = dartx.round;
+  var $toStringAsFixed = dartx.toStringAsFixed;
+  var $leftShift = dartx['<<'];
+  var $add = dartx.add;
+  var CloudBitL = () => (CloudBitL = dart.constFn(dart.legacy(cloudbit.CloudBit)))();
+  var StringL = () => (StringL = dart.constFn(dart.legacy(core.String)))();
+  var LinkedMapOfCloudBitL$StringL = () => (LinkedMapOfCloudBitL$StringL = dart.constFn(_js_helper.LinkedMap$(CloudBitL(), StringL())))();
+  var VoidToNull = () => (VoidToNull = dart.constFn(dart.fnType(core.Null, [])))();
+  var dynamicToNull = () => (dynamicToNull = dart.constFn(dart.fnType(core.Null, [dart.dynamic])))();
+  var DropdownButtonOfCloudBitL = () => (DropdownButtonOfCloudBitL = dart.constFn(dropdown.DropdownButton$(CloudBitL())))();
+  var DropdownMenuItemOfCloudBitL = () => (DropdownMenuItemOfCloudBitL = dart.constFn(dropdown.DropdownMenuItem$(CloudBitL())))();
+  var DropdownMenuItemLOfCloudBitL = () => (DropdownMenuItemLOfCloudBitL = dart.constFn(dart.legacy(DropdownMenuItemOfCloudBitL())))();
+  var _LocationL = () => (_LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))();
+  var CloudBitLToDropdownMenuItemLOfCloudBitL = () => (CloudBitLToDropdownMenuItemLOfCloudBitL = dart.constFn(dart.fnType(DropdownMenuItemLOfCloudBitL(), [CloudBitL()])))();
+  var WidgetL = () => (WidgetL = dart.constFn(dart.legacy(framework.Widget)))();
+  var JSArrayOfWidgetL = () => (JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(WidgetL())))();
+  var CloudBitCardL = () => (CloudBitCardL = dart.constFn(dart.legacy(cloudbits.CloudBitCard)))();
+  var intL = () => (intL = dart.constFn(dart.legacy(core.int)))();
+  var intLToNull = () => (intLToNull = dart.constFn(dart.fnType(core.Null, [intL()])))();
+  var TextSpanL = () => (TextSpanL = dart.constFn(dart.legacy(text_span.TextSpan)))();
+  var JSArrayOfTextSpanL = () => (JSArrayOfTextSpanL = dart.constFn(_interceptors.JSArray$(TextSpanL())))();
+  const CT = Object.create(null);
+  var L1 = "file:///C:/dev/house_of_rooves/lib/cloudbits.dart";
+  var L0 = "package:house_of_rooves/cloudbits.dart";
+  dart.defineLazy(CT, {
+    get C2() {
+      return C2 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 33,
+        [_Location_line]: 70,
+        [_Location_file]: null
+      });
+    },
+    get C1() {
+      return C1 = dart.constList([C2 || CT.C2], _LocationL());
+    },
+    get C0() {
+      return C0 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C1 || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 40,
+        [_Location_line]: 69,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C5() {
+      return C5 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 29,
+        [_Location_line]: 68,
+        [_Location_file]: null
+      });
+    },
+    get C6() {
+      return C6 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 29,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C4() {
+      return C4 = dart.constList([C5 || CT.C5, C6 || CT.C6], _LocationL());
+    },
+    get C3() {
+      return C3 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C4 || CT.C4,
+        [_Location_name]: null,
+        [_Location_column]: 38,
+        [_Location_line]: 67,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C9() {
+      return C9 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "items",
+        [_Location_column]: 25,
+        [_Location_line]: 64,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C10 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 25,
+        [_Location_line]: 74,
+        [_Location_file]: null
+      });
+    },
+    get C11() {
+      return C11 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onChanged",
+        [_Location_column]: 25,
+        [_Location_line]: 75,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C8 = dart.constList([C9 || CT.C9, C10 || CT.C10, C11 || CT.C11], _LocationL());
+    },
+    get C7() {
+      return C7 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C8 || CT.C8,
+        [_Location_name]: null,
+        [_Location_column]: 27,
+        [_Location_line]: 63,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C14() {
+      return C14 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 32,
+        [_Location_line]: 77,
+        [_Location_file]: null
+      });
+    },
+    get C13() {
+      return C13 = dart.constList([C14 || CT.C14], _LocationL());
+    },
+    get C12() {
+      return C12 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C13 || CT.C13,
+        [_Location_name]: null,
+        [_Location_column]: 27,
+        [_Location_line]: 77,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C17() {
+      return C17 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 28,
+        [_Location_line]: 78,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C16 = dart.constList([C17 || CT.C17], _LocationL());
+    },
+    get C15() {
+      return C15 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C16 || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 78,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C20() {
+      return C20 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 60,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C21 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 61,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C19 = dart.constList([C20 || CT.C20, C21 || CT.C21], _LocationL());
+    },
+    get C18() {
+      return C18 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C19 || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 59,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C24() {
+      return C24 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "cloudBit",
+        [_Location_column]: 36,
+        [_Location_line]: 83,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C23 = dart.constList([C24 || CT.C24], _LocationL());
+    },
+    get C22() {
+      return C22 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C23 || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 83,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C27() {
+      return C27 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 39,
+        [_Location_line]: 87,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C26 = dart.constList([C27 || CT.C27], _LocationL());
+    },
+    get C25() {
+      return C25 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C26 || CT.C26,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 87,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C30() {
+      return C30 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 23,
+        [_Location_line]: 86,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C31 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 87,
+        [_Location_file]: null
+      });
+    },
+    get C29() {
+      return C29 = dart.constList([C30 || CT.C30, C31 || CT.C31], _LocationL());
+    },
+    get C28() {
+      return C28 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C29 || CT.C29,
+        [_Location_name]: null,
+        [_Location_column]: 32,
+        [_Location_line]: 85,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C34() {
+      return C34 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 85,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C33 = dart.constList([C34 || CT.C34], _LocationL());
+    },
+    get C32() {
+      return C32 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C33 || CT.C33,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 84,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C37() {
+      return C37 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 81,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C38 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C36 = dart.constList([C37 || CT.C37, C38 || CT.C38], _LocationL());
+    },
+    get C35() {
+      return C35 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C36 || CT.C36,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 80,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C41() {
+      return C41 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 9,
+        [_Location_line]: 58,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C40 = dart.constList([C41 || CT.C41], _LocationL());
+    },
+    get C39() {
+      return C39 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C40 || CT.C40,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 57,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C44() {
+      return C44 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 7,
+        [_Location_line]: 56,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C45 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 7,
+        [_Location_line]: 57,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C43 = dart.constList([C44 || CT.C44, C45 || CT.C45], _LocationL());
+    },
+    get C42() {
+      return C42 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C43 || CT.C43,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 55,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C48() {
+      return C48 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "text",
+        [_Location_column]: 19,
+        [_Location_line]: 184,
+        [_Location_file]: null
+      });
+    },
+    get C47() {
+      return C47 = dart.constList([C48 || CT.C48], _LocationL());
+    },
+    get C46() {
+      return C46 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C47 || CT.C47,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 183,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C51() {
+      return C51 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 26,
+        [_Location_line]: 204,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C52 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "bitCount",
+        [_Location_column]: 49,
+        [_Location_line]: 204,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C53 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 62,
+        [_Location_line]: 204,
+        [_Location_file]: null
+      });
+    },
+    get C50() {
+      return C50 = dart.constList([C51 || CT.C51, C52 || CT.C52, C53 || CT.C53], _LocationL());
+    },
+    get C49() {
+      return C49 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C50 || CT.C50,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 204,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C56() {
+      return C56 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 15,
+        [_Location_line]: 181,
+        [_Location_file]: null
+      });
+    },
+    get C57() {
+      return C57 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 182,
+        [_Location_file]: null
+      });
+    },
+    get C55() {
+      return C55 = dart.constList([C56 || CT.C56, C57 || CT.C57], _LocationL());
+    },
+    get C54() {
+      return C54 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C55 || CT.C55,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 180,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C60() {
+      return C60 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 179,
+        [_Location_file]: null
+      });
+    },
+    get C61() {
+      return C61 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 180,
+        [_Location_file]: null
+      });
+    },
+    get C59() {
+      return C59 = dart.constList([C60 || CT.C60, C61 || CT.C61], _LocationL());
+    },
+    get C58() {
+      return C58 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C59 || CT.C59,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 178,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C64() {
+      return C64 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "text",
+        [_Location_column]: 23,
+        [_Location_line]: 216,
+        [_Location_file]: null
+      });
+    },
+    get C63() {
+      return C63 = dart.constList([C64 || CT.C64], _LocationL());
+    },
+    get C62() {
+      return C62 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C63 || CT.C63,
+        [_Location_name]: null,
+        [_Location_column]: 25,
+        [_Location_line]: 215,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C67() {
+      return C67 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 30,
+        [_Location_line]: 238,
+        [_Location_file]: null
+      });
+    },
+    get C68() {
+      return C68 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "bitCount",
+        [_Location_column]: 54,
+        [_Location_line]: 238,
+        [_Location_file]: null
+      });
+    },
+    get C69() {
+      return C69 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 67,
+        [_Location_line]: 238,
+        [_Location_file]: null
+      });
+    },
+    get C66() {
+      return C66 = dart.constList([C67 || CT.C67, C68 || CT.C68, C69 || CT.C69], _LocationL());
+    },
+    get C65() {
+      return C65 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C66 || CT.C66,
+        [_Location_name]: null,
+        [_Location_column]: 25,
+        [_Location_line]: 238,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C72() {
+      return C72 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 19,
+        [_Location_line]: 213,
+        [_Location_file]: null
+      });
+    },
+    get C73() {
+      return C73 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 19,
+        [_Location_line]: 214,
+        [_Location_file]: null
+      });
+    },
+    get C71() {
+      return C71 = dart.constList([C72 || CT.C72, C73 || CT.C73], _LocationL());
+    },
+    get C70() {
+      return C70 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C71 || CT.C71,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 212,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C76() {
+      return C76 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 19,
+        [_Location_line]: 242,
+        [_Location_file]: null
+      });
+    },
+    get C77() {
+      return C77 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onChanged",
+        [_Location_column]: 19,
+        [_Location_line]: 243,
+        [_Location_file]: null
+      });
+    },
+    get C78() {
+      return C78 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "min",
+        [_Location_column]: 19,
+        [_Location_line]: 244,
+        [_Location_file]: null
+      });
+    },
+    get C79() {
+      return C79 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "max",
+        [_Location_column]: 19,
+        [_Location_line]: 245,
+        [_Location_file]: null
+      });
+    },
+    get C80() {
+      return C80 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 19,
+        [_Location_line]: 246,
+        [_Location_file]: null
+      });
+    },
+    get C75() {
+      return C75 = dart.constList([C76 || CT.C76, C77 || CT.C77, C78 || CT.C78, C79 || CT.C79, C80 || CT.C80], _LocationL());
+    },
+    get C74() {
+      return C74 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C75 || CT.C75,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 241,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C83() {
+      return C83 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 211,
+        [_Location_file]: null
+      });
+    },
+    get C82() {
+      return C82 = dart.constList([C83 || CT.C83], _LocationL());
+    },
+    get C81() {
+      return C81 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C82 || CT.C82,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 210,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C86() {
+      return C86 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 209,
+        [_Location_file]: null
+      });
+    },
+    get C87() {
+      return C87 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 210,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C85 = dart.constList([C86 || CT.C86, C87 || CT.C87], _LocationL());
+    },
+    get C84() {
+      return C84 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C85 || CT.C85,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 208,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C90() {
+      return C90 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 23,
+        [_Location_line]: 251,
+        [_Location_file]: null
+      });
+    },
+    get C89() {
+      return C89 = dart.constList([C90 || CT.C90], _LocationL());
+    },
+    get C88() {
+      return C88 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C89 || CT.C89,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 251,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C93() {
+      return C93 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "text",
+        [_Location_column]: 15,
+        [_Location_line]: 255,
+        [_Location_file]: null
+      });
+    },
+    get C92() {
+      return C92 = dart.constList([C93 || CT.C93], _LocationL());
+    },
+    get C91() {
+      return C91 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C92 || CT.C92,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 254,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C96() {
+      return C96 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 253,
+        [_Location_file]: null
+      });
+    },
+    get C97() {
+      return C97 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 254,
+        [_Location_file]: null
+      });
+    },
+    get C95() {
+      return C95 = dart.constList([C96 || CT.C96, C97 || CT.C97], _LocationL());
+    },
+    get C94() {
+      return C94 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C95 || CT.C95,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 252,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C100() {
+      return C100 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 9,
+        [_Location_line]: 177,
+        [_Location_file]: null
+      });
+    },
+    get C99() {
+      return C99 = dart.constList([C100 || CT.C100], _LocationL());
+    },
+    get C98() {
+      return C98 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C99 || CT.C99,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 176,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C103() {
+      return C103 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 176,
+        [_Location_file]: null
+      });
+    },
+    get C102() {
+      return C102 = dart.constList([C103 || CT.C103], _LocationL());
+    },
+    get C101() {
+      return C101 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C102 || CT.C102,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 175,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C106() {
+      return C106 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "margin",
+        [_Location_column]: 9,
+        [_Location_line]: 295,
+        [_Location_file]: null
+      });
+    },
+    get C107() {
+      return C107 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "decoration",
+        [_Location_column]: 9,
+        [_Location_line]: 296,
+        [_Location_file]: null
+      });
+    },
+    get C108() {
+      return C108 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 9,
+        [_Location_line]: 302,
+        [_Location_file]: null
+      });
+    },
+    get C109() {
+      return C109 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 9,
+        [_Location_line]: 303,
+        [_Location_file]: null
+      });
+    },
+    get C105() {
+      return C105 = dart.constList([C106 || CT.C106, C107 || CT.C107, C108 || CT.C108, C109 || CT.C109], _LocationL());
+    },
+    get C104() {
+      return C104 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C105 || CT.C105,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 294,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    },
+    get C112() {
+      return C112 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 20,
+        [_Location_line]: 306,
+        [_Location_file]: null
+      });
+    },
+    get C111() {
+      return C111 = dart.constList([C112 || CT.C112], _LocationL());
+    },
+    get C110() {
+      return C110 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C111 || CT.C111,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 306,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/cloudbits.dart"
+      });
+    }
+  }, false);
+  cloudbits.CloudBitsPage = class CloudBitsPage extends framework.StatefulWidget {
+    createState() {
+      return new cloudbits._CloudBitsPageState.new();
+    }
+  };
+  (cloudbits.CloudBitsPage.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    cloudbits.CloudBitsPage.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = cloudbits.CloudBitsPage.prototype;
+  dart.addTypeTests(cloudbits.CloudBitsPage);
+  dart.addTypeCaches(cloudbits.CloudBitsPage);
+  dart.setMethodSignature(cloudbits.CloudBitsPage, () => ({
+    __proto__: dart.getMethods(cloudbits.CloudBitsPage.__proto__),
+    createState: dart.fnType(dart.legacy(cloudbits._CloudBitsPageState), [])
+  }));
+  dart.setLibraryUri(cloudbits.CloudBitsPage, L0);
+  var _cloudBits = dart.privateName(cloudbits, "_cloudBits");
+  var _cloudBit = dart.privateName(cloudbits, "_cloudBit");
+  var _loaded = dart.privateName(cloudbits, "_loaded");
+  var _labels = dart.privateName(cloudbits, "_labels");
+  var _selectCloudBit = dart.privateName(cloudbits, "_selectCloudBit");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var C2;
+  var C1;
+  var C0;
+  var C5;
+  var C6;
+  var C4;
+  var C3;
+  var C9;
+  var C10;
+  var C11;
+  var C8;
+  var C7;
+  var C14;
+  var C13;
+  var C12;
+  var C17;
+  var C16;
+  var C15;
+  var C20;
+  var C21;
+  var C19;
+  var C18;
+  var C24;
+  var C23;
+  var C22;
+  var C27;
+  var C26;
+  var C25;
+  var C30;
+  var C31;
+  var C29;
+  var C28;
+  var C34;
+  var C33;
+  var C32;
+  var C37;
+  var C38;
+  var C36;
+  var C35;
+  var C41;
+  var C40;
+  var C39;
+  var C44;
+  var C45;
+  var C43;
+  var C42;
+  cloudbits._CloudBitsPageState = class _CloudBitsPageState extends framework.State$(dart.legacy(cloudbits.CloudBitsPage)) {
+    initState() {
+      super.initState();
+      this.initLabels().catchError(dart.fn(exception => {
+        if (!dart.dtest(dart.fn(() => {
+          core.print(exception);
+        }, VoidToNull())())) dart.assertFailed(null, L1, 24, 14, "() {\r\n        print(exception);\r\n      }()");
+      }, dynamicToNull()));
+    }
+    initLabels() {
+      return async.async(dart.void, (function* initLabels() {
+        this[_cloudBits] = (yield backend.cloud.listDevices().toList());
+        this[_loaded] = true;
+        if (dart.test(this[_cloudBits][$isEmpty])) {
+          this.setState(dart.fn(() => {
+            this[_cloudBits] = null;
+          }, VoidToNull()));
+        } else {
+          this[_selectCloudBit](this[_cloudBits][$first]);
+        }
+        if (this[_cloudBits] == null) return null;
+        for (let bit of this[_cloudBits])
+          this.setState(dart.fn(() => {
+            this[_labels][$_set](bit, bit.displayName);
+          }, VoidToNull()));
+      }).bind(this));
+    }
+    [_selectCloudBit](value) {
+      this.setState(dart.fn(() => {
+        this[_cloudBit] = value;
+      }, VoidToNull()));
+    }
+    build(context) {
+      return new common.MainScreen.new({title: "CloudBits", body: new scroll_view.ListView.new({children: JSArrayOfWidgetL().of([new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(16.0), child: dart.test(this[_loaded]) ? this[_cloudBits] != null ? new (DropdownButtonOfCloudBitL()).new({items: this[_cloudBits][$map](DropdownMenuItemLOfCloudBitL(), dart.fn(bit => new (DropdownMenuItemOfCloudBitL()).new({value: bit, child: new text.Text.new(dart.test(this[_labels][$containsKey](bit)) ? this[_labels][$_get](bit) : bit.deviceId, {$creationLocationd_0dea112b090073317d4: C0 || CT.C0}), $creationLocationd_0dea112b090073317d4: C3 || CT.C3}), CloudBitLToDropdownMenuItemLOfCloudBitL()))[$toList](), value: this[_cloudBit], onChanged: dart.bind(this, _selectCloudBit), $creationLocationd_0dea112b090073317d4: C7 || CT.C7}) : new text.Text.new("No CloudBits.", {$creationLocationd_0dea112b090073317d4: C12 || CT.C12}) : new text.Text.new("Connecting...", {$creationLocationd_0dea112b090073317d4: C15 || CT.C15}), $creationLocationd_0dea112b090073317d4: C18 || CT.C18}), new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(24.0), child: this[_cloudBit] != null ? new cloudbits.CloudBitCard.new({cloudBit: this[_cloudBit], $creationLocationd_0dea112b090073317d4: C22 || CT.C22}) : new card.Card.new({child: new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(24.0), child: new text.Text.new("No CloudBit selected.", {$creationLocationd_0dea112b090073317d4: C25 || CT.C25}), $creationLocationd_0dea112b090073317d4: C28 || CT.C28}), $creationLocationd_0dea112b090073317d4: C32 || CT.C32}), $creationLocationd_0dea112b090073317d4: C35 || CT.C35})]), $creationLocationd_0dea112b090073317d4: C39 || CT.C39}), $creationLocationd_0dea112b090073317d4: C42 || CT.C42});
+    }
+  };
+  (cloudbits._CloudBitsPageState.new = function() {
+    this[_cloudBits] = null;
+    this[_cloudBit] = null;
+    this[_loaded] = false;
+    this[_labels] = new (LinkedMapOfCloudBitL$StringL()).new();
+    cloudbits._CloudBitsPageState.__proto__.new.call(this);
+    ;
+  }).prototype = cloudbits._CloudBitsPageState.prototype;
+  dart.addTypeTests(cloudbits._CloudBitsPageState);
+  dart.addTypeCaches(cloudbits._CloudBitsPageState);
+  dart.setMethodSignature(cloudbits._CloudBitsPageState, () => ({
+    __proto__: dart.getMethods(cloudbits._CloudBitsPageState.__proto__),
+    initLabels: dart.fnType(dart.legacy(async.Future$(dart.void)), []),
+    [_selectCloudBit]: dart.fnType(dart.void, [dart.legacy(cloudbit.CloudBit)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(cloudbits._CloudBitsPageState, L0);
+  dart.setFieldSignature(cloudbits._CloudBitsPageState, () => ({
+    __proto__: dart.getFields(cloudbits._CloudBitsPageState.__proto__),
+    [_cloudBits]: dart.fieldType(dart.legacy(core.List$(dart.legacy(cloudbit.CloudBit)))),
+    [_cloudBit]: dart.fieldType(dart.legacy(cloudbit.CloudBit)),
+    [_loaded]: dart.fieldType(dart.legacy(core.bool)),
+    [_labels]: dart.fieldType(dart.legacy(core.Map$(dart.legacy(cloudbit.CloudBit), dart.legacy(core.String))))
+  }));
+  var cloudBit$ = dart.privateName(cloudbits, "CloudBitCard.cloudBit");
+  cloudbits.CloudBitCard = class CloudBitCard extends framework.StatefulWidget {
+    get cloudBit() {
+      return this[cloudBit$];
+    }
+    set cloudBit(value) {
+      super.cloudBit = value;
+    }
+    createState() {
+      return new cloudbits._CloudBitCardState.new();
+    }
+  };
+  (cloudbits.CloudBitCard.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let cloudBit = opts && 'cloudBit' in opts ? opts.cloudBit : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[cloudBit$] = cloudBit;
+    cloudbits.CloudBitCard.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = cloudbits.CloudBitCard.prototype;
+  dart.addTypeTests(cloudbits.CloudBitCard);
+  dart.addTypeCaches(cloudbits.CloudBitCard);
+  dart.setMethodSignature(cloudbits.CloudBitCard, () => ({
+    __proto__: dart.getMethods(cloudbits.CloudBitCard.__proto__),
+    createState: dart.fnType(dart.legacy(cloudbits._CloudBitCardState), [])
+  }));
+  dart.setLibraryUri(cloudbits.CloudBitCard, L0);
+  dart.setFieldSignature(cloudbits.CloudBitCard, () => ({
+    __proto__: dart.getFields(cloudbits.CloudBitCard.__proto__),
+    cloudBit: dart.finalFieldType(dart.legacy(cloudbit.CloudBit))
+  }));
+  var _subscription = dart.privateName(cloudbits, "_subscription");
+  var _inputNumber = dart.privateName(cloudbits, "_inputNumber");
+  var _inputVolts = dart.privateName(cloudbits, "_inputVolts");
+  var _inputBitfield = dart.privateName(cloudbits, "_inputBitfield");
+  var _outputValue = dart.privateName(cloudbits, "_outputValue");
+  var _outputNumber = dart.privateName(cloudbits, "_outputNumber");
+  var _outputVolts = dart.privateName(cloudbits, "_outputVolts");
+  var _outputBitfield = dart.privateName(cloudbits, "_outputBitfield");
+  var _updateSubscription = dart.privateName(cloudbits, "_updateSubscription");
+  var _setOutputValue = dart.privateName(cloudbits, "_setOutputValue");
+  var C48;
+  var C47;
+  var C46;
+  var C51;
+  var C52;
+  var C53;
+  var C50;
+  var C49;
+  var C56;
+  var C57;
+  var C55;
+  var C54;
+  var C60;
+  var C61;
+  var C59;
+  var C58;
+  var C64;
+  var C63;
+  var C62;
+  var C67;
+  var C68;
+  var C69;
+  var C66;
+  var C65;
+  var C72;
+  var C73;
+  var C71;
+  var C70;
+  var C76;
+  var C77;
+  var C78;
+  var C79;
+  var C80;
+  var C75;
+  var C74;
+  var C83;
+  var C82;
+  var C81;
+  var C86;
+  var C87;
+  var C85;
+  var C84;
+  var C90;
+  var C89;
+  var C88;
+  var C93;
+  var C92;
+  var C91;
+  var C96;
+  var C97;
+  var C95;
+  var C94;
+  var C100;
+  var C99;
+  var C98;
+  var C103;
+  var C102;
+  var C101;
+  cloudbits._CloudBitCardState = class _CloudBitCardState extends framework.State$(dart.legacy(cloudbits.CloudBitCard)) {
+    initState() {
+      super.initState();
+      this[_updateSubscription]();
+    }
+    didUpdateWidget(oldwidget) {
+      CloudBitCardL().as(oldwidget);
+      super.didUpdateWidget(oldwidget);
+      if (!dart.equals(oldwidget.cloudBit, this.widget.cloudBit)) this[_updateSubscription]();
+    }
+    dispose() {
+      let t0;
+      t0 = this[_subscription];
+      t0 == null ? null : t0.cancel();
+      super.dispose();
+    }
+    [_updateSubscription]() {
+      let t0;
+      t0 = this[_subscription];
+      t0 == null ? null : t0.cancel();
+      this[_inputNumber] = null;
+      this[_inputVolts] = null;
+      this[_inputBitfield] = null;
+      this[_outputValue] = 0.0;
+      this[_outputNumber] = null;
+      this[_outputVolts] = null;
+      this[_subscription] = this.widget.cloudBit.values.listen(dart.fn(value => {
+        let number = value != null ? (dart.notNull(value) / 1023.0 * 99.0)[$round]() : null;
+        let volts = value != null ? (dart.notNull(value) / 1023.0 * 50.0)[$round]() / 10.0 : null;
+        let bitfield = value != null ? cloudbit.BitDemultiplexer.valueToBitField(value, 4) : null;
+        this.setState(dart.fn(() => {
+          this[_inputNumber] = number;
+          this[_inputVolts] = volts;
+          this[_inputBitfield] = bitfield;
+        }, VoidToNull()));
+      }, intLToNull()));
+    }
+    [_setOutputValue](value) {
+      let number = value != null ? (dart.notNull(value) / 1023.0 * 99.0)[$round]() : null;
+      let volts = value != null ? (dart.notNull(value) / 1023.0 * 50.0)[$round]() / 10.0 : null;
+      let bitfield = value != null ? cloudbit.BitDemultiplexer.valueToBitField(value[$round](), 4) : null;
+      this.setState(dart.fn(() => {
+        this[_outputValue] = value;
+        this[_outputNumber] = number;
+        this[_outputVolts] = volts;
+        this[_outputBitfield] = bitfield;
+      }, VoidToNull()));
+      this.widget.cloudBit.setValue(value[$round]());
+    }
+    build(context) {
+      let t0, t0$;
+      let labelStyle = theme.Theme.of(context).textTheme.headline5;
+      let valueStyle = labelStyle.copyWith({color: theme.Theme.of(context).accentColor});
+      let smallLabelStyle = theme.Theme.of(context).textTheme.caption;
+      let smallValueStyle = smallLabelStyle.copyWith({color: theme.Theme.of(context).accentColor});
+      return new card.Card.new({child: new basic.ListBody.new({children: JSArrayOfWidgetL().of([new basic.Padding.new({padding: new edge_insets.EdgeInsets.only({top: 16.0, left: 16.0, right: 16.0}), child: new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.spaceBetween, children: JSArrayOfWidgetL().of([new basic.RichText.new({text: new text_span.TextSpan.new({style: labelStyle, text: "Input value: ", children: JSArrayOfTextSpanL().of([new text_span.TextSpan.new({text: this[_inputNumber] != null ? dart.str(this[_inputNumber]) : "-", style: valueStyle}), new text_span.TextSpan.new({text: " (", style: labelStyle}), new text_span.TextSpan.new({text: this[_inputVolts] != null ? this[_inputVolts][$toStringAsFixed](1) : "-", style: valueStyle}), new text_span.TextSpan.new({text: "V", style: labelStyle.apply({fontSizeFactor: 0.7})}), new text_span.TextSpan.new({text: ") ", style: labelStyle})])}), $creationLocationd_0dea112b090073317d4: C46 || CT.C46}), new cloudbits.Leds.new({value: this[_inputBitfield], bitCount: 4, size: 15.0, $creationLocationd_0dea112b090073317d4: C49 || CT.C49})]), $creationLocationd_0dea112b090073317d4: C54 || CT.C54}), $creationLocationd_0dea112b090073317d4: C58 || CT.C58}), new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(16.0), child: new basic.ListBody.new({children: JSArrayOfWidgetL().of([new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.spaceBetween, children: JSArrayOfWidgetL().of([new basic.RichText.new({text: new text_span.TextSpan.new({style: labelStyle, text: "Output value: ", children: JSArrayOfTextSpanL().of([new text_span.TextSpan.new({text: this[_outputNumber] != null ? dart.str(this[_outputNumber]) : "-", style: valueStyle}), new text_span.TextSpan.new({text: " (", style: labelStyle}), new text_span.TextSpan.new({text: this[_outputVolts] != null ? this[_outputVolts][$toStringAsFixed](1) : "-", style: valueStyle}), new text_span.TextSpan.new({text: "V", style: labelStyle.apply({fontSizeFactor: 0.7})}), new text_span.TextSpan.new({text: ") ", style: labelStyle})])}), $creationLocationd_0dea112b090073317d4: C62 || CT.C62}), new cloudbits.Leds.new({value: this[_outputBitfield], bitCount: 4, size: 15.0, $creationLocationd_0dea112b090073317d4: C65 || CT.C65})]), $creationLocationd_0dea112b090073317d4: C70 || CT.C70}), new slider.Slider.new({value: this[_outputValue], onChanged: dart.bind(this, _setOutputValue), min: 0.0, max: 1023.0, label: (t0$ = (t0 = this[_outputVolts], t0 == null ? null : t0[$toStringAsFixed](1)), t0$ == null ? "?" : t0$), $creationLocationd_0dea112b090073317d4: C74 || CT.C74})]), $creationLocationd_0dea112b090073317d4: C81 || CT.C81}), $creationLocationd_0dea112b090073317d4: C84 || CT.C84}), new divider.Divider.new({height: 1.0, $creationLocationd_0dea112b090073317d4: C88 || CT.C88}), new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(16.0), child: new basic.RichText.new({text: new text_span.TextSpan.new({style: smallLabelStyle, text: "Device ID: ", children: JSArrayOfTextSpanL().of([new text_span.TextSpan.new({text: this.widget.cloudBit != null ? this.widget.cloudBit.deviceId : "-", style: smallValueStyle})])}), $creationLocationd_0dea112b090073317d4: C91 || CT.C91}), $creationLocationd_0dea112b090073317d4: C94 || CT.C94})]), $creationLocationd_0dea112b090073317d4: C98 || CT.C98}), $creationLocationd_0dea112b090073317d4: C101 || CT.C101});
+    }
+  };
+  (cloudbits._CloudBitCardState.new = function() {
+    this[_subscription] = null;
+    this[_inputNumber] = null;
+    this[_inputVolts] = null;
+    this[_inputBitfield] = null;
+    this[_outputValue] = 0.0;
+    this[_outputNumber] = null;
+    this[_outputVolts] = null;
+    this[_outputBitfield] = null;
+    cloudbits._CloudBitCardState.__proto__.new.call(this);
+    ;
+  }).prototype = cloudbits._CloudBitCardState.prototype;
+  dart.addTypeTests(cloudbits._CloudBitCardState);
+  dart.addTypeCaches(cloudbits._CloudBitCardState);
+  dart.setMethodSignature(cloudbits._CloudBitCardState, () => ({
+    __proto__: dart.getMethods(cloudbits._CloudBitCardState.__proto__),
+    didUpdateWidget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    [_updateSubscription]: dart.fnType(dart.void, []),
+    [_setOutputValue]: dart.fnType(dart.void, [dart.legacy(core.double)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(cloudbits._CloudBitCardState, L0);
+  dart.setFieldSignature(cloudbits._CloudBitCardState, () => ({
+    __proto__: dart.getFields(cloudbits._CloudBitCardState.__proto__),
+    [_subscription]: dart.fieldType(dart.legacy(async.StreamSubscription$(dart.legacy(core.int)))),
+    [_inputNumber]: dart.fieldType(dart.legacy(core.int)),
+    [_inputVolts]: dart.fieldType(dart.legacy(core.double)),
+    [_inputBitfield]: dart.fieldType(dart.legacy(core.int)),
+    [_outputValue]: dart.fieldType(dart.legacy(core.double)),
+    [_outputNumber]: dart.fieldType(dart.legacy(core.int)),
+    [_outputVolts]: dart.fieldType(dart.legacy(core.double)),
+    [_outputBitfield]: dart.fieldType(dart.legacy(core.int))
+  }));
+  var C106;
+  var C107;
+  var C108;
+  var C109;
+  var C105;
+  var C104;
+  var C112;
+  var C111;
+  var C110;
+  var value$ = dart.privateName(cloudbits, "Leds.value");
+  var bitCount$ = dart.privateName(cloudbits, "Leds.bitCount");
+  var color$ = dart.privateName(cloudbits, "Leds.color");
+  var size$ = dart.privateName(cloudbits, "Leds.size");
+  cloudbits.Leds = class Leds extends framework.StatelessWidget {
+    get value() {
+      return this[value$];
+    }
+    set value(value) {
+      super.value = value;
+    }
+    get bitCount() {
+      return this[bitCount$];
+    }
+    set bitCount(value) {
+      super.bitCount = value;
+    }
+    get color() {
+      return this[color$];
+    }
+    set color(value) {
+      super.color = value;
+    }
+    get size() {
+      return this[size$];
+    }
+    set size(value) {
+      super.size = value;
+    }
+    build(context) {
+      let t0;
+      let color = this.value != null ? (t0 = this.color, t0 == null ? theme.Theme.of(context).accentColor : t0) : theme.Theme.of(context).disabledColor;
+      let dots = JSArrayOfWidgetL().of([]);
+      for (let i = 1; i <= dart.notNull(this.bitCount); i = i + 1) {
+        dots[$add](new container.Container.new({margin: new edge_insets.EdgeInsets.all(2.0), decoration: new box_decoration.BoxDecoration.new({color: this.value != null && (dart.notNull(this.value) & (1)[$leftShift](i - 1)) !== 0 ? color : null, shape: box_border.BoxShape.circle, border: box_border.Border.all({width: dart.notNull(this.size) / 10.0, color: color})}), height: this.size, width: this.size, $creationLocationd_0dea112b090073317d4: C104 || CT.C104}));
+      }
+      return new basic.Row.new({children: dots, $creationLocationd_0dea112b090073317d4: C110 || CT.C110});
+    }
+  };
+  (cloudbits.Leds.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let value = opts && 'value' in opts ? opts.value : null;
+    let bitCount = opts && 'bitCount' in opts ? opts.bitCount : null;
+    let color = opts && 'color' in opts ? opts.color : null;
+    let size = opts && 'size' in opts ? opts.size : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[value$] = value;
+    this[bitCount$] = bitCount;
+    this[color$] = color;
+    this[size$] = size;
+    cloudbits.Leds.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = cloudbits.Leds.prototype;
+  dart.addTypeTests(cloudbits.Leds);
+  dart.addTypeCaches(cloudbits.Leds);
+  dart.setMethodSignature(cloudbits.Leds, () => ({
+    __proto__: dart.getMethods(cloudbits.Leds.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(cloudbits.Leds, L0);
+  dart.setFieldSignature(cloudbits.Leds, () => ({
+    __proto__: dart.getFields(cloudbits.Leds.__proto__),
+    value: dart.finalFieldType(dart.legacy(core.int)),
+    bitCount: dart.finalFieldType(dart.legacy(core.int)),
+    color: dart.finalFieldType(dart.legacy(ui.Color)),
+    size: dart.finalFieldType(dart.legacy(core.double))
+  }));
+  dart.trackLibraries("packages/house_of_rooves/cloudbits.dart", {
+    "package:house_of_rooves/cloudbits.dart": cloudbits
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["cloudbits.dart"],"names":[],"mappings":"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","file":"../../../packages/house_of_rooves/cloudbits.dart.lib.js"}');
+  // Exports:
+  return {
+    cloudbits: cloudbits
+  };
+}));
+
+//# sourceMappingURL=cloudbits.dart.lib.js.map

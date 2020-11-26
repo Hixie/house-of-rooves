@@ -1,0 +1,654 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/house_of_rooves/backend.dart', 'packages/house_of_rooves/common.dart', 'packages/home_automation_tools/src/devices/remy.dart', 'packages/flutter/src/material/card.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/widgets/scroll_view.dart'], (function load__packages__house_of_rooves__remy_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__house_of_rooves__backend$46dart, packages__house_of_rooves__common$46dart, packages__home_automation_tools__src__devices__remy$46dart, packages__flutter__src__material__card$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__widgets__scroll_view$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const backend = packages__house_of_rooves__backend$46dart.backend;
+  const common = packages__house_of_rooves__common$46dart.common;
+  const remy = packages__home_automation_tools__src__devices__remy$46dart.src__devices__remy;
+  const card = packages__flutter__src__material__card$46dart.src__material__card;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const theme = packages__flutter__src__material__icon_button$46dart.src__material__theme;
+  const scroll_view = packages__flutter__src__widgets__scroll_view$46dart.src__widgets__scroll_view;
+  var remy$ = Object.create(dart.library);
+  var $add = dartx.add;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $toList = dartx.toList;
+  var $remove = dartx.remove;
+  var $join = dartx.join;
+  var VoidToNull = () => (VoidToNull = dart.constFn(dart.fnType(core.Null, [])))();
+  var _LocationL = () => (_LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))();
+  var WidgetL = () => (WidgetL = dart.constFn(dart.legacy(framework.Widget)))();
+  var JSArrayOfWidgetL = () => (JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(WidgetL())))();
+  const CT = Object.create(null);
+  var L0 = "package:house_of_rooves/remy.dart";
+  dart.defineLazy(CT, {
+    get C2() {
+      return C2 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "remy",
+        [_Location_column]: 33,
+        [_Location_line]: 40,
+        [_Location_file]: null
+      });
+    },
+    get C3() {
+      return C3 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "ui",
+        [_Location_column]: 46,
+        [_Location_line]: 40,
+        [_Location_file]: null
+      });
+    },
+    get C1() {
+      return C1 = dart.constList([C2 || CT.C2, C3 || CT.C3], _LocationL());
+    },
+    get C0() {
+      return C0 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C1 || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 40,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C6() {
+      return C6 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 7,
+        [_Location_line]: 39,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C7 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 7,
+        [_Location_line]: 40,
+        [_Location_file]: null
+      });
+    },
+    get C5() {
+      return C5 = dart.constList([C6 || CT.C6, C7 || CT.C7], _LocationL());
+    },
+    get C4() {
+      return C4 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C5 || CT.C5,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 38,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C10() {
+      return C10 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 27,
+        [_Location_line]: 58,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C9 = dart.constList([C10 || CT.C10], _LocationL());
+    },
+    get C8() {
+      return C8 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C9 || CT.C9,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 58,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C13() {
+      return C13 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 11,
+        [_Location_line]: 57,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C14 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 58,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C12 = dart.constList([C13 || CT.C13, C14 || CT.C14], _LocationL());
+    },
+    get C11() {
+      return C11 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C12 || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 56,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C17() {
+      return C17 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 56,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C16 = dart.constList([C17 || CT.C17], _LocationL());
+    },
+    get C15() {
+      return C15 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C16 || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 55,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C20() {
+      return C20 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 23,
+        [_Location_line]: 67,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C21 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 15,
+        [_Location_line]: 68,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C22 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "textAlign",
+        [_Location_column]: 15,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C19 = dart.constList([C20 || CT.C20, C21 || CT.C21, C22 || CT.C22], _LocationL());
+    },
+    get C18() {
+      return C18 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C19 || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 66,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C25() {
+      return C25 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 65,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C26 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 66,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C24 = dart.constList([C25 || CT.C25, C26 || CT.C26], _LocationL());
+    },
+    get C23() {
+      return C23 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C24 || CT.C24,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 64,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C29() {
+      return C29 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 75,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C28 = dart.constList([C29 || CT.C29], _LocationL());
+    },
+    get C27() {
+      return C27 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C28 || CT.C28,
+        [_Location_name]: null,
+        [_Location_column]: 27,
+        [_Location_line]: 74,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C32() {
+      return C32 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 20,
+        [_Location_line]: 110,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C33 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 15,
+        [_Location_line]: 111,
+        [_Location_file]: null
+      });
+    },
+    get C34() {
+      return C34 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "textAlign",
+        [_Location_column]: 15,
+        [_Location_line]: 112,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C31 = dart.constList([C32 || CT.C32, C33 || CT.C33, C34 || CT.C34], _LocationL());
+    },
+    get C30() {
+      return C30 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C31 || CT.C31,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 105,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C37() {
+      return C37 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 13,
+        [_Location_line]: 104,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C38 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 105,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C36 = dart.constList([C37 || CT.C37, C38 || CT.C38], _LocationL());
+    },
+    get C35() {
+      return C35 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C36 || CT.C36,
+        [_Location_name]: null,
+        [_Location_column]: 27,
+        [_Location_line]: 103,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C41() {
+      return C41 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 121,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C40 = dart.constList([C41 || CT.C41], _LocationL());
+    },
+    get C39() {
+      return C39 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C40 || CT.C40,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 120,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C44() {
+      return C44 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 120,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C43 = dart.constList([C44 || CT.C44], _LocationL());
+    },
+    get C42() {
+      return C42 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C43 || CT.C43,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 119,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C47() {
+      return C47 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 11,
+        [_Location_line]: 118,
+        [_Location_file]: null
+      });
+    },
+    get C48() {
+      return C48 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 119,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C46 = dart.constList([C47 || CT.C47, C48 || CT.C48], _LocationL());
+    },
+    get C45() {
+      return C45 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C46 || CT.C46,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 117,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    },
+    get C51() {
+      return C51 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 7,
+        [_Location_line]: 128,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C52 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 7,
+        [_Location_line]: 129,
+        [_Location_file]: null
+      });
+    },
+    get C50() {
+      return C50 = dart.constList([C51 || CT.C51, C52 || CT.C52], _LocationL());
+    },
+    get C49() {
+      return C49 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C50 || CT.C50,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 127,
+        [_Location_file]: "file:///C:/dev/house_of_rooves/lib/remy.dart"
+      });
+    }
+  }, false);
+  remy$.RemyPage = class RemyPage extends framework.StatefulWidget {
+    createState() {
+      return new remy$._RemyPageState.new();
+    }
+  };
+  (remy$.RemyPage.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    remy$.RemyPage.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = remy$.RemyPage.prototype;
+  dart.addTypeTests(remy$.RemyPage);
+  dart.addTypeCaches(remy$.RemyPage);
+  dart.setMethodSignature(remy$.RemyPage, () => ({
+    __proto__: dart.getMethods(remy$.RemyPage.__proto__),
+    createState: dart.fnType(dart.legacy(remy$._RemyPageState), [])
+  }));
+  dart.setLibraryUri(remy$.RemyPage, L0);
+  var _remy = dart.privateName(remy$, "_remy");
+  var _ui = dart.privateName(remy$, "_ui");
+  var _handleNotifications = dart.privateName(remy$, "_handleNotifications");
+  var _handleUI = dart.privateName(remy$, "_handleUI");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var C2;
+  var C3;
+  var C1;
+  var C0;
+  var C6;
+  var C7;
+  var C5;
+  var C4;
+  remy$._RemyPageState = class _RemyPageState extends framework.State$(dart.legacy(remy$.RemyPage)) {
+    initState() {
+      super.initState();
+      this[_remy] = backend.openRemy(dart.bind(this, _handleNotifications), dart.bind(this, _handleUI));
+    }
+    dispose() {
+      this[_remy].dispose();
+      super.dispose();
+    }
+    [_handleNotifications](notification) {
+    }
+    [_handleUI](ui) {
+      this.setState(dart.fn(() => {
+        this[_ui] = ui;
+      }, VoidToNull()));
+    }
+    build(context) {
+      return new common.MainScreen.new({title: "Remy", body: new remy$.RemyMessageList.new({remy: this[_remy], ui: this[_ui], $creationLocationd_0dea112b090073317d4: C0 || CT.C0}), $creationLocationd_0dea112b090073317d4: C4 || CT.C4});
+    }
+  };
+  (remy$._RemyPageState.new = function() {
+    this[_remy] = null;
+    this[_ui] = null;
+    remy$._RemyPageState.__proto__.new.call(this);
+    ;
+  }).prototype = remy$._RemyPageState.prototype;
+  dart.addTypeTests(remy$._RemyPageState);
+  dart.addTypeCaches(remy$._RemyPageState);
+  dart.setMethodSignature(remy$._RemyPageState, () => ({
+    __proto__: dart.getMethods(remy$._RemyPageState.__proto__),
+    [_handleNotifications]: dart.fnType(dart.void, [dart.legacy(remy.RemyNotification)]),
+    [_handleUI]: dart.fnType(dart.void, [dart.legacy(remy.RemyUi)]),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(remy$._RemyPageState, L0);
+  dart.setFieldSignature(remy$._RemyPageState, () => ({
+    __proto__: dart.getFields(remy$._RemyPageState.__proto__),
+    [_remy]: dart.fieldType(dart.legacy(remy.Remy)),
+    [_ui]: dart.fieldType(dart.legacy(remy.RemyUi))
+  }));
+  var C10;
+  var C9;
+  var C8;
+  var C13;
+  var C14;
+  var C12;
+  var C11;
+  var C17;
+  var C16;
+  var C15;
+  var C20;
+  var C21;
+  var C22;
+  var C19;
+  var C18;
+  var C25;
+  var C26;
+  var C24;
+  var C23;
+  var C29;
+  var C28;
+  var C27;
+  var C32;
+  var C33;
+  var C34;
+  var C31;
+  var C30;
+  var C37;
+  var C38;
+  var C36;
+  var C35;
+  var C41;
+  var C40;
+  var C39;
+  var C44;
+  var C43;
+  var C42;
+  var C47;
+  var C48;
+  var C46;
+  var C45;
+  var C51;
+  var C52;
+  var C50;
+  var C49;
+  var remy$0 = dart.privateName(remy$, "RemyMessageList.remy");
+  var ui$ = dart.privateName(remy$, "RemyMessageList.ui");
+  remy$.RemyMessageList = class RemyMessageList extends framework.StatelessWidget {
+    get remy() {
+      return this[remy$0];
+    }
+    set remy(value) {
+      super.remy = value;
+    }
+    get ui() {
+      return this[ui$];
+    }
+    set ui(value) {
+      super.ui = value;
+    }
+    build(context) {
+      let t0;
+      let messages = JSArrayOfWidgetL().of([]);
+      if (this.ui == null) {
+        messages[$add](new card.Card.new({child: new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(24.0), child: new text.Text.new("Not connected.", {$creationLocationd_0dea112b090073317d4: C8 || CT.C8}), $creationLocationd_0dea112b090073317d4: C11 || CT.C11}), $creationLocationd_0dea112b090073317d4: C15 || CT.C15}));
+      } else {
+        for (let message of this.ui.messages) {
+          let content = JSArrayOfWidgetL().of([new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(16.0), child: new text.Text.new(message.label, {style: theme.Theme.of(context).textTheme.subtitle1, textAlign: ui.TextAlign.center, $creationLocationd_0dea112b090073317d4: C18 || CT.C18}), $creationLocationd_0dea112b090073317d4: C23 || CT.C23})]);
+          if (dart.test(message.buttons[$isNotEmpty])) {
+            content[$add](new basic.Padding.new({padding: new edge_insets.EdgeInsets.only({left: 8.0, right: 8.0}), $creationLocationd_0dea112b090073317d4: C27 || CT.C27}));
+            content[$add](new basic.Padding.new({padding: new edge_insets.EdgeInsets.all(16.0), child: new text.Text.new((t0 = message.classes[$toList](), (() => {
+                t0[$remove]("nomsg");
+                t0[$remove]("quiet");
+                t0[$remove]("important");
+                return t0;
+              })())[$join](", "), {style: theme.Theme.of(context).textTheme.caption, textAlign: ui.TextAlign.right, $creationLocationd_0dea112b090073317d4: C30 || CT.C30}), $creationLocationd_0dea112b090073317d4: C35 || CT.C35}));
+          }
+          messages[$add](new basic.Padding.new({padding: new edge_insets.EdgeInsets.only({top: 16.0, left: 16.0, right: 16.0}), child: new card.Card.new({child: new basic.Column.new({children: content, $creationLocationd_0dea112b090073317d4: C39 || CT.C39}), $creationLocationd_0dea112b090073317d4: C42 || CT.C42}), $creationLocationd_0dea112b090073317d4: C45 || CT.C45}));
+        }
+      }
+      return new scroll_view.ListView.new({padding: new edge_insets.EdgeInsets.only({bottom: 16.0}), children: messages, $creationLocationd_0dea112b090073317d4: C49 || CT.C49});
+    }
+  };
+  (remy$.RemyMessageList.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let remy = opts && 'remy' in opts ? opts.remy : null;
+    let ui = opts && 'ui' in opts ? opts.ui : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[remy$0] = remy;
+    this[ui$] = ui;
+    remy$.RemyMessageList.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = remy$.RemyMessageList.prototype;
+  dart.addTypeTests(remy$.RemyMessageList);
+  dart.addTypeCaches(remy$.RemyMessageList);
+  dart.setMethodSignature(remy$.RemyMessageList, () => ({
+    __proto__: dart.getMethods(remy$.RemyMessageList.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(remy$.RemyMessageList, L0);
+  dart.setFieldSignature(remy$.RemyMessageList, () => ({
+    __proto__: dart.getFields(remy$.RemyMessageList.__proto__),
+    remy: dart.finalFieldType(dart.legacy(remy.Remy)),
+    ui: dart.finalFieldType(dart.legacy(remy.RemyUi))
+  }));
+  dart.trackLibraries("packages/house_of_rooves/remy.dart", {
+    "package:house_of_rooves/remy.dart": remy$
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["remy.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAOkC,YAAI;IAAgB;;;;;;EACtD;;;;;;;;;;;;;;;;;;;;;;;;;;;AAKqB,MAAX;AACmD,MAAzD,cAAQ,2BAAiB,uCAAsB;IACjD;;AAMiB,MAAf,AAAM;AACS,MAAT;IACR;2BAEmD;IAAe;gBAIpC;AAG1B,MAFF,cAAS;AACC,QAAR,YAAM,EAAE;;IAEZ;UAG0B;AACxB,YAAW,mCACF,cACG,qCAAsB,iBAAW;IAE/C;;;IAxBa;IAUE;;;EAejB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAKqB;;;;;;IACE;;;;;;UAGK;;AACX,qBAAmB;AAChC,UAAI,AAAG,WAAG;AAMN,QALF,AAAS,QAAD,OAAS,0BACJ,gCACI,+BAAe,cACjB,kBAAK;;AAIpB,iBAAyB,UAAW,AAAG;AACxB,wBAAkB,uBACzB,gCACW,+BAAe,cACjB,kBACT,AAAQ,OAAD,gBACM,AAAY,AAAU,eAAnB,OAAO,kCACF;AAI3B,wBAAI,AAAQ,AAAQ,OAAT;AA6BP,YA5BF,AAAQ,OAAD,OAAS,gCACD,uCAAsB,YAAY;AAuC/C,YAXF,AAAQ,OAAD,OAAS,gCACD,+BAAe,cACjB,kBAKJ,MAJJ,AAAQ,AAAQ,OAAT,qBAAS;AACT,4BAAO;AACP,4BAAO;AACP,4BAAO;;2BACL,eACG,AAAY,AAAU,eAAnB,OAAO,gCACF;;AAYzB,UAPF,AAAS,QAAD,OAAS,gCACF,sCAAqB,YAAY,aAAa,eAChD,0BACE,gCACC,OAAO;;;AAM3B,YAAW,wCACI,yCAAwB,kBAC3B,QAAQ;IAEtB;;;QArFqB;QAAU;QAAW;;IAAX;IAAW;AAAO,yDAAW,GAAG;;EAAC","file":"../../../packages/house_of_rooves/remy.dart.lib.js"}');
+  // Exports:
+  return {
+    remy: remy$
+  };
+}));
+
+//# sourceMappingURL=remy.dart.lib.js.map
