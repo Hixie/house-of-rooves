@@ -1,0 +1,42 @@
+name: house_of_rooves_dashboard
+description: Dashboard for House of Rooves daemon and Reminding System.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  soundpool: any
+  plexiglass:
+    path: ../../plexiglass
+  dishwasher_database:
+    path: ../../dishwasher/database
+  home_automation_tools:
+    git: git://github.com/Hixie/dart-home-automation-tools.git
+
+dependency_overrides:
+  home_automation_tools:
+    path: ../../dart-home-automation-tools/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: "Swiss 911 Ultra Compressed BT"
+      fonts:
+      - asset: "fonts/swiss.ttf"
+    - family: "Swiss 911 Extra Compressed BT"
+      fonts:
+      - asset: "fonts/swiss_extra.ttf"
+    - family: "LCARS-Mono"
+      fonts:
+      - asset: "fonts/swiss_mono.ttf"
+
+  assets:
+    - audio/curved/
+    - audio/straight/
