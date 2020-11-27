@@ -1,5 +1,5 @@
-name: house_of_rooves
-description: A new flutter project.
+name: instrument_panel
+description: House of Rooves application.
 environment:
   sdk: '>=2.10.0 <3.0.0'
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
     git: git://github.com/Hixie/dart-home-automation-tools.git
 dependency_overrides:
   home_automation_tools:
-    path: ../dart-home-automation-tools/
+    path: ../../dart-home-automation-tools/
 flutter:
   uses-material-design: true
   assets:
