@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
+final StreamTransformer<bool, bool> debouncer =
+    backend.debouncer(const Duration(milliseconds: 500));
+
 class LaundryPage extends StatefulWidget {
   @override
   _LaundryPageState createState() => new _LaundryPageState();
@@ -14,11 +17,25 @@ class _LaundryPageState extends State<LaundryPage> {
   @override
   void initState() {
     super.initState();
-    backend.BitDemultiplexer laundryBits = new backend.BitDemultiplexer(backend.cloud.getDevice(backend.laundryId).values, 4);
-    _bit1Subscription = laundryBits[1].transform(debouncer).listen(_handleDoneLedBit); // 5 - Done
-    _bit2Subscription = laundryBits[2].transform(debouncer).listen(_handleSensingLedBit); // 10 - Sensing
-    _bit3Subscription = laundryBits[3].transform(debouncer).listen(_handleButtonBit); // 20 - Button
-    _bit4Subscription = laundryBits[4].transform(debouncer).listen(_handleDryerBit); // 40 - Dryer
+    _initCloudbit();
+  }
+
+  Future<void> _initCloudbit() async {
+    backend.BitDemultiplexer laundryBits = new backend.BitDemultiplexer(
+        (await backend.cloud.getDevice(backend.laundryId)).values, 4);
+    if (!mounted) return;
+    _bit1Subscription = laundryBits[1]
+        .transform(debouncer)
+        .listen(_handleDoneLedBit); // 5 - Done
+    _bit2Subscription = laundryBits[2]
+        .transform(debouncer)
+        .listen(_handleSensingLedBit); // 10 - Sensing
+    _bit3Subscription = laundryBits[3]
+        .transform(debouncer)
+        .listen(_handleButtonBit); // 20 - Button
+    _bit4Subscription = laundryBits[4]
+        .transform(debouncer)
+        .listen(_handleDryerBit); // 40 - Dryer
   }
 
   StreamSubscription<bool> _bit1Subscription;
@@ -28,10 +45,10 @@ class _LaundryPageState extends State<LaundryPage> {
 
   @override
   void dispose() {
-    _bit1Subscription.cancel();
-    _bit2Subscription.cancel();
-    _bit3Subscription.cancel();
-    _bit4Subscription.cancel();
+    _bit1Subscription?.cancel();
+    _bit2Subscription?.cancel();
+    _bit3Subscription?.cancel();
+    _bit4Subscription?.cancel();
     super.dispose();
   }
 
@@ -41,19 +58,27 @@ class _LaundryPageState extends State<LaundryPage> {
   bool _dryerDrying;
 
   void _handleDoneLedBit(bool value) {
-    setState(() { _washerDoneLed = value; });
+    setState(() {
+      _washerDoneLed = value;
+    });
   }
 
   void _handleSensingLedBit(bool value) {
-    setState(() { _washerSensorsLed = value; });
+    setState(() {
+      _washerSensorsLed = value;
+    });
   }
 
   void _handleButtonBit(bool value) {
-    setState(() { _washerFullButton = value; });
+    setState(() {
+      _washerFullButton = value;
+    });
   }
 
   void _handleDryerBit(bool value) {
-    setState(() { _dryerDrying = value; });
+    setState(() {
+      _dryerDrying = value;
+    });
   }
 
   @override
@@ -73,7 +98,10 @@ class _LaundryPageState extends State<LaundryPage> {
                 dryerDrying: _dryerDrying,
                 washerFullButton: _washerFullButton,
                 color: Theme.of(context).accentColor,
-                style: Theme.of(context).textTheme.body2.copyWith(letterSpacing: 0.0),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(letterSpacing: 0.0),
               ),
             ),
           ),
@@ -99,25 +127,24 @@ class _TextPainterConfig {
 
   TextPainter createTextPainter() {
     return new TextPainter(
+      textDirection: TextDirection.ltr,
       text: new TextSpan(
         text: text,
         style: style.copyWith(fontSize: fontSize),
       ),
       textAlign: textAlign,
-    )
-      ..layout(minWidth: width, maxWidth: width);
+    )..layout(minWidth: width, maxWidth: width);
   }
 
   @override
   bool operator ==(Object other) {
-    if (other.runtimeType != runtimeType)
-      return false;
+    if (other.runtimeType != runtimeType) return false;
     _TextPainterConfig typedOther = other;
-    return typedOther.text == text
-        && typedOther.fontSize == fontSize
-        && typedOther.textAlign == textAlign
-        && typedOther.width == width
-        && typedOther.style == style;
+    return typedOther.text == text &&
+        typedOther.fontSize == fontSize &&
+        typedOther.textAlign == textAlign &&
+        typedOther.width == width &&
+        typedOther.style == style;
   }
 
   @override
@@ -125,7 +152,14 @@ class _TextPainterConfig {
 }
 
 class _LaundryPainter extends CustomPainter {
-  _LaundryPainter({ this.washerSensorsLed, this.washerDoneLed, this.dryerDrying, this.washerFullButton, this.color, this.style }) {
+  _LaundryPainter({
+    this.washerSensorsLed,
+    this.washerDoneLed,
+    this.dryerDrying,
+    this.washerFullButton,
+    this.color,
+    this.style,
+  }) {
     _ledOnPaint = new Paint()
       ..color = color
       ..style = PaintingStyle.fill;
@@ -149,10 +183,13 @@ class _LaundryPainter extends CustomPainter {
   Paint _ledOffPaint;
   Paint _outlinePaint;
 
-  static Map<_TextPainterConfig, TextPainter> _painters = <_TextPainterConfig, TextPainter>{};
+  static Map<_TextPainterConfig, TextPainter> _painters =
+      <_TextPainterConfig, TextPainter>{};
 
-  void _paintLed(Canvas canvas, Point position, String text, { bool on, bool labelAfter, double radius, double width }) {
-    canvas.drawCircle(position, radius, on == true ? _ledOnPaint : _ledOffPaint);
+  void _paintLed(Canvas canvas, Offset position, String text,
+      {bool on, bool labelAfter, double radius, double width}) {
+    canvas.drawCircle(
+        position, radius, on == true ? _ledOnPaint : _ledOffPaint);
     _TextPainterConfig config = new _TextPainterConfig(
       text: text,
       fontSize: radius * 2.0,
@@ -160,8 +197,12 @@ class _LaundryPainter extends CustomPainter {
       width: width,
       style: style,
     );
-    TextPainter painter = _painters.putIfAbsent(config, () => config.createTextPainter());
-    Offset textTopLeft = position - new Point(labelAfter ? radius * -2.0 : painter.size.width + radius * 2.0, radius * 1.5);
+    TextPainter painter =
+        _painters.putIfAbsent(config, () => config.createTextPainter());
+    Offset textTopLeft = position -
+        new Offset(
+            labelAfter ? radius * -2.0 : painter.size.width + radius * 2.0,
+            radius * 1.5);
     painter.paint(canvas, textTopLeft);
   }
 
@@ -186,15 +227,31 @@ class _LaundryPainter extends CustomPainter {
       ..moveTo(horizontalUnit * 7.0, verticalUnit * 4.0)
       ..relativeLineTo(5.0 * horizontalUnit, 0.0);
     canvas.drawPath(path, _outlinePaint);
-    
-    _paintLed(canvas, new Point(horizontalUnit * 1.75, verticalUnit * 2.55), 'Sensing',
-      on: washerSensorsLed, labelAfter: true, radius: horizontalUnit * 0.25, width: horizontalUnit * 3.25);
-    _paintLed(canvas, new Point(horizontalUnit * 5.25, verticalUnit * 3.45), 'Done',
-      on: washerDoneLed, labelAfter: false, radius: horizontalUnit * 0.25, width: horizontalUnit * 3.25);
-    _paintLed(canvas, new Point(horizontalUnit * 8.0, verticalUnit * 3.0), 'Drying',
-      on: dryerDrying, labelAfter: true, radius: horizontalUnit * 0.25, width: horizontalUnit * 3.0);
-    _paintLed(canvas, new Point(horizontalUnit * 5.25, verticalUnit * 5.0), 'Button',
-      on: washerFullButton, labelAfter: false, radius: horizontalUnit * 0.25, width: horizontalUnit * 3.25);
+
+    _paintLed(canvas, new Offset(horizontalUnit * 1.75, verticalUnit * 2.55),
+        'Sensing',
+        on: washerSensorsLed,
+        labelAfter: true,
+        radius: horizontalUnit * 0.25,
+        width: horizontalUnit * 3.25);
+    _paintLed(
+        canvas, new Offset(horizontalUnit * 5.25, verticalUnit * 3.45), 'Done',
+        on: washerDoneLed,
+        labelAfter: false,
+        radius: horizontalUnit * 0.25,
+        width: horizontalUnit * 3.25);
+    _paintLed(
+        canvas, new Offset(horizontalUnit * 8.0, verticalUnit * 3.0), 'Drying',
+        on: dryerDrying,
+        labelAfter: true,
+        radius: horizontalUnit * 0.25,
+        width: horizontalUnit * 3.0);
+    _paintLed(
+        canvas, new Offset(horizontalUnit * 5.25, verticalUnit * 5.0), 'Button',
+        on: washerFullButton,
+        labelAfter: false,
+        radius: horizontalUnit * 0.25,
+        width: horizontalUnit * 3.25);
 
     _TextPainterConfig config;
     TextPainter painter;
@@ -222,10 +279,10 @@ class _LaundryPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_LaundryPainter oldDelegate) {
-    return washerSensorsLed != oldDelegate.washerSensorsLed
-        || washerDoneLed != oldDelegate.washerDoneLed
-        || dryerDrying != oldDelegate.dryerDrying
-        || washerFullButton != oldDelegate.washerFullButton
-        || color != oldDelegate.color;
+    return washerSensorsLed != oldDelegate.washerSensorsLed ||
+        washerDoneLed != oldDelegate.washerDoneLed ||
+        dryerDrying != oldDelegate.dryerDrying ||
+        washerFullButton != oldDelegate.washerFullButton ||
+        color != oldDelegate.color;
   }
 }

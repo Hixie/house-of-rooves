@@ -16,7 +16,14 @@ class _SolarPageState extends State<SolarPage> {
   void initState() {
     super.initState();
     _subscription = backend.solar.power.listen(_handleData);
-    _monitor = backend.cloud.getDevice(backend.solarDisplayId).values.listen(_handleMonitor);
+    _initCloudbit();
+  }
+
+  Future<void> _initCloudbit() async {
+    final Stream<int> value =
+        (await backend.cloud.getDevice(backend.solarDisplayId)).values;
+    if (!mounted) return;
+    _monitor = value.listen(_handleMonitor);
   }
 
   StreamSubscription<double> _subscription;
@@ -25,7 +32,7 @@ class _SolarPageState extends State<SolarPage> {
   @override
   void dispose() {
     _subscription.cancel();
-    _monitor.cancel();
+    _monitor?.cancel();
     super.dispose();
   }
 
@@ -35,8 +42,7 @@ class _SolarPageState extends State<SolarPage> {
   void _handleData(double power) {
     setState(() {
       _power = power;
-      if (_power != null)
-        _powerString = _power.toStringAsFixed(1);
+      if (_power != null) _powerString = _power.toStringAsFixed(1);
     });
   }
 
@@ -52,13 +58,13 @@ class _SolarPageState extends State<SolarPage> {
   Widget build(BuildContext context) {
     return new MainScreen(
       title: 'Solar Power',
-      body: new Block(
+      body: new ListView(
         padding: new EdgeInsets.all(24.0),
         children: <Widget>[
           new Card(
             child: new Padding(
               padding: new EdgeInsets.all(24.0),
-              child: new BlockBody(
+              child: new ListBody(
                 children: <Widget>[
                   new FittedBox(
                     child: new Container(
@@ -71,19 +77,21 @@ class _SolarPageState extends State<SolarPage> {
                   new AnimatedCrossFade(
                     firstChild: new Text(
                       'Not connected.',
-                      style: Theme.of(context).textTheme.display2,
+                      style: Theme.of(context).textTheme.headline3,
                       textAlign: TextAlign.center,
                     ),
                     firstCurve: Curves.fastOutSlowIn,
                     secondChild: new Text(
                       'Generating\n${_powerString}kW',
-                      style: Theme.of(context).textTheme.display2,
+                      style: Theme.of(context).textTheme.headline3,
                       textAlign: TextAlign.center,
                     ),
                     secondCurve: Curves.fastOutSlowIn,
                     sizeCurve: Curves.fastOutSlowIn,
                     duration: const Duration(milliseconds: 250),
-                    crossFadeState: _power == null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                    crossFadeState: _power == null
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
                   ),
                 ],
               ),
@@ -106,14 +114,15 @@ class _SolarPageState extends State<SolarPage> {
 }
 
 class DialMeter extends StatelessWidget {
-  DialMeter({ Key key, this.low, this.high, this.value }) : super(key: key);
+  DialMeter({Key key, this.low, this.high, this.value}) : super(key: key);
 
   final double low;
   final double high;
   final double value;
 
   Widget build(BuildContext context) {
-    return new CustomPaint(painter: new _DialPainter(low, high, value, Theme.of(context)));
+    return new CustomPaint(
+        painter: new _DialPainter(low, high, value, Theme.of(context)));
   }
 }
 
@@ -126,46 +135,46 @@ class _DialPainter extends CustomPainter {
   final ThemeData theme;
 
   double _angleForValue(double value) {
-    return math.PI * (1.0 - (value - low) / (high - low));
+    return math.pi * (1.0 - (value - low) / (high - low));
   }
 
-  Point _pointForValue(double value, double radius, Point center) {
+  Offset _offsetForValue(double value, double radius, Offset center) {
     double theta = _angleForValue(value);
-    return new Point(
-      center.x + radius * math.cos(theta),
-      center.y - radius * math.sin(theta),
+    return new Offset(
+      center.dx + radius * math.cos(theta),
+      center.dy - radius * math.sin(theta),
     );
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     double radius = size.height;
-    Point center = new Point(size.width / 2.0, radius);
+    Offset center = new Offset(size.width / 2.0, radius);
     Rect box = new Rect.fromCircle(
       center: center,
       radius: radius,
     );
-    Paint rimBackground = new Paint()
-      ..color = theme.cardColor;
+    Paint rimBackground = new Paint()..color = theme.cardColor;
     Paint rimBorder = new Paint()
       ..color = theme.accentColor
       ..strokeWidth = 8.0
       ..style = PaintingStyle.stroke;
-    canvas.drawArc(box, math.PI, math.PI, false, rimBackground);
-    canvas.drawArc(box, math.PI, math.PI, false, rimBorder);
+    canvas.drawArc(box, math.pi, math.pi, false, rimBackground);
+    canvas.drawArc(box, math.pi, math.pi, false, rimBorder);
     Paint needlePaint = new Paint()
       ..color = theme.accentColor
       ..strokeWidth = 4.0
       ..style = PaintingStyle.stroke;
     if (value != null)
-      canvas.drawLine(center, _pointForValue(value, radius * 0.9, center), needlePaint);
+      canvas.drawLine(
+          center, _offsetForValue(value, radius * 0.9, center), needlePaint);
   }
 
   @override
   bool shouldRepaint(_DialPainter oldDelegate) {
-    return oldDelegate.low != low
-        || oldDelegate.high != high
-        || oldDelegate.value != value
-        || oldDelegate.theme != theme;
+    return oldDelegate.low != low ||
+        oldDelegate.high != high ||
+        oldDelegate.value != value ||
+        oldDelegate.theme != theme;
   }
 }

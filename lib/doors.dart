@@ -15,7 +15,13 @@ class _DoorsPageState extends State<DoorsPage> {
   @override
   void initState() {
     super.initState();
-    backend.BitDemultiplexer doorBits = new backend.BitDemultiplexer(backend.cloud.getDevice(backend.houseSensorsId).values, 3);
+    _initCloudbit();
+  }
+
+  Future<void> _initCloudbit() async {
+    backend.BitDemultiplexer doorBits = backend.BitDemultiplexer(
+        (await backend.cloud.getDevice(backend.houseSensorsId)).values, 3);
+    if (!mounted) return;
     _bit1Subscription = doorBits[1].listen(_handleBit1);
     _bit2Subscription = doorBits[2].listen(_handleBit2);
     _bit3Subscription = doorBits[3].listen(_handleBit3);
@@ -27,9 +33,9 @@ class _DoorsPageState extends State<DoorsPage> {
 
   @override
   void dispose() {
-    _bit1Subscription.cancel();
-    _bit2Subscription.cancel();
-    _bit3Subscription.cancel();
+    _bit1Subscription?.cancel();
+    _bit2Subscription?.cancel();
+    _bit3Subscription?.cancel();
     super.dispose();
   }
 
@@ -38,15 +44,21 @@ class _DoorsPageState extends State<DoorsPage> {
   bool _backDoor;
 
   void _handleBit1(bool value) {
-    setState(() { _frontDoor = value; });
+    setState(() {
+      _frontDoor = value;
+    });
   }
 
   void _handleBit2(bool value) {
-    setState(() { _garageDoor = value; });
+    setState(() {
+      _garageDoor = value;
+    });
   }
 
   void _handleBit3(bool value) {
-    setState(() { _backDoor = value; });
+    setState(() {
+      _backDoor = value;
+    });
   }
 
   @override
@@ -88,7 +100,8 @@ class DoorDiagram extends StatefulWidget {
   _DoorDiagramState createState() => new _DoorDiagramState();
 }
 
-class _DoorDiagramState extends State<DoorDiagram> with TickerProviderStateMixin {
+class _DoorDiagramState extends State<DoorDiagram>
+    with TickerProviderStateMixin {
   AnimationController _frontController;
   AnimationController _garageController;
   AnimationController _backController;
@@ -108,45 +121,45 @@ class _DoorDiagramState extends State<DoorDiagram> with TickerProviderStateMixin
     super.reassemble();
     _frontController?.dispose();
     _frontValue?.removeListener(_tick);
-    _frontController = _init(config.frontDoor);
+    _frontController = _init(widget.frontDoor);
     _frontValue = _curve(_frontController);
     _garageController?.dispose();
     _garageValue?.removeListener(_tick);
-    _garageController = _init(config.garageDoor);
+    _garageController = _init(widget.garageDoor);
     _garageValue = _curve(_garageController);
     _backController?.dispose();
     _backValue?.removeListener(_tick);
-    _backController = _init(config.backDoor);
+    _backController = _init(widget.backDoor);
     _backValue = _curve(_backController);
   }
 
   AnimationController _init(bool state) {
     return new AnimationController(
-      duration: config.duration,
+      duration: widget.duration,
       value: state == true ? 1.0 : 0.0,
       vsync: this,
     );
   }
 
   Animation<double> _curve(Animation<double> parent) {
-    return new CurvedAnimation(parent: parent, curve: config.curve)
+    return new CurvedAnimation(parent: parent, curve: widget.curve)
       ..addListener(_tick);
   }
 
   void _tick() {
-    setState(() { });
+    setState(() {});
   }
 
   @override
-  void didUpdateConfig(DoorDiagram oldWidget) {
-    _update(_frontController, config.frontDoor, oldWidget.frontDoor);
-    _update(_garageController, config.garageDoor, oldWidget.garageDoor);
-    _update(_backController, config.backDoor, oldWidget.backDoor);
+  void didUpdateWidget(DoorDiagram oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _update(_frontController, widget.frontDoor, oldWidget.frontDoor);
+    _update(_garageController, widget.garageDoor, oldWidget.garageDoor);
+    _update(_backController, widget.backDoor, oldWidget.backDoor);
   }
 
   void _update(AnimationController door, bool newState, bool oldState) {
-    if (newState == oldState || newState == null)
-      return;
+    if (newState == oldState || newState == null) return;
     if (oldState == null) {
       door.value = newState ? 1.0 : 0.0;
     } else if (newState) {
@@ -171,11 +184,10 @@ class _DoorDiagramState extends State<DoorDiagram> with TickerProviderStateMixin
     return new CustomPaint(
       size: const Size(100.0, 100.0),
       painter: new _DoorPainter(
-        config.frontDoor == null ? null : 1.0 - _frontValue.value,
-        config.garageDoor == null ? null : 1.0 - _garageValue.value,
-        config.backDoor == null ? null : 1.0 - _backValue.value,
-        Theme.of(context).accentColor
-      ),
+          widget.frontDoor == null ? null : 1.0 - _frontValue.value,
+          widget.garageDoor == null ? null : 1.0 - _garageValue.value,
+          widget.backDoor == null ? null : 1.0 - _backValue.value,
+          Theme.of(context).accentColor),
     );
   }
 }
@@ -200,17 +212,18 @@ class _DoorPainter extends CustomPainter {
   Paint _doorPaint;
   Paint _houseOutlinePaint;
 
-  void _paintSwingDoor(Canvas canvas, Point hinge, double length, double angle) {
+  void _paintSwingDoor(
+      Canvas canvas, Offset hinge, double length, double angle) {
     canvas.save();
-    canvas.translate(hinge.x, hinge.y);
+    canvas.translate(hinge.dx, hinge.dy);
     canvas.rotate(angle);
-    canvas.drawLine(Point.origin, new Point(length, 0.0), _doorPaint);
+    canvas.drawLine(Offset.zero, new Offset(length, 0.0), _doorPaint);
     canvas.restore();
   }
 
-  void _paintSlideDoor(Canvas canvas, Point start, Point end, double state) {
+  void _paintSlideDoor(Canvas canvas, Offset start, Offset end, double state) {
     Offset dy = new Offset(0.0, _doorPaint.strokeWidth / 2.0);
-    Point middle = end + (start - end) / 2.0;
+    Offset middle = end + (start - end) / 2.0;
     Offset slide = (middle - start) * state;
     canvas.drawLine((start + -dy), (middle + -dy), _doorPaint);
     canvas.drawLine((middle + dy) + -slide, (end + dy) + -slide, _doorPaint);
@@ -247,18 +260,20 @@ class _DoorPainter extends CustomPainter {
       ..relativeLineTo(0.0, 4420.0);
     canvas.drawPath(houseOutline, _houseOutlinePaint);
     if (front != null)
-      _paintSwingDoor(canvas, const Point(6535.0, 11990.0), 1000.0, -front);
+      _paintSwingDoor(canvas, const Offset(6535.0, 11990.0), 1000.0, -front);
     if (garage != null)
-      _paintSwingDoor(canvas, const Point(5935.0, 4880.0), 900.0, math.PI * 3.0 / 2.0 + garage);
+      _paintSwingDoor(canvas, const Offset(5935.0, 4880.0), 900.0,
+          math.pi * 3.0 / 2.0 + garage);
     if (back != null)
-      _paintSlideDoor(canvas, const Point(5410.0, 0.0), const Point(7390.0, 0.0), back);
+      _paintSlideDoor(
+          canvas, const Offset(5410.0, 0.0), const Offset(7390.0, 0.0), back);
     canvas.restore();
   }
 
   @override
   bool shouldRepaint(_DoorPainter oldDelegate) {
-    return oldDelegate.front != front
-        || oldDelegate.garage != garage
-        || oldDelegate.back != back;
+    return oldDelegate.front != front ||
+        oldDelegate.garage != garage ||
+        oldDelegate.back != back;
   }
 }

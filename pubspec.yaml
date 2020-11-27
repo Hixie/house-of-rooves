@@ -1,5 +1,7 @@
 name: house_of_rooves
 description: A new flutter project.
+environment:
+  sdk: '>=2.10.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
@@ -8,3 +10,8 @@ dependencies:
 dependency_overrides:
   home_automation_tools:
     path: ../dart-home-automation-tools/
+flutter:
+  uses-material-design: true
+  assets:
+   - images/drawer_header.jpeg
+   - credentials.cfg

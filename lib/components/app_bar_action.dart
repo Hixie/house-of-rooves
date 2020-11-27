@@ -8,15 +8,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppBarAction extends StatelessWidget {
-  const AppBarAction({
-    Key key,
-    this.size: 24.0,
-    this.padding: const EdgeInsets.all(8.0),
-    this.alignment: FractionalOffset.center,
-    @required this.child,
-    this.color,
-    this.tooltip
-  }) : super(key: key);
+  const AppBarAction(
+      {Key key,
+      this.size: 24.0,
+      this.padding: const EdgeInsets.all(8.0),
+      this.alignment: FractionalOffset.center,
+      @required this.child,
+      this.color,
+      this.tooltip})
+      : super(key: key);
 
   final double size;
   final EdgeInsets padding;
@@ -34,13 +34,11 @@ class AppBarAction extends StatelessWidget {
         maxWidth: size,
         maxHeight: size,
         child: new ConstrainedBox(
-          constraints: new BoxConstraints.loose(
-            new Size.square(math.max(size, InkSplash.defaultRadius * 2.0))
-          ),
+          constraints: new BoxConstraints.loose(new Size.square(
+              math.max(size, Material.defaultSplashRadius * 2.0))),
           child: new Align(
             alignment: alignment,
-            child: new IconTheme.merge(
-              context: context,
+            child: IconTheme.merge(
               data: new IconThemeData(
                 size: size,
                 color: color,

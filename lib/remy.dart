@@ -23,12 +23,14 @@ class _RemyPageState extends State<RemyPage> {
     super.dispose();
   }
 
-  void _handleNotifications(backend.RemyNotification notification) { }
+  void _handleNotifications(backend.RemyNotification notification) {}
 
   backend.RemyUi _ui;
 
   void _handleUI(backend.RemyUi ui) {
-    setState(() { _ui = ui; });
+    setState(() {
+      _ui = ui;
+    });
   }
 
   @override
@@ -41,7 +43,7 @@ class _RemyPageState extends State<RemyPage> {
 }
 
 class RemyMessageList extends StatelessWidget {
-  RemyMessageList({ Key key, this.remy, this.ui }) : super(key: key);
+  RemyMessageList({Key key, this.remy, this.ui}) : super(key: key);
 
   final backend.Remy remy;
   final backend.RemyUi ui;
@@ -63,7 +65,7 @@ class RemyMessageList extends StatelessWidget {
             padding: new EdgeInsets.all(16.0),
             child: new Text(
               message.label,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
               textAlign: TextAlign.center,
             ),
           )
@@ -77,7 +79,7 @@ class RemyMessageList extends StatelessWidget {
             //     return new Padding(
             //       padding: new EdgeInsets.only(left: 8.0, right: 8.0),
             //       child: new Material(
-                    
+
             //         color: Theme.of(context).accentColor,
             //         child: new InkWell(
             //           onTap: () {
@@ -101,7 +103,11 @@ class RemyMessageList extends StatelessWidget {
           content.add(new Padding(
             padding: new EdgeInsets.all(16.0),
             child: new Text(
-              message.classes.toList().reduce((String s, String v) => '$s, $v'),
+              (message.classes.toList()
+                    ..remove("nomsg")
+                    ..remove("quiet")
+                    ..remove("important"))
+                  .join(", "),
               style: Theme.of(context).textTheme.caption,
               textAlign: TextAlign.right,
             ),
@@ -111,16 +117,16 @@ class RemyMessageList extends StatelessWidget {
         messages.add(new Padding(
           padding: new EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
           child: new Card(
-            child: new BlockBody(
+            child: new Column(
               children: content,
             ),
           ),
         ));
-      };
+      }
     }
-    return new LazyBlock(
+    return new ListView(
       padding: new EdgeInsets.only(bottom: 16.0),
-      delegate: new LazyBlockChildren(children: messages),
+      children: messages,
     );
   }
 }

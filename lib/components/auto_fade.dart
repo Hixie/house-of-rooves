@@ -47,17 +47,18 @@ class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateConfig(AutoFade oldConfig) {
-    super.didUpdateConfig(oldConfig);
-    if (config.token != oldConfig.token) {
+  void didUpdateWidget(AutoFade oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.token != oldWidget.token) {
       addEntry(true);
     } else {
-      _currentChild.widget = config.child;
+      _currentChild.widget = widget.child;
     }
   }
 
   void addEntry(bool animate) {
-    AnimationController controller = new AnimationController(duration: config.duration, vsync: this);
+    AnimationController controller =
+        new AnimationController(duration: widget.duration, vsync: this);
     if (animate) {
       if (_currentChild != null) {
         _currentChild.controller.reverse();
@@ -71,13 +72,16 @@ class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
     }
     Animation<double> animation = new CurvedAnimation(
       parent: controller,
-      curve: config.curve,
+      curve: widget.curve,
     );
-    _AutoFadeChildEntry entry = new _AutoFadeChildEntry(config.child, controller, animation);
+    _AutoFadeChildEntry entry =
+        new _AutoFadeChildEntry(widget.child, controller, animation);
     animation.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.dismissed) {
         assert(_children.contains(entry));
-        setState(() { _children.remove(entry); });
+        setState(() {
+          _children.remove(entry);
+        });
         controller.dispose();
       }
     });
@@ -86,10 +90,8 @@ class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    if (_currentChild != null)
-      _currentChild.controller.dispose();
-    for (_AutoFadeChildEntry child in _children)
-      child.controller.dispose();
+    if (_currentChild != null) _currentChild.controller.dispose();
+    for (_AutoFadeChildEntry child in _children) child.controller.dispose();
     super.dispose();
   }
 
