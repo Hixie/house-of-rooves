@@ -1,4 +1,4 @@
-export APPNAME=instrument_panel
+export APPNAME=laundry_room_console
 export ARM=arm
 export TARGETUSER=$USER
 export TARGET=burmilla
