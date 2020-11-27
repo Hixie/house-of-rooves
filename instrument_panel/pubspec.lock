@@ -23,7 +23,7 @@ packages:
   home_automation_tools:
     dependency: "direct main"
     description:
-      path: "../dart-home-automation-tools"
+      path: "../../dart-home-automation-tools"
       relative: true
     source: path
     version: "0.0.0"
