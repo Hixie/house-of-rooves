@@ -73,32 +73,31 @@ class RemyMessageList extends StatelessWidget {
         if (message.buttons.isNotEmpty) {
           content.add(new Padding(
             padding: new EdgeInsets.only(left: 8.0, right: 8.0),
-            // child: new Wrap(
-            //   spacing: 16.0,
-            //   children: message.buttons.map((backend.RemyButton button) {
-            //     return new Padding(
-            //       padding: new EdgeInsets.only(left: 8.0, right: 8.0),
-            //       child: new Material(
-
-            //         color: Theme.of(context).accentColor,
-            //         child: new InkWell(
-            //           onTap: () {
-            //             assert(() { print('pushing $button'); return true; });
-            //             remy.pushButton(button);
-            //           },
-            //           child: new Padding(
-            //             padding: new EdgeInsets.all(8.0),
-            //             child: new Text(
-            //               button.label,
-            //               style: Theme.of(context).accentTextTheme.subhead,
-            //               textAlign: TextAlign.center,
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     );
-            //   }).toList()
-            // ),
+            child: new Wrap(
+              spacing: 16.0,
+              children: message.buttons.map((backend.RemyButton button) {
+                return new Padding(
+                  padding: new EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: new Material(
+                    color: Theme.of(context).accentColor,
+                    child: new InkWell(
+                      onTap: () {
+                        assert(() { print('pushing $button'); return true; }());
+                        remy.pushButton(button);
+                      },
+                      child: new Padding(
+                        padding: new EdgeInsets.all(8.0),
+                        child: new Text(
+                          button.label,
+                          style: Theme.of(context).accentTextTheme.subtitle1,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList()
+            ),
           ));
           content.add(new Padding(
             padding: new EdgeInsets.all(16.0),

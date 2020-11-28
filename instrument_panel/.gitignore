@@ -7,4 +7,5 @@ build/
 ios/.generated/
 packages
 credentials.cfg
+ca.cert.pem
 .dart_tool/

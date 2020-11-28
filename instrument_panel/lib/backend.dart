@@ -40,16 +40,18 @@ typedef void ErrorReporter(String message);
 
 ErrorReporter onError;
 
-///Credentials go in this order:
-///Line 1: authToken littlebits
-///Lines 2 & 3: Sunpower username and password
-///Line 4: Remy password
-///Lines 5 and 6: Television username and password
+/// Credentials go in this order:
+///   0. Littlebits authToken
+///   1. Sunpower username
+///   2. Sunpower password
+///   3. Remy password
+///   4. Television username
+///   5. Television password
 List<String> _credentials;
+SecurityContext _securityContext;
 
 Future<Null> init() async {
-  _credentials = await rootBundle.loadStructuredData('credentials.cfg',
-      (String value) async {
+  _credentials = await rootBundle.loadStructuredData('credentials.cfg', (String value) async {
     return value.split('\n');
   });
   if (_credentials.length < 5)
@@ -71,14 +73,16 @@ Future<Null> init() async {
     username: _credentials[4],
     password: _credentials[5],
   );
+  _securityContext = SecurityContext()
+    ..setTrustedCertificatesBytes((await rootBundle.load('ca.cert.pem')).buffer.asUint8List());
 }
 
 Remy openRemy(NotificationHandler onNotification, UiUpdateHandler onUiUpdate) {
   assert(_credentials != null);
   return new Remy(
-    username:
-        'house-of-rooves app on ${Platform.localHostname} (${Platform.operatingSystem})',
+    username: 'house-of-rooves app on ${Platform.localHostname} (${Platform.operatingSystem})',
     password: _credentials[3],
+    securityContext: _securityContext,
     onNotification: onNotification,
     onUiUpdate: onUiUpdate,
     onLog: (dynamic error) {
