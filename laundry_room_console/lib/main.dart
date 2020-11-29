@@ -221,34 +221,41 @@ class _ConsoleState extends State<Console> {
             children: <Widget>[
               Section(
                 label: messagesFor(remyState, 'cat-door') ?? 'Cat door.',
-                child: Placeholder(),
-                // cat door:
-                //  - messages with class "console-cat-door"
-                //  - status: status-cat-door-open, status-cat-door-shut
-                //  - buttons:
-                //    - catDoorShut: shut door
-                //    - catDoorOpened: open door
-                //    - catsNotInside: cats not inside
-                //    - quarantineCats: set policy (closes)
-                //    - wildLifeAtHome: set policy (closes)
-                //    - openDoorPolicy: set policy (opens)
+                child: Button(
+                  remy: remy,
+                  buttons: <RemyButton>[
+                    remyState.getButtonById('catDoorShut'),
+                    remyState.getButtonById('catDoorOpened'),
+                    remyState.getButtonById('catsNotInside'),
+                    remyState.getButtonById('quarantineCats'),
+                    remyState.getButtonById('wildLifeAtHome'),
+                    remyState.getButtonById('openDoorPolicy'),
+                  ],
+                  child: CatDoor(
+                    isOpen: !remyState.hasNotification('status-cat-door-shut'),
+                  ),
+                ),
               ),
               SizedBox(
                 width: 8.0,
               ),
               Section(
                 label: messagesFor(remyState, 'cat-litter') ?? 'Cat litter box.',
-                child: Placeholder(),
-                // cat litter status and buttons
-                //  - status: messages with class "console-cat-litter"
-                //  - buttons (showing only visible ones):
-                //    - scoopedCatLitterDownstairs
-                //    - replacedCatLitterDownstairs
-                //    - orderedCatLitterDownstairs
-                //    - receivedCatLitterDownstairs
-                //    - canceledCatLitterDownstairs
-                //    - gotCatLitterDownstairs
-                //    - resetCatLitterDownstairsSupply
+                child: Button(
+                  remy: remy,
+                  buttons: <RemyButton>[
+                    remyState.getButtonById('scoopedCatLitterDownstairs'),
+                    remyState.getButtonById('replacedCatLitterDownstairs'),
+                    remyState.getButtonById('orderedCatLitterDownstairs'),
+                    remyState.getButtonById('receivedCatLitterDownstairs'),
+                    remyState.getButtonById('canceledCatLitterDownstairs'),
+                    remyState.getButtonById('gotCatLitterDownstairs'),
+                    remyState.getButtonById('resetCatLitterDownstairsSupply'),
+                  ],
+                  child: CatLitter(
+                    isDirty: remyState.hasNotification('status-cat-litter-dirty'),
+                  ),
+                ),
               ),
             ],
           ),
@@ -310,11 +317,11 @@ class Button extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            contentPadding: EdgeInsets.zero,
+            contentPadding: EdgeInsets.all(6.0),
             children: <Widget>[
               ...buttons.map<Widget>((RemyButton button) {
                 return Padding(
-                  padding: EdgeInsets.all(12.0),
+                  padding: EdgeInsets.all(6.0),
                   child: OutlinedButton(
                     child: Padding(
                       padding: EdgeInsets.all(12.0),
@@ -427,15 +434,41 @@ class LaundryGame extends StatelessWidget {
   LaundryGame({
     Key key,
     this.isFull,
-    this.onPressed,
   }) : super(key: key);
 
   final bool isFull;
-  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Text(isFull ? 'C' : 'N');
+  }
+}
+
+class CatDoor extends StatelessWidget {
+  CatDoor({
+    Key key,
+    this.isOpen,
+  }) : super(key: key);
+
+  final bool isOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(isOpen ? 'Open' : 'Shut');
+  }
+}
+
+class CatLitter extends StatelessWidget {
+  CatLitter({
+    Key key,
+    this.isDirty,
+  }) : super(key: key);
+
+  final bool isDirty;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(isDirty ? 'Dirty' : 'Fresh');
   }
 }
 
