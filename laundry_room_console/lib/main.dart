@@ -150,7 +150,14 @@ class _ConsoleState extends State<Console> {
                   Expanded(
                     child: Button(
                       remy: remy,
-                      buttons: <RemyButton>[],
+                      buttons: <RemyButton>[
+                        remyState.getButtonById('laundryWasherFilled'),
+                        remyState.getButtonById('laundryWasherStarted'),
+                        remyState.getButtonById('laundryWasherStartedFromFull'),
+                        remyState.getButtonById('laundryWasherStartedFromClean'),
+                        remyState.getButtonById('laundryWasherDone'),
+                        remyState.getButtonById('laundryWasherEmpty'),
+                      ],
                       child: Washer(
                         state: _getMachineState(remyState, 'laundry-washer'),
                       ),
@@ -159,7 +166,14 @@ class _ConsoleState extends State<Console> {
                   Expanded(
                     child: Button(
                       remy: remy,
-                      buttons: <RemyButton>[],
+                      buttons: <RemyButton>[
+                        remyState.getButtonById('laundryDryerFilled'),
+                        remyState.getButtonById('laundryDryerStarted'),
+                        remyState.getButtonById('laundryDryerStartedFromFull'),
+                        remyState.getButtonById('laundryDryerStartedFromClean'),
+                        remyState.getButtonById('laundryDryerDone'),
+                        remyState.getButtonById('laundryDryerEmpty'),
+                      ],
                       child: Dryer(
                         state: _getMachineState(remyState, 'laundry-dryer'),
                       ),
@@ -168,7 +182,9 @@ class _ConsoleState extends State<Console> {
                   Expanded(
                     child: Button(
                       remy: remy,
-                      buttons: <RemyButton>[],
+                      buttons: <RemyButton>[
+                        remyState.getButtonById('laundryCleanDone'),
+                      ],
                       child: LaundryGame(
                         isFull: remyState.hasNotification('laundry-clean-full'),
                       ),
@@ -200,14 +216,6 @@ class _ConsoleState extends State<Console> {
               ),
             ],
           ),
-          // laundry buttons:
-          //  - laundryAutomaticWasherFull: filled washer, not started
-          //  - laundryAutomaticWasherStarted: started washer
-          //  - laundryAutomaticDryerFull: filled dryer, not started
-          //  - laundryWasherTransfer: moved from washer to dryer
-          //  - laundryDryerEmpty: emptied dryer
-          //  - laundryCleanDone: empty clean pile
-          //  - maybe more from the list of laundry buttons
           // laundry dryer automatic button
           //  - laundryAutomaticDryerStarted: when the dryer starts
           //  - laundryAutomaticDryerClean: when the dryer ends reasonably
