@@ -24,5 +24,5 @@ class Credentials {
   SecurityContext get securityContext => _securityContext;
   SecurityContext _securityContext;
 
-  int get _requiredCount => 2;
+  int get _requiredCount => 1;
 }
