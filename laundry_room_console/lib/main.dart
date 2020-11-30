@@ -103,7 +103,7 @@ class _ConsoleState extends State<Console> {
     final RemyMultiplexer remy = Remy.of(context);
     final RemyUi remyState = remy.currentState;
     final ThemeData theme = Theme.of(context);
-    if (remy == null) {
+    if (remy == null || remyState == null) {
       return Center(
         child: Material(
           child: Padding(
