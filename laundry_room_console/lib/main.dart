@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:home_automation_tools/all.dart';
 import 'package:flutter/foundation.dart';
@@ -295,9 +296,11 @@ class Section extends StatelessWidget {
           padding: EdgeInsets.all(4.0),
           child: Column(
             children: <Widget>[
-              Expanded(child: child),
+              Expanded(
+                child: child,
+              ),
               SizedBox(height: 4.0),
-              Text(label, style: theme.textTheme.bodyText2),
+              Text(label, style: theme.textTheme.bodyText2, textAlign: TextAlign.center),
             ],
           ),
         ),
@@ -353,130 +356,13 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: buttons.isNotEmpty ? _handler(context) : null,
-      child: FittedBox(
-        child: child,
+      child: SizedBox.expand(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: child,
+        ),
       ),
     );
-  }
-}
-
-class PileOfLaundry extends StatelessWidget {
-  PileOfLaundry({
-    Key key,
-    this.isFull,
-  }) : super(key: key);
-
-  final bool isFull;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(isFull ? 'F' : 'E');
-  }
-}
-
-class Washer extends StatelessWidget {
-  Washer({
-    Key key,
-    this.state,
-  }) : super(key: key);
-
-  final MachineState state;
-
-  @override
-  Widget build(BuildContext context) {
-    String label;
-    switch (state) {
-      case MachineState.empty:
-        label = 'E';
-        break;
-      case MachineState.ready:
-        label = 'F';
-        break;
-      case MachineState.running:
-        label = 'R';
-        break;
-      case MachineState.done:
-        label = 'D';
-        break;
-      default:
-        label = '?';
-        break;
-    }
-    return Text(label);
-  }
-}
-
-class Dryer extends StatelessWidget {
-  Dryer({
-    Key key,
-    this.state,
-  }) : super(key: key);
-
-  final MachineState state;
-
-  @override
-  Widget build(BuildContext context) {
-    String label;
-    switch (state) {
-      case MachineState.empty:
-        label = 'E';
-        break;
-      case MachineState.ready:
-        label = 'F';
-        break;
-      case MachineState.running:
-        label = 'R';
-        break;
-      case MachineState.done:
-        label = 'D';
-        break;
-      default:
-        label = '?';
-        break;
-    }
-    return Text(label);
-  }
-}
-
-class LaundryGame extends StatelessWidget {
-  LaundryGame({
-    Key key,
-    this.isFull,
-  }) : super(key: key);
-
-  final bool isFull;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(isFull ? 'C' : 'N');
-  }
-}
-
-class CatDoor extends StatelessWidget {
-  CatDoor({
-    Key key,
-    this.isOpen,
-  }) : super(key: key);
-
-  final bool isOpen;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(isOpen ? 'Open' : 'Shut');
-  }
-}
-
-class CatLitter extends StatelessWidget {
-  CatLitter({
-    Key key,
-    this.isDirty,
-  }) : super(key: key);
-
-  final bool isDirty;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(isDirty ? 'Dirty' : 'Fresh');
   }
 }
 
@@ -600,4 +486,189 @@ class ArrowShape extends ShapeBorder {
 
   @override
   EdgeInsetsGeometry get dimensions => EdgeInsets.zero;
+}
+
+class PileOfLaundry extends StatelessWidget {
+  PileOfLaundry({
+    Key key,
+    this.isFull,
+  }) : super(key: key);
+
+  final bool isFull;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(child: Text(isFull ? 'F' : 'E'));
+  }
+}
+
+class Washer extends StatelessWidget {
+  Washer({
+    Key key,
+    this.state,
+  }) : super(key: key);
+
+  final MachineState state;
+
+  @override
+  Widget build(BuildContext context) {
+    String label;
+    switch (state) {
+      case MachineState.empty:
+        label = 'E';
+        break;
+      case MachineState.ready:
+        label = 'F';
+        break;
+      case MachineState.running:
+        label = 'R';
+        break;
+      case MachineState.done:
+        label = 'D';
+        break;
+      default:
+        label = '?';
+        break;
+    }
+    return FittedBox(child: Text(label));
+  }
+}
+
+class Dryer extends StatelessWidget {
+  Dryer({
+    Key key,
+    this.state,
+  }) : super(key: key);
+
+  final MachineState state;
+
+  @override
+  Widget build(BuildContext context) {
+    String label;
+    switch (state) {
+      case MachineState.empty:
+        label = 'E';
+        break;
+      case MachineState.ready:
+        label = 'F';
+        break;
+      case MachineState.running:
+        label = 'R';
+        break;
+      case MachineState.done:
+        label = 'D';
+        break;
+      default:
+        label = '?';
+        break;
+    }
+    return FittedBox(child: Text(label));
+  }
+}
+
+class LaundryGame extends StatelessWidget {
+  LaundryGame({
+    Key key,
+    this.isFull,
+  }) : super(key: key);
+
+  final bool isFull;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(child: Text(isFull ? 'C' : 'N'));
+  }
+}
+
+class CatDoor extends StatelessWidget {
+  CatDoor({
+    Key key,
+    this.isOpen,
+  }) : super(key: key);
+
+  final bool isOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(child: Text(isOpen ? 'Open' : 'Shut'));
+  }
+}
+
+class CatLitter extends StatelessWidget {
+  CatLitter({
+    Key key,
+    this.isDirty,
+  }) : super(key: key);
+
+  final bool isDirty;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: CatLitterPainter(
+        isDirty: isDirty,
+        color: Theme.of(context).textTheme.headline1.color,
+      ),
+    );
+  }
+}
+
+class CatLitterPainter extends CustomPainter {
+  CatLitterPainter({ this.isDirty, this.color });
+
+  final bool isDirty;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    double strokeWidth = 4.0;
+    final double litterY = size.height / 2.0;
+    final Path box = Path()
+      ..moveTo(strokeWidth / 2.0, litterY - size.height / 5.0)
+      ..lineTo(strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..lineTo(size.width - strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..lineTo(size.width - strokeWidth / 2.0, litterY - size.height / 5.0);
+    Path litter = Path()
+      ..moveTo(strokeWidth / 2.0, litterY)
+      ..lineTo(strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..lineTo(size.width - strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..lineTo(size.width - strokeWidth / 2.0, litterY);
+    int wiggleCount = size.width ~/ (strokeWidth * 2.0);
+    if (wiggleCount % 2 == 0)
+      wiggleCount += 1;
+    double x = size.width - strokeWidth / 2.0;
+    final Radius wiggleRadius = Radius.circular((size.width - strokeWidth) / (wiggleCount * 2.0));
+    for (int index = 0; index < wiggleCount; index += 1) {
+      x -= wiggleRadius.x * 2.0;
+      litter.arcToPoint(Offset(x, litterY), radius: wiggleRadius, clockwise: index % 2 == 0);
+    }
+    if (isDirty) {
+      final Path feces = Path();
+      final math.Random random = math.Random(DateTime.now().day); // TODO(ianh): this should come from the BuildContext
+      for (int index = 0; index < size.width ~/ (strokeWidth * 6.0); index += 1) {
+        double radius = random.nextDouble() * (strokeWidth * 3.0 + strokeWidth * 2.0);
+        feces.addOval(Rect.fromCircle(
+          center: Offset(
+            radius * 1.5 + random.nextDouble() * (size.width - radius * 3.0),
+            litterY - strokeWidth + random.nextDouble() * strokeWidth * 2.0,
+          ),
+          radius: radius,
+        ));
+      }
+      litter = Path.combine(PathOperation.union, litter, feces);
+    }
+    Path path = Path()
+      ..addPath(box, Offset.zero)
+      ..addPath(litter, Offset.zero);
+    canvas.drawPath(
+      path,
+      Paint()
+        ..strokeWidth = strokeWidth
+        ..color = color
+        ..style = PaintingStyle.stroke,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CatLitterPainter oldDelegate) => isDirty != oldDelegate.isDirty;
 }
