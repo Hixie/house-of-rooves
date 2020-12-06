@@ -498,11 +498,50 @@ class PileOfLaundry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(child: Text(isFull ? 'F' : 'E'));
+    return CustomPaint(
+      painter: PileOfLaundryPainter(
+        isFull: isFull,
+        color: Theme.of(context).textTheme.headline1.color,
+      ),
+    );
   }
 }
 
-class Washer extends StatelessWidget {
+class PileOfLaundryPainter extends CustomPainter {
+  PileOfLaundryPainter({ this.isFull, this.color });
+
+  final bool isFull;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    double strokeWidth = 4.0;
+    final Path path = Path()
+      // floor
+      ..moveTo(strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..lineTo(size.width - strokeWidth / 2.0, size.height - strokeWidth / 2.0);
+    if (isFull) {
+      final Radius radius = Radius.elliptical(size.width * 0.1, size.height * 0.02);
+      final Path edge = Path()..addRRect(RRect.fromRectAndCorners(Rect.fromLTRB(0.0, size.height * 0.1, size.width, size.height - strokeWidth / 2.0), topLeft: radius, topRight: radius));
+      final Path clothes = Path();
+      addClothes(clothes, Offset(0.0, size.height * 0.2) & size, strokeWidth, math.Random(0));
+      path.addPath(Path.combine(PathOperation.intersect, clothes, edge), Offset.zero);
+    }
+    canvas.drawPath(
+      path,
+      Paint()
+        ..strokeWidth = strokeWidth
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeJoin = StrokeJoin.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(PileOfLaundryPainter oldDelegate) => isFull != oldDelegate.isFull;
+}
+
+class Washer extends StatefulWidget {
   Washer({
     Key key,
     this.state,
@@ -510,28 +549,169 @@ class Washer extends StatelessWidget {
 
   final MachineState state;
 
+  State<Washer> createState() => _WasherState();
+}
+
+class _WasherState extends State<Washer> with TickerProviderStateMixin {
+  AnimationController _controller;
+
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
+    if (widget.state == MachineState.running)
+      _controller.repeat(reverse: true);
+  }
+
+  void didUpdateWidget(Washer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.state != widget.state) {
+      if (widget.state == MachineState.running) {
+        _controller.repeat(reverse: true);
+      } else {
+        _controller.stop();
+      }
+    }
+  }
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    String label;
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: WasherPainter(
+          state: widget.state,
+          color: Theme.of(context).textTheme.headline1.color,
+          controller: _controller.drive(CurveTween(curve: Curves.easeInOutCirc)),
+        ),
+      ),
+    );
+  }
+}
+
+class WasherPainter extends CustomPainter {
+  WasherPainter({ this.state, this.color, this.controller }): super(repaint: controller);
+
+  final MachineState state;
+  final Color color;
+  final Animation<double> controller;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    double strokeWidth = 4.0;
+    final double floorY = size.height - strokeWidth / 2.0;
+    final double leftX = strokeWidth / 2.0;
+    final double rightX = size.width - strokeWidth / 2.0;
+    final double surfaceY = size.height * 3.0 / 8.0;
+    final double controlsY = size.height * 2.0 / 8.0;
+    final double controlsLeftX = leftX + size.width * 0.05;
+    final double controlsRightX = rightX - size.width * 0.05;
+    final double buttonY = controlsY + (surfaceY - controlsY) / 2.0;
+    final Path machine = Path()
+      ..moveTo(leftX, floorY)
+      ..lineTo(rightX, floorY)
+      ..lineTo(rightX, surfaceY)
+      ..lineTo(leftX, surfaceY)
+      ..close()
+      ..moveTo(leftX, surfaceY)
+      ..lineTo(controlsLeftX, controlsY)
+      ..lineTo(controlsRightX, controlsY)
+      ..lineTo(rightX, surfaceY)
+      ..addOval(Rect.fromCircle(center: Offset(leftX + size.width * 0.125 * 1.0, buttonY), radius: size.width * 0.02))
+      ..addOval(Rect.fromCircle(center: Offset(leftX + size.width * 0.125 * 2.0, buttonY), radius: size.width * 0.02))
+      ..addOval(Rect.fromCircle(center: Offset(leftX + size.width * 0.125 * 3.0, buttonY), radius: size.width * 0.02))
+      ..addOval(Rect.fromCircle(center: Offset(leftX + size.width * 0.125 * 4.0, buttonY), radius: size.width * 0.02));
+    canvas.drawPath(
+      machine,
+      Paint()
+        ..strokeWidth = strokeWidth
+        ..color = color
+        ..style = PaintingStyle.stroke,
+    );
     switch (state) {
+      case MachineState.done:
+        Path annotation = Path()
+          ..moveTo(leftX + size.width * 0.3, surfaceY + (floorY - surfaceY) * 0.6)
+          ..lineTo(size.width / 2.0, surfaceY + (floorY - surfaceY) * 0.8)
+          ..lineTo(leftX + size.width * 0.7, surfaceY + (floorY - surfaceY) * 0.2);
+        canvas.drawPath(
+          annotation,
+          Paint()
+            ..strokeWidth = strokeWidth
+            ..color = Colors.teal // TODO(ianh): make configurable
+            ..style = PaintingStyle.stroke,
+        );
+        break;
       case MachineState.empty:
-        label = 'E';
+        final double margin = math.min(math.max(strokeWidth, math.max(size.width * 0.1, size.height * 0.1)), math.max(size.width * 0.5, size.height * 0.5));
+        Path annotation = Path()..addRRect(RRect.fromRectAndRadius(Rect.fromLTRB(leftX + margin, surfaceY + margin, rightX - margin, floorY - margin), Radius.circular(margin)));
+        canvas.drawPath(
+          annotation,
+          Paint()
+            ..strokeWidth = strokeWidth
+            ..color = Colors.white // TODO(ianh): make configurable
+            ..style = PaintingStyle.stroke,
+        );
         break;
       case MachineState.ready:
-        label = 'F';
+        final Offset origin = Offset(leftX + strokeWidth * 2.0, surfaceY + (floorY - surfaceY) * 0.2);
+        Path annotation = Path();
+        addWiggle(
+          annotation,
+          origin: origin,
+          width: rightX - leftX - strokeWidth * 4.0,
+          count: (rightX - leftX) ~/ (strokeWidth * 4.0),
+        );
+        final double clothesTop = origin.dy + strokeWidth;
+        addClothes(annotation, (Offset(leftX, clothesTop) & Size(rightX - leftX, floorY - clothesTop)).deflate(strokeWidth * 4.0), strokeWidth, math.Random(0));
+        canvas.drawPath(
+          annotation,
+          Paint()
+            ..strokeWidth = strokeWidth
+            ..color = color
+            ..style = PaintingStyle.stroke
+            ..strokeJoin = StrokeJoin.round,
+        );
         break;
       case MachineState.running:
-        label = 'R';
-        break;
-      case MachineState.done:
-        label = 'D';
-        break;
-      default:
-        label = '?';
+        final Offset origin = Offset(leftX + strokeWidth * 2.0, surfaceY + (floorY - surfaceY) * 0.2);
+        final Path wave = Path();
+        double waveSize = addWiggle(
+          wave,
+          origin: origin,
+          width: rightX - leftX - strokeWidth * 4.0,
+          count: (rightX - leftX) ~/ (strokeWidth * 4.0),
+          extraCount: 6,
+        );
+        double margin = waveSize * 10.0;
+        wave
+          ..lineTo(rightX + margin, origin.dy)
+          ..lineTo(rightX + margin, floorY)
+          ..lineTo(leftX - margin, floorY)
+          ..lineTo(leftX - margin, origin.dy)
+          ..close();
+        Path edge = Path()
+          ..addRect(Rect.fromLTRB(leftX + strokeWidth, surfaceY, rightX - strokeWidth, floorY - strokeWidth));
+        Path annotation = Path.combine(PathOperation.intersect, wave.shift(Offset((controller.value * 2.0 - 3.0) * waveSize, 0.0)), edge);
+        canvas.drawPath(
+          annotation,
+          Paint()
+            ..strokeWidth = strokeWidth
+            ..color = Colors.blue // TODO(ianh): make configurable
+            ..style = PaintingStyle.stroke,
+        );
         break;
     }
-    return FittedBox(child: Text(label));
   }
+
+  @override
+  bool shouldRepaint(WasherPainter oldDelegate) => state != oldDelegate.state;
 }
 
 class Dryer extends StatelessWidget {
@@ -629,24 +809,24 @@ class CatLitterPainter extends CustomPainter {
       ..lineTo(size.width - strokeWidth / 2.0, size.height - strokeWidth / 2.0)
       ..lineTo(size.width - strokeWidth / 2.0, litterY - size.height / 5.0);
     Path litter = Path()
-      ..moveTo(strokeWidth / 2.0, litterY)
-      ..lineTo(strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..moveTo(size.width - strokeWidth / 2.0, litterY)
       ..lineTo(size.width - strokeWidth / 2.0, size.height - strokeWidth / 2.0)
-      ..lineTo(size.width - strokeWidth / 2.0, litterY);
+      ..lineTo(strokeWidth / 2.0, size.height - strokeWidth / 2.0)
+      ..lineTo(strokeWidth / 2.0, litterY);
     int wiggleCount = size.width ~/ (strokeWidth * 2.0);
     if (wiggleCount % 2 == 0)
       wiggleCount += 1;
-    double x = size.width - strokeWidth / 2.0;
-    final Radius wiggleRadius = Radius.circular((size.width - strokeWidth) / (wiggleCount * 2.0));
-    for (int index = 0; index < wiggleCount; index += 1) {
-      x -= wiggleRadius.x * 2.0;
-      litter.arcToPoint(Offset(x, litterY), radius: wiggleRadius, clockwise: index % 2 == 0);
-    }
+    addWiggle(
+      litter,
+      origin: Offset(strokeWidth / 2.0, litterY),
+      width: size.width - strokeWidth,
+      count: wiggleCount,
+    );
     if (isDirty) {
       final Path feces = Path();
       final math.Random random = math.Random(DateTime.now().day); // TODO(ianh): this should come from the BuildContext
       for (int index = 0; index < size.width ~/ (strokeWidth * 6.0); index += 1) {
-        double radius = random.nextDouble() * (strokeWidth * 3.0 + strokeWidth * 2.0);
+        double radius = random.nextDouble() * (strokeWidth * 4.0) + strokeWidth;
         feces.addOval(Rect.fromCircle(
           center: Offset(
             radius * 1.5 + random.nextDouble() * (size.width - radius * 3.0),
@@ -665,10 +845,44 @@ class CatLitterPainter extends CustomPainter {
       Paint()
         ..strokeWidth = strokeWidth
         ..color = color
-        ..style = PaintingStyle.stroke,
+        ..style = PaintingStyle.stroke
+        ..strokeJoin = StrokeJoin.round,
     );
   }
 
   @override
   bool shouldRepaint(CatLitterPainter oldDelegate) => isDirty != oldDelegate.isDirty;
+}
+
+double addWiggle(Path path, {
+  @required Offset origin,
+  @required double width,
+  @required int count,
+  int extraCount = 0,
+}) {
+  final Radius wiggleRadius = Radius.circular(width / (count * 2.0));
+  path.moveTo(origin.dx, origin.dy);
+  double x = origin.dx;
+  for (int index = 0; index < count + extraCount; index += 1) {
+    x += wiggleRadius.x * 2.0;
+    path.arcToPoint(Offset(x, origin.dy), radius: wiggleRadius, clockwise: index % 2 == 0);
+  }
+  return (wiggleRadius * 4.0).x;
+}
+
+void addClothes(Path path, Rect rect, double strokeWidth, math.Random random) {
+  Path pile = Path();
+  double itemHeight = strokeWidth * 4.0;
+  double dy = rect.bottom - itemHeight / 2.0;
+  while (dy > rect.top) {
+    dy -= itemHeight / 2.0;
+    Path item = Path()..addOval(Rect.fromLTRB(
+      rect.left + random.nextDouble() * rect.width / 6.0,
+      dy,
+      rect.right - random.nextDouble() * rect.width / 6.0,
+      dy + itemHeight,
+    ));
+    pile = Path.combine(PathOperation.union, pile, item);
+  }
+  path.addPath(pile, Offset.zero);
 }
