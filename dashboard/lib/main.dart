@@ -13,22 +13,42 @@ const bool _soundEnabled = true;
 const int _initialDesign = 0; // curved, beveled, straight
 const int _maxDesign = 2; // 0..2
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Credentials credentials = Credentials('credentials.cfg');
   SecurityContext securityContext = SecurityContext()..setTrustedCertificatesBytes(File(credentials.certificatePath).readAsBytesSync());
-  DatabaseStreamingClient database = DatabaseStreamingClient(
+  // DatabaseStreamingClient database = DatabaseStreamingClient(
+  //   credentials.databaseHost,
+  //   credentials.databasePort,
+  //   securityContext,
+  //   dbFamilyRoomSensors,
+  //   dbFamilyRoomSensorsLength,
+  // );
+  // Stream<TableRecord> stream = database.stream;
+
+  print('requesting records...');
+  Stream<TableRecord> stream = fetchHistoricalData(
     credentials.databaseHost,
     credentials.databasePort,
     securityContext,
-    0x00001001,
-    64,
+    dbFamilyRoomSensors,
+    dbFamilyRoomSensorsLength,
+    DateTime.utc(2020, DateTime.november, 20),
+    DateTime.utc(2020, DateTime.december, 20),
+    Duration(hours: 1),
   );
+  Stopwatch stopwatch = Stopwatch()..start();
+  int count = 0;
+  print('receiving records...');
+  await for (TableRecord record in stream) {
+    count += 1;
+  }
+  print('$count records received in ${stopwatch.elapsed.inMilliseconds}ms');
 
   SystemChrome.setEnabledSystemUIOverlays([]);
   allTests();
-  runApp(Dashboard(stream: database.stream));
+  runApp(Dashboard(stream: stream));
 }
 
 class Dashboard extends StatefulWidget {
@@ -126,10 +146,10 @@ class _PanelState extends State<Panel> {
                                     extent: 1.0,
                                     frame: ComboFrame(),
                                   ),
-                                  ComboChild.flex(
-                                    flex: 1.0,
-                                    frame: DatabaseWatcher(stream: widget.stream),
-                                  ),
+                                  // ComboChild.flex(
+                                  //   flex: 1.0,
+                                  //   frame: DatabaseWatcher(stream: widget.stream),
+                                  // ),
                                 ],
                               ),
                             ),
