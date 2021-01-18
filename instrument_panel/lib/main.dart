@@ -138,16 +138,13 @@ class HouseOfRooves extends StatefulWidget {
 }
 
 class _HouseOfRoovesState extends State<HouseOfRooves> {
-  final GlobalKey<ScaffoldState> scaffold = new GlobalKey<ScaffoldState>();
-
   void initState() {
     super.initState();
     backend.onError = (String message) {
       // add to an in-memory log that can be shown somewhere
       //assert(() { print(message); return true; });
-      if (scaffold.currentState != null)
-        scaffold.currentState
-            .showSnackBar(new SnackBar(content: new Text(message)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(new SnackBar(content: new Text(message)));
     };
     backend.init().whenComplete(() {
       _handlePageChanged(HouseOfRoovesPage.remy);
@@ -183,28 +180,30 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        title: 'House of Rooves',
-        theme: new ThemeData(
-          primarySwatch: Colors.lightBlue,
-          accentColor: Colors.greenAccent[700],
-          accentColorBrightness: Brightness.dark,
-        ),
-        home: new Scaffold(
-          key: scaffold,
+    return Scaffold(
           drawer: _page != null
               ? new MainDrawer(page: _page, onPageChanged: _handlePageChanged)
               : null,
-          body: new AutoFade(
+          body: AutoFade(
             duration: const Duration(seconds: 1),
             curve: Curves.fastOutSlowIn,
             token: _page,
             child: _buildBody(),
           ),
-        ));
+        );
   }
 }
 
 Future<Null> main() async {
-  runApp(new HouseOfRooves());
+  runApp(
+    MaterialApp(
+      title: 'House of Rooves',
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue,
+        accentColor: Colors.greenAccent[700],
+        accentColorBrightness: Brightness.dark,
+      ),
+      home: HouseOfRooves(),
+    ),
+  );
 }

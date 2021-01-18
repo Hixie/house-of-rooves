@@ -143,8 +143,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
 
   void _reportError(dynamic error, StackTrace stack) {
     debugPrint('Reporting error to user:\n$error\n$stack\n');
-    Scaffold.of(context)
-        .showSnackBar(new SnackBar(content: new Text(error.toString())));
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(content: new Text(error.toString())));
   }
 
   // INPUT HANDLERS
@@ -318,7 +317,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
 
   Future<Null> _handleDisplayMessage(String message) async {
     try {
-      await backend.television.displayMessage(message);
+      await backend.television.showMessage(message);
     } catch (error, stack) {
       if (!mounted) return;
       _reportError(error, stack);
@@ -345,7 +344,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
   Future<backend.TelevisionChannel> showInputDialog() {
     return showDialog(
       context: context,
-      child: new SimpleDialog(
+      builder: (BuildContext context) => new SimpleDialog(
         children: <Widget>[
           new FlatButton(
             onPressed: () {
@@ -463,7 +462,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
   Future<backend.TelevisionOffTimer> showOffTimerDialog() {
     return showDialog(
       context: context,
-      child: new SimpleDialog(
+      builder: (BuildContext context) => new SimpleDialog(
         children: <Widget>[
           new FlatButton(
             onPressed: () {
@@ -505,7 +504,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
     String result;
     return showDialog(
       context: context,
-      child: new Form(
+      builder: (BuildContext context) => new Form(
         child: new Builder(builder: (BuildContext context) {
           return new AlertDialog(
             title: new Text('On-screen message'),
