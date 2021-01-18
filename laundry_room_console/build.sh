@@ -1,3 +1,5 @@
+set -ex
+
 export APPNAME=laundry_room_console
 export ARM=arm
 export TARGETUSER=$USER
@@ -21,5 +23,5 @@ export TARGET=burmilla
 # upload the application
 rsync --recursive build/flutter_assets/ $TARGETUSER@$TARGET:dev/$APPNAME
 scp build/app.so $TARGETUSER@$TARGET:dev/$APPNAME/app.so
-ssh $TARGETUSER@$TARGET "killall" "flutter-pi"
-ssh $TARGETUSER@$TARGET "dev/flutter-pi/out/flutter-pi" "--release" "~/dev/$APPNAME"
+ssh $TARGETUSER@$TARGET "killall" "flutter-pi" || true
+ssh $TARGETUSER@$TARGET "flutter-pi" "--release" "~/dev/$APPNAME"
