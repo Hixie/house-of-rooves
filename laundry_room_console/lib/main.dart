@@ -45,6 +45,8 @@ class Remy extends InheritedNotifier<ValueListenable<RemyUi>> {
   }
 }
 
+Timer _sensorDebounce;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Credentials credentials = await Credentials.load();
@@ -56,6 +58,35 @@ void main() async {
       debugPrint('remy: $message');
     },
   );
+  ProcessMonitor sensorsProcess = ProcessMonitor(
+    executable: credentials.sensorsProcess,
+    onLog: (String message) {
+      print('sensors: $message');
+    },
+    onError: (Object error) async {
+      print('sensors: $error');
+    },
+  );
+  sensorsProcess.output.listen((int value) {
+    _sensorDebounce?.cancel();
+    _sensorDebounce = Timer(const Duration(seconds: 1), () {
+      _sensorDebounce = null;
+      if (value != null) {
+        bool dryer = value & 0x01 > 0;
+        if (dryer) {
+          // one of these is likely to describe the situation...
+          remy.pushButtonById('laundryDryerEmptyWasherTransfer');
+          remy.pushButtonById('laundryDryerStartedFromFull');
+          remy.pushButtonById('laundryDryerStartedFromClean');
+          remy.pushButtonById('laundryDryerStarted');
+        } else {
+          // same here
+          remy.pushButtonById('laundryDryerStopped');
+          remy.pushButtonById('laundryDryerDone');
+        }
+      }
+    });
+  });
   runApp(Remy(
     remy: remy,
     child: RootWidget(),
@@ -207,8 +238,10 @@ class _ConsoleState extends State<Console> {
                         remyState.getButtonById('laundryDryerStarted'),
                         remyState.getButtonById('laundryDryerStartedFromFull'),
                         remyState.getButtonById('laundryDryerStartedFromClean'),
+                        remyState.getButtonById('laundryDryerStopped'),
                         remyState.getButtonById('laundryDryerDone'),
                         remyState.getButtonById('laundryDryerEmpty'),
+                        remyState.getButtonById('laundryDryerClean'),
                       ],
                       child: Dryer(
                         state: _getMachineState(remyState, 'laundry-dryer'),
@@ -278,6 +311,7 @@ class _ConsoleState extends State<Console> {
                     remyState.getButtonById('quarantineCats'),
                     remyState.getButtonById('wildLifeAtHome'),
                     remyState.getButtonById('openDoorPolicy'),
+                    remyState.getButtonById('freeTheCats'),
                   ],
                   child: CatDoor(
                     isOpen: !remyState.hasNotification('status-cat-door-shut'),

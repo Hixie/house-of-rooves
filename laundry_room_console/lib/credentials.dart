@@ -20,9 +20,10 @@ class Credentials {
   final List<String> _lines;
 
   String get remyPassword => _lines[0];
+  String get sensorsProcess => _lines[1];
 
   SecurityContext get securityContext => _securityContext;
   SecurityContext _securityContext;
 
-  int get _requiredCount => 1;
+  int get _requiredCount => 2;
 }
