@@ -72,30 +72,24 @@ class RemyMessageList extends StatelessWidget {
           )
         ];
         if (message.buttons.isNotEmpty) {
-          content
-            ..add(Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Wrap(
-                spacing: 16.0,
-                children: message.buttons.map((backend.RemyButton button) {
-                  return RemyButtonWidget(remy: remy, button: button);
-                }).toList()
-              ),
-            ))
-            ..add(Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                (message.classes.toList()
-                      ..remove('nomsg')
-                      ..remove('quiet')
-                      ..remove('important'))
-                    .join(', '),
-                style: Theme.of(context).textTheme.caption,
-                textAlign: TextAlign.right,
-              ),
-            ));
-            //..add(Container(height: 16.0));
+          content.add(Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: Wrap(
+              spacing: 16.0,
+              children: message.buttons.map((backend.RemyButton button) {
+                return RemyButtonWidget(remy: remy, button: button);
+              }).toList()
+            ),
+          ));
         }
+        content.add(Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            message.classes.toList().join(', '),
+            style: Theme.of(context).textTheme.caption,
+            textAlign: TextAlign.right,
+          ),
+        ));
         messages.add(Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
           child: Card(
