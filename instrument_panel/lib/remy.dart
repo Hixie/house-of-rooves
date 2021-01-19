@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
+const Set<String> handledClasses = <String>{
+  'nomsg',
+};
+
 class RemyPage extends StatefulWidget {
   const RemyPage({ Key key }) : super(key: key);
   @override
@@ -61,6 +65,7 @@ class RemyMessageList extends StatelessWidget {
       ));
     } else {
       for (final backend.RemyMessage message in ui.messages) {
+        final List<String> unhandledClasses = (message.classes.toSet()..removeAll(handledClasses)).toList();
         final List<Widget> content = <Widget>[
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -82,14 +87,16 @@ class RemyMessageList extends StatelessWidget {
             ),
           ));
         }
-        content.add(Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            message.classes.toList().join(', '),
-            style: Theme.of(context).textTheme.caption,
-            textAlign: TextAlign.right,
-          ),
-        ));
+        if (unhandledClasses.isNotEmpty) {
+          content.add(Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              unhandledClasses.join(', '),
+              style: Theme.of(context).textTheme.caption,
+              textAlign: TextAlign.right,
+            ),
+          ));
+        }
         messages.add(Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
           child: Card(
