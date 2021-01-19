@@ -6,10 +6,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'backend.dart' as backend;
 import 'common.dart';
 
-// TODO(ianh): "group", "warning", escalation levels, "status", "failure", "done", buttons without a message
+// TODO(ianh): 'group', 'warning', escalation levels, 'status', 'failure', 'done', buttons without a message
 // TODO(ianh): make the filter chips prettier, improve the spacing between them and the icons
 // TODO(ianh): performance when scrolling
-// TODO(ianh): improve "not connected" UI
+// TODO(ianh): improve 'not connected' UI
 // TODO(ianh): going to the other pages isn't working any more
 
 const Set<String> handledClasses = <String>{ // alphabetical
@@ -136,7 +136,7 @@ class _RemyPageState extends State<RemyPage> {
     });
   }
 
-  String _filter = null;
+  String _filter;
 
   void _handleFilter(String filter) {
     setState(() {
@@ -223,7 +223,7 @@ class RemyMessageList extends StatelessWidget {
     } else {
       int chores = 0;
       for (final backend.RemyMessage message in ui.messages) {
-        if ((filter != null) && !message.classes.contains(filter))
+        if ((filter != null) && !message.classes.contains(filter) && !message.classes.contains('group'))
           continue;
         if (message.classes.contains('automatic'))
           continue;
