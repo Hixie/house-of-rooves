@@ -6,11 +6,13 @@ class MainScreen extends StatelessWidget {
     Key key,
     @required this.title,
     this.actions,
+    this.color,
     @required this.body,
   }) : super(key: key);
 
   final String title;
   final List<Widget> actions;
+  final Color color;
   final Widget body;
 
   @override
@@ -23,11 +25,12 @@ class MainScreen extends StatelessWidget {
           alignment: FractionalOffset.centerLeft,
           // This opens the drawer in the scaffold above us, not ours.
           onPressed: () { Scaffold.of(context).openDrawer(); },
-          tooltip: 'Open navigation menu',
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         ),
         title: Text(title),
         actions: actions,
       ),
+      backgroundColor: color,
       body: body,
     );
   }

@@ -187,16 +187,16 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          drawer: _page != null
-              ? MainDrawer(page: _page, onPageChanged: _handlePageChanged)
-              : null,
-          body: AutoFade(
-            duration: const Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn,
-            token: _page,
-            child: _buildBody(),
-          ),
-        );
+      drawer: _page != null
+          ? MainDrawer(page: _page, onPageChanged: _handlePageChanged)
+          : null,
+      body: AutoFade(
+        duration: const Duration(seconds: 1),
+        curve: Curves.fastOutSlowIn,
+        token: _page,
+        child: _buildBody(),
+      ),
+    );
   }
 }
 

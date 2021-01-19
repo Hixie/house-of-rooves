@@ -1,15 +1,109 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'backend.dart' as backend;
 import 'common.dart';
 
+// TODO(ianh): "group", "warning", escalation levels, "status", "failure", "done", buttons without a message
+// TODO(ianh): make the filter chips prettier, improve the spacing between them and the icons
+// TODO(ianh): performance when scrolling
+// TODO(ianh): improve "not connected" UI
+// TODO(ianh): going to the other pages isn't working any more
+
 const Set<String> handledClasses = <String>{ // alphabetical
   'automatic',
+  'carey',
+  'console-cat-litter',
+  'console-laundry',
+  'eli',
+  'guests',
+  'hottub',
+  'ian',
+  'important',
+  'multi-stage',
   'nomsg',
   'notice',
   'quiet',
+  'remote',
+  'sleep',
   'soup',
 };
+
+class RemyStyleSet {
+  const RemyStyleSet(this.backgroundColor, this.textColor, this.border);
+  final Color backgroundColor;
+  final Color textColor;
+  final BorderSide border;
+}
+
+@immutable
+class RemyStyle {
+  const RemyStyle(this.cardBorderRadius, this.card, this.buttonMargin, this.buttonPadding, this.buttonFontSize, this.buttonBorderRadius, this.normalButton, this.pressedButton, this.activeButton, this.selectedButton);
+  final BorderRadius cardBorderRadius;
+  final RemyStyleSet card;
+  final EdgeInsets buttonMargin;
+  final EdgeInsets buttonPadding;
+  final double buttonFontSize;
+  final BorderRadius buttonBorderRadius;
+  final RemyStyleSet normalButton;
+  final RemyStyleSet pressedButton;
+  final RemyStyleSet activeButton; // highlighted without multi-stage
+  final RemyStyleSet selectedButton; // highlighted with multi-stage
+}
+
+const RemyStyle messageStyle = RemyStyle(
+  BorderRadius.all(Radius.circular(2.0)),
+  RemyStyleSet(Color(0xFFFFFFEE), Color(0xFF000000), BorderSide(color: Color(0xFF999900), width: 0.0)),
+  EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+  EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+  24.0,
+  BorderRadius.all(Radius.circular(24.0)),
+  RemyStyleSet(Color(0xFFDDDD00), Color(0xFF000000), BorderSide(color: Color(0xFF999900), width: 0.0)),
+  RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF999900), width: 0.0)),
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFF000000), width: 2.0)), // ignore: avoid_redundant_argument_values
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
+);
+
+const RemyStyle hotTubStyle = RemyStyle(
+  BorderRadius.all(Radius.circular(2.0)),
+  RemyStyleSet(Color(0xFFEEEEFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
+  EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+  EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+  24.0,
+  BorderRadius.all(Radius.circular(24.0)),
+  RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
+  RemyStyleSet(Color(0xFF000099), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF000099), width: 0.0)),
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFF000000), width: 2.0)), // ignore: avoid_redundant_argument_values
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
+);
+
+const RemyStyle testStripStyle = RemyStyle(
+  BorderRadius.all(Radius.circular(2.0)),
+  RemyStyleSet(Color(0xFFEEEEFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
+  EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),  
+  EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+  14.0,
+  BorderRadius.all(Radius.circular(14.0)),
+  RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
+  RemyStyleSet(Color(0xFF000099), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF000099), width: 0.0)),
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFF000000), width: 2.0)), // ignore: avoid_redundant_argument_values
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
+);
+
+const RemyStyle remoteStyle = RemyStyle(
+  BorderRadius.all(Radius.circular(8.0)),
+  RemyStyleSet(Color(0xFF000000), Color(0xFFFFFFFF), null),
+  EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
+  EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+  24.0,
+  BorderRadius.all(Radius.circular(4.0)),
+  RemyStyleSet(Color(0xFFDDDD99), Color(0xFF000000), null),
+  RemyStyleSet(Color(0xFF999900), Color(0xFF000000), null),
+  RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), null),
+  RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), null),
+);
 
 class RemyPage extends StatefulWidget {
   const RemyPage({Key key}) : super(key: key);
@@ -42,23 +136,79 @@ class _RemyPageState extends State<RemyPage> {
     });
   }
 
+  String _filter = null;
+
+  void _handleFilter(String filter) {
+    setState(() {
+      _filter = filter;
+    });
+  }
+
+  static const String iconPrefix = 'status-icon-';
+
+  static Widget selectIcon(String code) {
+    switch (code) {
+      case 'rain': return const Icon(MdiIcons.weatherPouring);
+      case 'snow': return const Icon(MdiIcons.weatherSnowyHeavy);
+      case 'clear': return null;
+      case 'sun': return const Icon(MdiIcons.weatherSunny);
+      case 'cloud': return const Icon(MdiIcons.weatherCloudy);
+      case 'night': return const Icon(MdiIcons.weatherNight);
+      case 'hot': return const Icon(MdiIcons.thermometerHigh);
+      case 'cold': return const Icon(MdiIcons.thermometerLow);
+      default: return Text(code);
+    }
+  }
+
+  Widget _buildFilter(String code, String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: ChoiceChip(
+        label: Text(label),
+        onSelected: (bool value) {
+          if (value)
+            _handleFilter(code);
+        },
+        selected: _filter == code,
+      ),
+    );
+  }  
+
   @override
   Widget build(BuildContext context) {
-    // TODO(ianh): Should handle messages with the text "status-icon-*" specially.
+    final List<Widget> actions = <Widget>[
+      _buildFilter(null, 'ALL'),
+      _buildFilter('ian', 'IAN'),
+      _buildFilter('carey', 'CAREY'),
+      _buildFilter('eli', 'ELI'),
+    ];
+    if (_ui != null) {
+      for (final backend.RemyMessage message in _ui.messages) {
+        if (message.label.startsWith(iconPrefix)) {
+          final Widget icon = selectIcon(message.label.substring(iconPrefix.length));
+          if (icon != null) {
+            actions.add(Padding(
+              padding: const EdgeInsets.only(right: 8.0), child: icon),
+            );
+          }
+        }
+      }
+    }
     return MainScreen(
       title: 'Remy',
-      body: RemyMessageList(remy: _remy, ui: _ui),
+      actions: actions,
+      color: Colors.grey.shade300,
+      body: RemyMessageList(remy: _remy, ui: _ui, filter: _filter),
     );
   }
 }
 
 class RemyMessageList extends StatelessWidget {
-  const RemyMessageList({Key key, this.remy, this.ui}) : super(key: key);
+  const RemyMessageList({Key key, this.remy, this.ui, this.filter}) : super(key: key);
 
   final backend.Remy remy;
   final backend.RemyUi ui;
-
-  // TODO(ianh): A lot of this stuff should be extracted out into subwidgets.
+  final String filter;
 
   @override
   Widget build(BuildContext context) {
@@ -73,67 +223,21 @@ class RemyMessageList extends StatelessWidget {
     } else {
       int chores = 0;
       for (final backend.RemyMessage message in ui.messages) {
-        if (!(message.classes.contains('notice') || message.classes.contains('automatic')))
+        if ((filter != null) && !message.classes.contains(filter))
+          continue;
+        if (message.classes.contains('automatic'))
+          continue;
+        if (!message.classes.contains('notice'))
           chores += 1;
-        final List<String> unhandledClasses = (message.classes.toSet()..removeAll(handledClasses)).toList();
-        final List<Widget> content = <Widget>[];
-        if (message.classes.contains('soup')) {
-          content.add(RemyImageMessageWidget(
-            message: Text(message.label, style: Theme.of(context).textTheme.headline4),
-            image: Image.network('https://remy.rooves.house/images/looking-right-with-spoon.gif'),
-            imageHeight: 379.0,
-          ));
-        } else if (message.classes.contains('guests')) {
-          content.add(RemyImageMessageWidget(
-            message: Text(message.label, style: Theme.of(context).textTheme.headline4),
-            image: Image.network('https://remy.rooves.house/images/standing-tall.gif'),
-            imageHeight: 370.0,
-          ));
+        Widget child;
+        if (message.classes.contains('remote')) {
+          child = RemyRemoteWidget(remy: remy, message: message);
+        } else if (message.classes.contains('test-strip')) {
+          child = RemyTestStripWidget(remy: remy, message: message);
         } else {
-          content.add(Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              message.label,
-              style: Theme.of(context).textTheme.subtitle1,
-              textAlign: TextAlign.center,
-            ),
-          ));
+          child = RemyMessageWidget(remy: remy, message: message);
         }
-        if (message.buttons.isNotEmpty) {
-          content.add(Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: Wrap(
-              // TODO(ianh): center the buttons
-              spacing: 16.0, // TODO(ianh): use this and other spacing instead of putting padding on the buttons
-              children: message.buttons.map((backend.RemyButton button) {
-                return RemyButtonWidget(remy: remy, button: button);
-              }).toList(),
-            ),
-          ));
-        }
-        if (unhandledClasses.isNotEmpty) {
-          content.add(Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              unhandledClasses.join(', '),
-              style: Theme.of(context).textTheme.caption,
-              textAlign: TextAlign.right,
-            ),
-          ));
-        }
-        if (!message.classes.contains('automatic')) {
-          messages.add(
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-              child: Card(
-                child: Column(
-                  children: content,
-                ),
-              ),
-            ),
-          );
-        }
+        messages.add(child);
       }
       if (chores == 0) {
         messages.insert(0, RemyImageMessageWidget(
@@ -144,48 +248,8 @@ class RemyMessageList extends StatelessWidget {
       }
     }
     return ListView(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        children: messages,
-      );
-  }
-}
-
-class RemyButtonWidget extends StatelessWidget {
-  const RemyButtonWidget({
-    Key key,
-    @required this.remy,
-    @required this.button,
-  }) : super(key: key);
-
-  final backend.Remy remy;
-  final backend.RemyButton button;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle font = Theme.of(context).textTheme.headline5;
-    return Padding(
-      padding: EdgeInsets.all(font.fontSize * 0.25),
-      child: Material(
-        // TODO(ianh): add the thin border around the buttons
-        borderRadius: BorderRadius.circular(font.fontSize),
-        color: const Color(0xFFDDDD00),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: () {
-            assert(() {
-              print('pushing $button'); return true; }()); // ignore: avoid_print
-            remy.pushButton(button);
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: font.fontSize * 0.6, vertical: font.fontSize * 0.5),
-            child: Text(
-              button.label,
-              style: font.copyWith(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-      ),
+      padding: const EdgeInsets.only(bottom: 16.0),
+      children: messages,
     );
   }
 }
@@ -221,6 +285,288 @@ class RemyImageMessageWidget extends StatelessWidget {
               child: message,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+RemyStyle selectStyle(backend.RemyMessage message) {
+  if (message.classes.contains('hottub')) {
+    if (message.classes.contains('test-strip'))
+      return testStripStyle;
+    return hotTubStyle;
+  }
+  if (message.classes.contains('remote'))
+    return remoteStyle;
+  return messageStyle;
+}
+
+class RemyMessageWidget extends StatelessWidget {
+  const RemyMessageWidget({
+    Key key,
+    @required this.remy,
+    @required this.message,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> unhandledClasses = (message.classes.toSet()..removeAll(handledClasses)).toList();
+    final bool soup = message.classes.contains('soup');
+    final bool guests = message.classes.contains('guests');
+    assert(!soup || !guests);
+    final List<Widget> buttons = message.buttons.map((backend.RemyButton button) {
+      return RemyButtonWidget(remy: remy, message: message, button: button);
+    }).toList();
+    final RemyStyle style = selectStyle(message);
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0, left: 16.0, right: 16.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: style.cardBorderRadius,
+          side: style.card.border ?? BorderSide.none,
+        ),
+        color: style.card.backgroundColor,
+        elevation: 2.0,
+        child: Column(
+          children: <Widget>[
+            if (soup)
+              RemyImageMessageWidget(
+                message: Text(message.label, style: Theme.of(context).textTheme.headline4),
+                image: Image.network('https://remy.rooves.house/images/looking-right-with-spoon.gif'),
+                imageHeight: 379.0,
+              ),
+            if (guests)
+              RemyImageMessageWidget(
+                message: Text(message.label, style: Theme.of(context).textTheme.headline4),
+                image: Image.network('https://remy.rooves.house/images/standing-tall.gif'),
+                imageHeight: 370.0,
+              ),
+            if (!soup && !guests)
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+                child: Text(
+                  message.label,
+                  style: Theme.of(context).textTheme.headline5.copyWith(color: style.card.textColor),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            const SizedBox(height: 4.0),
+            if (message.buttons.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: buttons,
+                ),
+              ),
+            if (unhandledClasses.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    unhandledClasses.join(', '),
+                    style: Theme.of(context).textTheme.caption,
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ),
+            if (message.buttons.isNotEmpty)
+              const SizedBox(height: 8.0)
+            else
+              const SizedBox(height: 4.0),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RemyTestStripWidget extends StatelessWidget {
+  const RemyTestStripWidget({
+    Key key,
+    @required this.remy,
+    @required this.message,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+
+  @override
+  Widget build(BuildContext context) {
+    final RemyStyle style = selectStyle(message);
+    return Padding(
+      padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: style.cardBorderRadius,
+          side: style.card.border ?? BorderSide.none,
+        ),
+        color: style.card.backgroundColor,
+        elevation: 1.0,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, top: 4.0),
+              child: Text(
+                message.label,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(color: style.card.textColor),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 2.0),
+            if (message.buttons.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Wrap(
+                  spacing: 2.0,
+                  runSpacing: 2.0,
+                  alignment: WrapAlignment.center,
+                  children: message.buttons.map((backend.RemyButton button) {
+                    return RemyButtonWidget(remy: remy, message: message, button: button, mini: true);
+                  }).toList(),
+                ),
+              ),
+            const SizedBox(height: 4.0),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RemyRemoteWidget extends StatelessWidget {
+  const RemyRemoteWidget({
+    Key key,
+    @required this.remy,
+    @required this.message,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+
+  @override
+  Widget build(BuildContext context) {
+    final RemyStyle style = selectStyle(message);
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: 8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: style.cardBorderRadius,
+          side: style.card.border ?? BorderSide.none,
+        ),
+        elevation: 2.0,
+        color: style.card.backgroundColor,
+        child: ListBody(
+          children: <Widget>[
+            const SizedBox(height: 4.0),
+            Text(
+              message.label,
+              style: Theme.of(context).textTheme.headline6.copyWith(color: style.card.textColor),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4.0),
+            Container(
+              color: style.card.textColor,
+              height: 1.0,
+            ),
+            const SizedBox(height: 8.0),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 8.0,
+              alignment: WrapAlignment.center,
+              children: message.buttons.map((backend.RemyButton button) {
+                return RemyButtonWidget(remy: remy, message: message, button: button, upperCase: true);
+              }).toList(),
+            ),
+            const SizedBox(height: 8.0),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RemyButtonWidget extends StatefulWidget {
+  const RemyButtonWidget({
+    Key key,
+    @required this.remy,
+    @required this.message,
+    @required this.button,
+    this.upperCase = false,
+    this.mini = false,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+  final backend.RemyButton button;
+  final bool upperCase;
+  final bool mini;
+
+  @override
+  State<RemyButtonWidget> createState() => RemyButtonWidgetState();
+}
+
+class RemyButtonWidgetState extends State<RemyButtonWidget> {
+  bool _active = false;
+  Stopwatch _pressed;
+
+  static const Duration _highlightDuration = Duration(milliseconds: 1000);
+
+  RemyStyleSet _computeStyleSet(RemyStyle style) {
+    if (_active)
+      return style.pressedButton;
+    if (widget.button.classes.contains('highlighted')) {
+      if (widget.message.classes.contains('multi-stage'))
+        return style.selectedButton;
+      return style.activeButton;
+    }
+    return style.normalButton;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final RemyStyle style = selectStyle(widget.message);
+    final RemyStyleSet styleSet = _computeStyleSet(style);
+    final TextStyle font = Theme.of(context).textTheme.headline5.copyWith(
+      fontSize: style.buttonFontSize,
+      color: styleSet.textColor,
+    );
+    return Container(
+      margin: style.buttonMargin,
+      decoration: BoxDecoration(
+        borderRadius: style.buttonBorderRadius,
+        border: Border.fromBorderSide(styleSet.border ?? BorderSide.none),
+        color: styleSet.backgroundColor,
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: GestureDetector(
+        onTapDown: (TapDownDetails details) {
+          widget.remy.pushButton(widget.button);
+          _pressed = Stopwatch()..start();
+          setState(() { _active = true; });
+        },
+        onTapUp: (TapUpDetails details) {
+          Timer(_pressed.elapsed - _highlightDuration, () {
+            if (mounted) {
+              setState(() { _active = false; });
+            }
+          });
+        },
+        onTapCancel: () {
+          setState(() { _active = false; });
+        },
+        child: Padding(
+          padding: style.buttonPadding,
+          child: Text(
+            widget.upperCase ? widget.button.label.toUpperCase() : widget.button.label,
+            style: font,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
