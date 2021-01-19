@@ -4,11 +4,13 @@ import 'backend.dart' as backend;
 import 'common.dart';
 
 const Set<String> handledClasses = <String>{
+  'automatic',
   'nomsg',
+  'quiet',
 };
 
 class RemyPage extends StatefulWidget {
-  const RemyPage({ Key key }) : super(key: key);
+  const RemyPage({Key key}) : super(key: key);
   @override
   _RemyPageState createState() => _RemyPageState();
 }
@@ -65,7 +67,8 @@ class RemyMessageList extends StatelessWidget {
       ));
     } else {
       for (final backend.RemyMessage message in ui.messages) {
-        final List<String> unhandledClasses = (message.classes.toSet()..removeAll(handledClasses)).toList();
+        final List<String> unhandledClasses =
+            (message.classes.toSet()..removeAll(handledClasses)).toList();
         final List<Widget> content = <Widget>[
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -80,11 +83,10 @@ class RemyMessageList extends StatelessWidget {
           content.add(Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Wrap(
-              spacing: 16.0,
-              children: message.buttons.map((backend.RemyButton button) {
-                return RemyButtonWidget(remy: remy, button: button);
-              }).toList()
-            ),
+                spacing: 16.0,
+                children: message.buttons.map((backend.RemyButton button) {
+                  return RemyButtonWidget(remy: remy, button: button);
+                }).toList()),
           ));
         }
         if (unhandledClasses.isNotEmpty) {
@@ -97,20 +99,25 @@ class RemyMessageList extends StatelessWidget {
             ),
           ));
         }
-        messages.add(Padding(
-          padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-          child: Card(
-            child: Column(
-              children: content,
+        if (!message.classes.contains('automatic')) {
+          messages.add(
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+              child: Card(
+                child: Column(
+                  children: content,
+                ),
+              ),
             ),
-          ),
-        ));
+          );
+        }
       }
     }
     return ListView(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      children: messages,
-    );
+        padding: const EdgeInsets.only(bottom: 16.0),
+        children: messages,
+      );
   }
 }
 
@@ -134,7 +141,8 @@ class RemyButtonWidget extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () {
-            assert(() { print('pushing $button'); return true; }()); // ignore: avoid_print
+            assert(() {
+              print('pushing $button'); return true; }()); // ignore: avoid_print
             remy.pushButton(button);
           },
           child: Padding(
