@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
-const Set<String> handledClasses = <String>{
+const Set<String> handledClasses = <String>{ // alphabetical
   'automatic',
   'nomsg',
+  'notice',
   'quiet',
+  'soup',
 };
 
 class RemyPage extends StatefulWidget {
@@ -42,6 +44,7 @@ class _RemyPageState extends State<RemyPage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO(ianh): Should handle messages with the text "status-icon-*" specially.
     return MainScreen(
       title: 'Remy',
       body: RemyMessageList(remy: _remy, ui: _ui),
@@ -55,6 +58,8 @@ class RemyMessageList extends StatelessWidget {
   final backend.Remy remy;
   final backend.RemyUi ui;
 
+  // TODO(ianh): A lot of this stuff should be extracted out into subwidgets.
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> messages = <Widget>[];
@@ -66,27 +71,44 @@ class RemyMessageList extends StatelessWidget {
         ),
       ));
     } else {
+      int chores = 0;
       for (final backend.RemyMessage message in ui.messages) {
-        final List<String> unhandledClasses =
-            (message.classes.toSet()..removeAll(handledClasses)).toList();
-        final List<Widget> content = <Widget>[
-          Padding(
+        if (!(message.classes.contains('notice') || message.classes.contains('automatic')))
+          chores += 1;
+        final List<String> unhandledClasses = (message.classes.toSet()..removeAll(handledClasses)).toList();
+        final List<Widget> content = <Widget>[];
+        if (message.classes.contains('soup')) {
+          content.add(RemyImageMessageWidget(
+            message: Text(message.label, style: Theme.of(context).textTheme.headline4),
+            image: Image.network('https://remy.rooves.house/images/looking-right-with-spoon.gif'),
+            imageHeight: 379.0,
+          ));
+        } else if (message.classes.contains('guests')) {
+          content.add(RemyImageMessageWidget(
+            message: Text(message.label, style: Theme.of(context).textTheme.headline4),
+            image: Image.network('https://remy.rooves.house/images/standing-tall.gif'),
+            imageHeight: 370.0,
+          ));
+        } else {
+          content.add(Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
               message.label,
               style: Theme.of(context).textTheme.subtitle1,
               textAlign: TextAlign.center,
             ),
-          )
-        ];
+          ));
+        }
         if (message.buttons.isNotEmpty) {
           content.add(Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Wrap(
-                spacing: 16.0,
-                children: message.buttons.map((backend.RemyButton button) {
-                  return RemyButtonWidget(remy: remy, button: button);
-                }).toList()),
+              // TODO(ianh): center the buttons
+              spacing: 16.0, // TODO(ianh): use this and other spacing instead of putting padding on the buttons
+              children: message.buttons.map((backend.RemyButton button) {
+                return RemyButtonWidget(remy: remy, button: button);
+              }).toList(),
+            ),
           ));
         }
         if (unhandledClasses.isNotEmpty) {
@@ -113,6 +135,13 @@ class RemyMessageList extends StatelessWidget {
           );
         }
       }
+      if (chores == 0) {
+        messages.insert(0, RemyImageMessageWidget(
+          message: Text('Have fun!', style: Theme.of(context).textTheme.headline1),
+          image: Image.network('https://remy.rooves.house/images/looking-right.gif'),
+          imageHeight: 382.0,
+        ));
+      }
     }
     return ListView(
         padding: const EdgeInsets.only(bottom: 16.0),
@@ -133,11 +162,13 @@ class RemyButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle font = Theme.of(context).textTheme.headline5;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(font.fontSize * 0.25),
       child: Material(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.yellow.withGreen(230),
+        // TODO(ianh): add the thin border around the buttons
+        borderRadius: BorderRadius.circular(font.fontSize),
+        color: const Color(0xFFDDDD00),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () {
@@ -146,13 +177,50 @@ class RemyButtonWidget extends StatelessWidget {
             remy.pushButton(button);
           },
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(horizontal: font.fontSize * 0.6, vertical: font.fontSize * 0.5),
             child: Text(
               button.label,
-              style: const TextStyle(color: Colors.black),
+              style: font.copyWith(color: Colors.black),
               textAlign: TextAlign.center,
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class RemyImageMessageWidget extends StatelessWidget {
+  const RemyImageMessageWidget({
+    Key key,
+    @required this.message,
+    @required this.image,
+    @required this.imageHeight,
+  }) : super(key: key);
+
+  final Widget message;
+  final Widget image;
+  final double imageHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: imageHeight / MediaQuery.of(context).devicePixelRatio),
+              child: image,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: message,
+            ),
+          ],
         ),
       ),
     );
