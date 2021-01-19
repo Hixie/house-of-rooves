@@ -124,9 +124,11 @@ class RemyButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Padding(
-      padding: new EdgeInsets.only(left: 8.0, right: 8.0),
+      padding: new EdgeInsets.all(8.0),
       child: new Material(
-        color: Theme.of(context).accentColor,
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.yellow.withGreen(230),
+        clipBehavior: Clip.antiAlias,
         child: new InkWell(
           onTap: () {
             assert(() { print('pushing $button'); return true; }());
@@ -136,8 +138,9 @@ class RemyButtonWidget extends StatelessWidget {
             padding: new EdgeInsets.all(8.0),
             child: new Text(
               button.label,
-              style: Theme.of(context).accentTextTheme.subtitle1,
+              style: TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
+              
             ),
           ),
         ),
