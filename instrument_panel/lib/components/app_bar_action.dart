@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 class AppBarAction extends StatelessWidget {
   const AppBarAction(
       {Key key,
-      this.size: 24.0,
-      this.padding: const EdgeInsets.all(8.0),
-      this.alignment: FractionalOffset.center,
+      this.size = 24.0,
+      this.padding = const EdgeInsets.all(8.0),
+      this.alignment = FractionalOffset.center,
       @required this.child,
       this.color,
       this.tooltip})
@@ -28,18 +28,18 @@ class AppBarAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterial(context));
-    Widget result = new Padding(
+    Widget result = Padding(
       padding: padding,
-      child: new LimitedBox(
+      child: LimitedBox(
         maxWidth: size,
         maxHeight: size,
-        child: new ConstrainedBox(
-          constraints: new BoxConstraints.loose(new Size.square(
+        child: ConstrainedBox(
+          constraints: BoxConstraints.loose(Size.square(
               math.max(size, Material.defaultSplashRadius * 2.0))),
-          child: new Align(
+          child: Align(
             alignment: alignment,
             child: IconTheme.merge(
-              data: new IconThemeData(
+              data: IconThemeData(
                 size: size,
                 color: color,
               ),
@@ -50,7 +50,7 @@ class AppBarAction extends StatelessWidget {
       ),
     );
     if (tooltip != null) {
-      result = new Tooltip(
+      result = Tooltip(
         message: tooltip,
         child: result,
       );

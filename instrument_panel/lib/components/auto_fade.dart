@@ -16,16 +16,15 @@ class _AutoFadeChildEntry {
 }
 
 class AutoFade extends StatefulWidget {
-  AutoFade({
+  const AutoFade({
     Key key,
     this.child,
     @required this.token,
-    this.curve: Curves.linear,
+    this.curve = Curves.linear,
     @required this.duration,
-  }) : super(key: key) {
-    assert(curve != null);
-    assert(duration != null);
-  }
+  }) : assert(curve != null),
+       assert(duration != null),
+       super(key: key);
 
   final Widget child;
   final dynamic token;
@@ -33,32 +32,31 @@ class AutoFade extends StatefulWidget {
   final Duration duration;
 
   @override
-  _AutoFadeState createState() => new _AutoFadeState();
+  _AutoFadeState createState() => _AutoFadeState();
 }
 
 class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
-  Set<_AutoFadeChildEntry> _children = new Set<_AutoFadeChildEntry>();
+  final Set<_AutoFadeChildEntry> _children = <_AutoFadeChildEntry>{};
   _AutoFadeChildEntry _currentChild;
 
   @override
   void initState() {
     super.initState();
-    addEntry(false);
+    addEntry(animate: false);
   }
 
   @override
   void didUpdateWidget(AutoFade oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.token != oldWidget.token) {
-      addEntry(true);
+      addEntry(animate: true);
     } else {
       _currentChild.widget = widget.child;
     }
   }
 
-  void addEntry(bool animate) {
-    AnimationController controller =
-        new AnimationController(duration: widget.duration, vsync: this);
+  void addEntry({ @required bool animate }) {
+    final AnimationController controller = AnimationController(duration: widget.duration, vsync: this);
     if (animate) {
       if (_currentChild != null) {
         _currentChild.controller.reverse();
@@ -70,12 +68,12 @@ class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
       assert(_children.isEmpty);
       controller.value = 1.0;
     }
-    Animation<double> animation = new CurvedAnimation(
+    final Animation<double> animation = CurvedAnimation(
       parent: controller,
       curve: widget.curve,
     );
-    _AutoFadeChildEntry entry =
-        new _AutoFadeChildEntry(widget.child, controller, animation);
+    final _AutoFadeChildEntry entry =
+        _AutoFadeChildEntry(widget.child, controller, animation);
     animation.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.dismissed) {
         assert(_children.contains(entry));
@@ -90,18 +88,20 @@ class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    if (_currentChild != null) _currentChild.controller.dispose();
-    for (_AutoFadeChildEntry child in _children) child.controller.dispose();
+    if (_currentChild != null)
+      _currentChild.controller.dispose();
+    for (final _AutoFadeChildEntry child in _children)
+      child.controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = <Widget>[];
-    for (_AutoFadeChildEntry child in _children) {
+    final List<Widget> children = <Widget>[];
+    for (final _AutoFadeChildEntry child in _children) {
       children.add(
-        new FadeTransition(
-          key: new ObjectKey(child),
+        FadeTransition(
+          key: ObjectKey(child),
           opacity: child.animation,
           child: child.widget,
         ),
@@ -109,14 +109,14 @@ class _AutoFadeState extends State<AutoFade> with TickerProviderStateMixin {
     }
     if (_currentChild != null) {
       children.add(
-        new FadeTransition(
-          key: new ObjectKey(_currentChild),
+        FadeTransition(
+          key: ObjectKey(_currentChild),
           opacity: _currentChild.animation,
           child: _currentChild.widget,
         ),
       );
     }
-    return new Stack(
+    return Stack(
       children: children,
     );
   }

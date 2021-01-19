@@ -7,8 +7,9 @@ import 'backend.dart' as backend;
 import 'common.dart';
 
 class SolarPage extends StatefulWidget {
+  const SolarPage({ Key key }) : super(key: key);
   @override
-  _SolarPageState createState() => new _SolarPageState();
+  _SolarPageState createState() => _SolarPageState();
 }
 
 class _SolarPageState extends State<SolarPage> {
@@ -22,7 +23,8 @@ class _SolarPageState extends State<SolarPage> {
   Future<void> _initCloudbit() async {
     final Stream<int> value =
         (await backend.cloud.getDevice(backend.solarDisplayId)).values;
-    if (!mounted) return;
+    if (!mounted)
+      return;
     _monitor = value.listen(_handleMonitor);
   }
 
@@ -42,7 +44,8 @@ class _SolarPageState extends State<SolarPage> {
   void _handleData(double power) {
     setState(() {
       _power = power;
-      if (_power != null) _powerString = _power.toStringAsFixed(1);
+      if (_power != null)
+        _powerString = _power.toStringAsFixed(1);
     });
   }
 
@@ -56,32 +59,32 @@ class _SolarPageState extends State<SolarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new MainScreen(
+    return MainScreen(
       title: 'Solar Power',
-      body: new ListView(
-        padding: new EdgeInsets.all(24.0),
+      body: ListView(
+        padding: const EdgeInsets.all(24.0),
         children: <Widget>[
-          new Card(
-            child: new Padding(
-              padding: new EdgeInsets.all(24.0),
-              child: new ListBody(
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: ListBody(
                 children: <Widget>[
-                  new FittedBox(
-                    child: new Container(
-                      padding: new EdgeInsets.all(24.0),
+                  FittedBox(
+                    child: Container(
+                      padding: const EdgeInsets.all(24.0),
                       width: 300.0,
                       height: 150.0,
-                      child: new DialMeter(low: 0.0, high: 5.0, value: _power),
+                      child: DialMeter(low: 0.0, high: 5.0, value: _power),
                     ),
                   ),
-                  new AnimatedCrossFade(
-                    firstChild: new Text(
+                  AnimatedCrossFade(
+                    firstChild: Text(
                       'Not connected.',
                       style: Theme.of(context).textTheme.headline3,
                       textAlign: TextAlign.center,
                     ),
                     firstCurve: Curves.fastOutSlowIn,
-                    secondChild: new Text(
+                    secondChild: Text(
                       'Generating\n${_powerString}kW',
                       style: Theme.of(context).textTheme.headline3,
                       textAlign: TextAlign.center,
@@ -97,11 +100,11 @@ class _SolarPageState extends State<SolarPage> {
               ),
             ),
           ),
-          new SizedBox(height: 24.0),
-          new Card(
-            child: new Padding(
-              padding: new EdgeInsets.all(24.0),
-              child: new Text(
+          const SizedBox(height: 24.0),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(
                 'Living room wall-mounted status display ${_monitorConnected ? "active" : "offline"}.',
                 textAlign: TextAlign.center,
               ),
@@ -114,15 +117,16 @@ class _SolarPageState extends State<SolarPage> {
 }
 
 class DialMeter extends StatelessWidget {
-  DialMeter({Key key, this.low, this.high, this.value}) : super(key: key);
+  const DialMeter({Key key, this.low, this.high, this.value}) : super(key: key);
 
   final double low;
   final double high;
   final double value;
 
+  @override
   Widget build(BuildContext context) {
-    return new CustomPaint(
-        painter: new _DialPainter(low, high, value, Theme.of(context)));
+    return CustomPaint(
+        painter: _DialPainter(low, high, value, Theme.of(context)));
   }
 }
 
@@ -139,8 +143,8 @@ class _DialPainter extends CustomPainter {
   }
 
   Offset _offsetForValue(double value, double radius, Offset center) {
-    double theta = _angleForValue(value);
-    return new Offset(
+    final double theta = _angleForValue(value);
+    return Offset(
       center.dx + radius * math.cos(theta),
       center.dy - radius * math.sin(theta),
     );
@@ -148,20 +152,21 @@ class _DialPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double radius = size.height;
-    Offset center = new Offset(size.width / 2.0, radius);
-    Rect box = new Rect.fromCircle(
+    final double radius = size.height;
+    final Offset center = Offset(size.width / 2.0, radius);
+    final Rect box = Rect.fromCircle(
       center: center,
       radius: radius,
     );
-    Paint rimBackground = new Paint()..color = theme.cardColor;
-    Paint rimBorder = new Paint()
+    final Paint rimBackground = Paint()..color = theme.cardColor;
+    final Paint rimBorder = Paint()
       ..color = theme.accentColor
       ..strokeWidth = 8.0
       ..style = PaintingStyle.stroke;
-    canvas.drawArc(box, math.pi, math.pi, false, rimBackground);
-    canvas.drawArc(box, math.pi, math.pi, false, rimBorder);
-    Paint needlePaint = new Paint()
+    canvas
+      ..drawArc(box, math.pi, math.pi, false, rimBackground)
+      ..drawArc(box, math.pi, math.pi, false, rimBorder);
+    final Paint needlePaint = Paint()
       ..color = theme.accentColor
       ..strokeWidth = 4.0
       ..style = PaintingStyle.stroke;

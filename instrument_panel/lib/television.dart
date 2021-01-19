@@ -7,13 +7,14 @@ import 'common.dart';
 import 'components/app_bar_action.dart';
 import 'components/auto_fade.dart';
 
-const Duration _autoFadeDuration = const Duration(milliseconds: 250);
+const Duration _autoFadeDuration = Duration(milliseconds: 250);
 
 String message;
 
 class TelevisionPage extends StatefulWidget {
+  const TelevisionPage({ Key key }) : super(key: key);
   @override
-  _TelevisionPageState createState() => new _TelevisionPageState();
+  _TelevisionPageState createState() => _TelevisionPageState();
 }
 
 class _TelevisionPageState extends State<TelevisionPage> {
@@ -35,7 +36,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
   void initState() {
     super.initState();
     _periodicUpdater =
-        new Timer.periodic(const Duration(seconds: 15), (Timer timer) {
+        Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       _updateStatus();
     });
     _updateStatus();
@@ -52,57 +53,68 @@ class _TelevisionPageState extends State<TelevisionPage> {
   StreamSubscription<bool> _connectionListener;
   Timer _volumeUi;
 
-  Future<Null> _updateStatus() async {
-    if (_checking) return;
+  Future<void> _updateStatus() async {
+    if (_checking)
+      return;
     _requestedUpdater?.cancel();
     try {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       setState(() {
         _checking = true;
       });
-      bool power = await backend.television.power;
-      if (!mounted) return;
+      final bool power = await backend.television.power;
+      if (!mounted)
+        return;
       setState(() {
         _power = power;
       });
-      backend.TelevisionChannel input = await backend.television.input;
-      if (!mounted) return;
+      final backend.TelevisionChannel input = await backend.television.input;
+      if (!mounted)
+        return;
       setState(() {
         _input = input;
       });
       if (power) {
-        int volume = await backend.television.volume;
-        if (!mounted) return;
+        final int volume = await backend.television.volume;
+        if (!mounted)
+          return;
         setState(() {
           _volume = volume;
         });
-        bool muted = await backend.television.muted;
-        if (!mounted) return;
+        final bool muted = await backend.television.muted;
+        if (!mounted)
+          return;
         setState(() {
           _muted = muted;
         });
-        int offTimer = await backend.television.offTimer;
-        if (!mounted) return;
+        final int offTimer = await backend.television.offTimer;
+        if (!mounted)
+          return;
         setState(() {
           _offTimer = offTimer;
         });
-        String name = await backend.television.name;
-        if (!mounted) return;
+        final String name = await backend.television.name;
+        if (!mounted)
+          return;
         setState(() {
           _name = name;
         });
-        String model = await backend.television.model;
-        if (!mounted) return;
+        final String model = await backend.television.model;
+        if (!mounted)
+          return;
         setState(() {
           _model = model;
         });
-        String softwareVersion = await backend.television.softwareVersion;
-        if (!mounted) return;
+        final String softwareVersion = await backend.television.softwareVersion;
+        if (!mounted)
+          return;
         setState(() {
           _softwareVersion = softwareVersion;
         });
-        bool demoOverlay = await backend.television.demoOverlay;
-        if (!mounted) return;
+        final bool demoOverlay = await backend.television.demoOverlay;
+        if (!mounted)
+          return;
         setState(() {
           _demoOverlay = demoOverlay;
         });
@@ -117,10 +129,12 @@ class _TelevisionPageState extends State<TelevisionPage> {
         });
       }
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
-    if (!mounted) return;
+    if (!mounted)
+      return;
     setState(() {
       _checking = false;
     });
@@ -128,11 +142,10 @@ class _TelevisionPageState extends State<TelevisionPage> {
   }
 
   void _triggerUpdate() {
-    _requestedUpdater ??= new Timer(const Duration(milliseconds: 200), () {
-      _updateStatus();
-    });
+    _requestedUpdater ??= Timer(const Duration(milliseconds: 200), _updateStatus);
   }
 
+  @override
   void dispose() {
     _connectionListener.cancel();
     _periodicUpdater.cancel();
@@ -141,9 +154,9 @@ class _TelevisionPageState extends State<TelevisionPage> {
     super.dispose();
   }
 
-  void _reportError(dynamic error, StackTrace stack) {
+  void _reportError(Object error, StackTrace stack) {
     debugPrint('Reporting error to user:\n$error\n$stack\n');
-    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(content: new Text(error.toString())));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
   }
 
   // INPUT HANDLERS
@@ -154,16 +167,19 @@ class _TelevisionPageState extends State<TelevisionPage> {
   }
 
   String get _powerMessage {
-    if (_power == false) return 'OFF';
+    if (_power == false)
+      return 'OFF';
     if (_offTimer == null) {
-      if (_power == true) return 'ON';
+      if (_power == true)
+        return 'ON';
       return 'UNKNOWN';
     }
-    if (_offTimer == 0) return 'OFF';
+    if (_offTimer == 0)
+      return 'OFF';
     return 'OFF IN $_offTimer MINUTES';
   }
 
-  Future<Null> _handlePowerOn() async {
+  Future<void> _handlePowerOn() async {
     setState(() {
       _busy = true;
     });
@@ -171,43 +187,49 @@ class _TelevisionPageState extends State<TelevisionPage> {
     try {
       await backend.television.setPower(true);
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
-    if (!mounted) return;
+    if (!mounted)
+      return;
     _triggerUpdate();
     setState(() {
       _busy = false;
     });
   }
 
-  Future<Null> _handlePowerTimerInput() async {
-    backend.TelevisionOffTimer offTimer = await showOffTimerDialog();
+  Future<void> _handlePowerTimerInput() async {
+    final backend.TelevisionOffTimer offTimer = await showOffTimerDialog();
     if (offTimer != null) {
       try {
         await backend.television.setOffTimer(offTimer);
       } catch (error, stack) {
-        if (!mounted) return;
+        if (!mounted)
+          return;
         _reportError(error, stack);
       }
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _triggerUpdate();
     }
   }
 
-  Future<Null> _handleRemote(backend.TelevisionRemote button) async {
+  Future<void> _handleRemote(backend.TelevisionRemote button) async {
     try {
       await backend.television.sendRemote(button);
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
-    if (!mounted) return;
+    if (!mounted)
+      return;
     _triggerUpdate();
   }
 
-  Future<Null> _handleSelectInput() async {
-    backend.TelevisionChannel channel = await showInputDialog();
+  Future<void> _handleSelectInput() async {
+    final backend.TelevisionChannel channel = await showInputDialog();
     if (channel != null) {
       setState(() {
         _busy = true;
@@ -216,10 +238,12 @@ class _TelevisionPageState extends State<TelevisionPage> {
       try {
         await backend.television.setInput(channel);
       } catch (error, stack) {
-        if (!mounted) return;
+        if (!mounted)
+          return;
         _reportError(error, stack);
       }
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _triggerUpdate();
       setState(() {
         _busy = false;
@@ -227,7 +251,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
     }
   }
 
-  Future<Null> _handleNextInput() async {
+  Future<void> _handleNextInput() async {
     setState(() {
       _busy = true;
     });
@@ -235,10 +259,12 @@ class _TelevisionPageState extends State<TelevisionPage> {
     try {
       await backend.television.nextInput();
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
-    if (!mounted) return;
+    if (!mounted)
+      return;
     _triggerUpdate();
     setState(() {
       _busy = false;
@@ -246,46 +272,53 @@ class _TelevisionPageState extends State<TelevisionPage> {
   }
 
   bool _sendingVolume = false;
-  Future<Null> _handleVolumeChanged(double value) async {
+  Future<void> _handleVolumeChanged(double value) async {
     setState(() {
       _userVolume = value;
     });
     _volumeUi?.cancel();
-    _volumeUi = new Timer(
+    _volumeUi = Timer(
       const Duration(milliseconds: 250),
       () {
-        if (!_sendingVolume) _userVolume = null;
+        if (!_sendingVolume)
+          _userVolume = null;
       },
     );
-    if (_sendingVolume) return;
+    if (_sendingVolume)
+      return;
     _sendingVolume = true;
     do {
-      // send the new value
+      // send the value
       try {
         await backend.television.setVolume(_userVolume.round());
-        if (!mounted) return;
-        await new Future.delayed(const Duration(milliseconds: 50));
-        if (!mounted) return;
+        if (!mounted)
+          return;
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        if (!mounted)
+          return;
         // update volume and muted in the UI
-        int volume = await backend.television.volume;
-        if (!mounted) return;
+        final int volume = await backend.television.volume;
+        if (!mounted)
+          return;
         setState(() {
           _volume = volume;
         });
-        bool muted = await backend.television.muted;
-        if (!mounted) return;
+        final bool muted = await backend.television.muted;
+        if (!mounted)
+          return;
         setState(() {
           _muted = muted;
         });
       } catch (error, stack) {
-        if (!mounted) return;
+        if (!mounted)
+          return;
         _reportError(error, stack);
       }
     } while (_volume != _userVolume.round());
     _sendingVolume = false;
   }
 
-  Future<Null> _handleMute() async {
+  Future<void> _handleMute() async {
     setState(() {
       _busy = true;
     });
@@ -297,44 +330,53 @@ class _TelevisionPageState extends State<TelevisionPage> {
       } else {
         await backend.television.toggleMuted();
       }
-      if (!mounted) return;
-      await new Future.delayed(const Duration(milliseconds: 50));
-      if (!mounted) return;
-      bool muted = await backend.television.muted;
-      if (!mounted) return;
+      if (!mounted)
+        return;
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      if (!mounted)
+        return;
+      final bool muted = await backend.television.muted;
+      if (!mounted)
+        return;
       setState(() {
         _muted = muted;
       });
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
-    if (!mounted) return;
+    if (!mounted)
+      return;
     setState(() {
       _busy = false;
     });
   }
 
-  Future<Null> _handleDisplayMessage(String message) async {
+  Future<void> _handleDisplayMessage(String message) async {
     try {
       await backend.television.showMessage(message);
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
   }
 
-  Future<Null> _handleDemoOverlay(bool value) async {
+  Future<void> _handleDemoOverlay(bool value) async {
     try {
       await backend.television.setDemoOverlay(value);
-      if (!mounted) return;
-      bool demoOverlay = await backend.television.demoOverlay;
-      if (!mounted) return;
+      if (!mounted)
+        return;
+      final bool demoOverlay = await backend.television.demoOverlay;
+      if (!mounted)
+        return;
       setState(() {
         _demoOverlay = demoOverlay;
       });
     } catch (error, stack) {
-      if (!mounted) return;
+      if (!mounted)
+        return;
       _reportError(error, stack);
     }
   }
@@ -344,115 +386,115 @@ class _TelevisionPageState extends State<TelevisionPage> {
   Future<backend.TelevisionChannel> showInputDialog() {
     return showDialog(
       context: context,
-      builder: (BuildContext context) => new SimpleDialog(
+      builder: (BuildContext context) => SimpleDialog(
         children: <Widget>[
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.off));
             },
-            child: new Text('OFF'),
+            child: const Text('OFF'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.hdmi1));
             },
-            child: new Text('HDMI1 (bristol)'),
+            child: const Text('HDMI1 (bristol)'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.hdmi2));
             },
-            child: new Text('HDMI2 (kitten)'),
+            child: const Text('HDMI2 (kitten)'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.hdmi3));
             },
-            child: new Text('HDMI3 (pi)'),
+            child: const Text('HDMI3 (pi)'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.hdmi4));
             },
-            child: new Text('HDMI4 (roku)'),
+            child: const Text('HDMI4 (roku)'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.composite));
             },
-            child: new Text('COMPOSITE'),
+            child: const Text('COMPOSITE'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.component));
             },
-            child: new Text('COMPONENT'),
+            child: const Text('COMPONENT'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.ethernet));
             },
-            child: new Text('HOME NETWORK'),
+            child: const Text('HOME NETWORK'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.storage));
             },
-            child: new Text('SD CARD'),
+            child: const Text('SD CARD'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.miracast));
             },
-            child: new Text('MIRACAST'),
+            child: const Text('MIRACAST'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.bluetooth));
             },
-            child: new Text('BLUETOOTH'),
+            child: const Text('BLUETOOTH'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(
                   context,
-                  new backend.TelevisionChannel.fromSource(
+                  backend.TelevisionChannel.fromSource(
                       backend.TelevisionSource.manual));
             },
-            child: new Text('HELP SCREEN'),
+            child: const Text('HELP SCREEN'),
           ),
         ],
       ),
@@ -462,38 +504,38 @@ class _TelevisionPageState extends State<TelevisionPage> {
   Future<backend.TelevisionOffTimer> showOffTimerDialog() {
     return showDialog(
       context: context,
-      builder: (BuildContext context) => new SimpleDialog(
+      builder: (BuildContext context) => SimpleDialog(
         children: <Widget>[
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(context, backend.TelevisionOffTimer.min30);
             },
-            child: new Text('30 MINUTES'),
+            child: const Text('30 MINUTES'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(context, backend.TelevisionOffTimer.min60);
             },
-            child: new Text('60 MINUTES'),
+            child: const Text('60 MINUTES'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(context, backend.TelevisionOffTimer.min90);
             },
-            child: new Text('90 MINUTES'),
+            child: const Text('90 MINUTES'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(context, backend.TelevisionOffTimer.min120);
             },
-            child: new Text('120 MINUTES'),
+            child: const Text('120 MINUTES'),
           ),
-          new FlatButton(
+          OutlinedButton(
             onPressed: () {
               Navigator.pop(context, backend.TelevisionOffTimer.disabled);
             },
             child:
-                new Text(_offTimer != null ? 'CANCEL TIMER' : 'NO OFF TIMER'),
+                Text(_offTimer != null ? 'CANCEL TIMER' : 'NO OFF TIMER'),
           ),
         ],
       ),
@@ -504,14 +546,14 @@ class _TelevisionPageState extends State<TelevisionPage> {
     String result;
     return showDialog(
       context: context,
-      builder: (BuildContext context) => new Form(
-        child: new Builder(builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text('On-screen message'),
-            content: new ListView(
+      builder: (BuildContext context) => Form(
+        child: Builder(builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('On-screen message'),
+            content: ListView(
               children: <Widget>[
-                new TextField(
-                  decoration: InputDecoration(helperText: 'Message text?'),
+                TextField(
+                  decoration: const InputDecoration(helperText: 'Message text?'),
                   onSubmitted: (String value) {
                     result = value;
                   },
@@ -519,18 +561,18 @@ class _TelevisionPageState extends State<TelevisionPage> {
               ],
             ),
             actions: <Widget>[
-              new FlatButton(
+              OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: new Text('CANCEL'),
+                child: const Text('CANCEL'),
               ),
-              new FlatButton(
+              OutlinedButton(
                 onPressed: () {
                   Form.of(context).save();
                   Navigator.pop(context, result);
                 },
-                child: new Text('SEND'),
+                child: const Text('SEND'),
               ),
             ],
           );
@@ -541,93 +583,95 @@ class _TelevisionPageState extends State<TelevisionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double iconSize = IconThemeData.fallback().size;
+    final double iconSize = const IconThemeData.fallback().size;
     final TextStyle headline = Theme.of(context).textTheme.headline5;
     final TextStyle title = Theme.of(context).textTheme.headline6;
     final TextStyle titleLight = title.copyWith(fontWeight: FontWeight.w100);
     final TextStyle caption = Theme.of(context).textTheme.caption;
-    final TextStyle captionLight =
-        caption.copyWith(fontWeight: FontWeight.w100);
-    return new MainScreen(
+    final TextStyle captionLight = caption.copyWith(fontWeight: FontWeight.w100);
+    return MainScreen(
       title: 'Television',
       actions: <Widget>[
-        new AppBarAction(
+        AppBarAction(
           tooltip: 'Whether a connection to the television is active.',
-          child: new Icon(
+          child: Icon(
             _connected ? Icons.cast_connected : Icons.cast,
           ),
         ),
-        new AutoFade(
+        AutoFade(
           duration: _autoFadeDuration,
-          token: _busy ? 0 : _checking ? 1 : 2,
+          token: _busy
+              ? 0
+              : _checking
+                  ? 1
+                  : 2,
           child: _busy
-              ? new IconButton(
+              ? IconButton(
                   onPressed: _handleCancel,
                   tooltip: 'Cancel and disconnect.',
-                  icon: new Icon(Icons.cancel),
+                  icon: const Icon(Icons.cancel),
                 )
               : _checking
-                  ? new AppBarAction(
-                      child: new SizedBox(
+                  ? AppBarAction(
+                      child: SizedBox(
                         width: iconSize,
                         height: iconSize,
-                        child: new CircularProgressIndicator(
-                          valueColor: const AlwaysStoppedAnimation<Color>(
+                        child: const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
                             Colors.white,
                           ),
                         ),
                       ),
                     )
-                  : new IconButton(
+                  : IconButton(
                       onPressed: _triggerUpdate,
                       tooltip: 'Refresh the current state.',
-                      icon: new Icon(Icons.refresh),
+                      icon: const Icon(Icons.refresh),
                     ),
         ),
       ],
-      body: new SizedBox.expand(
-        child: new ListView(
-          padding: new EdgeInsets.all(16.0),
+      body: SizedBox.expand(
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
           children: <Widget>[
-            new SizedBox(
+            SizedBox(
               height: ButtonTheme.of(context).height,
-              child: new AutoFade(
+              child: AutoFade(
                 duration: _autoFadeDuration,
                 token: _power,
                 child: _power == true
-                    ? new Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    ? Row(
                         children: <Widget>[
-                          new Expanded(
-                            child: new Text(
+                          Expanded(
+                            child: Text(
                               _name ?? '■■■■■■',
                               style: headline,
                             ),
                           ),
-                          new Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              new RichText(
+                              RichText(
                                 textAlign: TextAlign.right,
-                                text: new TextSpan(
+                                text: TextSpan(
                                   text: 'MODEL ',
                                   style: captionLight,
                                   children: <TextSpan>[
-                                    new TextSpan(
+                                    TextSpan(
                                       text: _model ?? '■■■',
                                       style: caption,
                                     ),
                                   ],
                                 ),
                               ),
-                              new RichText(
+                              RichText(
                                 textAlign: TextAlign.right,
-                                text: new TextSpan(
+                                text: TextSpan(
                                   text: 'FIRMWARE ',
                                   style: captionLight,
                                   children: <TextSpan>[
-                                    new TextSpan(
+                                    TextSpan(
                                       text: _softwareVersion ?? '■■■',
                                       style: caption,
                                     ),
@@ -638,27 +682,27 @@ class _TelevisionPageState extends State<TelevisionPage> {
                           ),
                         ],
                       )
-                    : new Row(
+                    : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new FlatButton(
-                            child: new Text('POWER ON'),
+                          OutlinedButton(
                             onPressed: _handlePowerOn,
+                            child: const Text('POWER ON'),
                           ),
                         ],
                       ),
               ),
             ),
-            new SizedBox(height: 16.0),
-            new Row(
+            const SizedBox(height: 16.0),
+            Row(
               children: <Widget>[
-                new Expanded(
-                  child: new RichText(
-                    text: new TextSpan(
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
                       text: 'POWER ',
                       style: titleLight,
                       children: <TextSpan>[
-                        new TextSpan(
+                        TextSpan(
                           text: _powerMessage,
                           style: title,
                         ),
@@ -666,96 +710,89 @@ class _TelevisionPageState extends State<TelevisionPage> {
                     ),
                   ),
                 ),
-                new FlatButton(
-                  child: new Text('TIMER'),
+                OutlinedButton(
                   onPressed: _power != false ? _handlePowerTimerInput : null,
+                  child: const Text('TIMER'),
                 ),
               ],
             ),
-            new SizedBox(height: 8.0),
-            new Row(
+            const SizedBox(height: 8.0),
+            Row(
               children: <Widget>[
-                new Expanded(
-                  child: new RichText(
-                    text: new TextSpan(
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
                       text: 'INPUT ',
                       style: titleLight,
                       children: <TextSpan>[
-                        new TextSpan(
-                          text: _input != null
-                              ? _input.toString().toUpperCase()
-                              : 'UNKNOWN',
+                        TextSpan(
+                          text: _input != null ? _input.toString().toUpperCase() : 'UNKNOWN',
                           style: title,
                         ),
                       ],
                     ),
                   ),
                 ),
-                new FlatButton(
-                  child: new Text('SELECT'),
+                OutlinedButton(
                   onPressed: _busy ? null : _handleSelectInput,
+                  child: const Text('SELECT'),
                 ),
-                new FlatButton(
-                  child: new Text('NEXT'),
+                OutlinedButton(
                   onPressed: _busy || _power == false ? null : _handleNextInput,
+                  child: const Text('NEXT'),
                 ),
               ],
             ),
-            new SizedBox(height: 8.0),
-            new Row(
+            const SizedBox(height: 8.0),
+            Row(
               children: <Widget>[
-                new IconButton(
-                    icon: new Icon(Icons.volume_down),
-                    tooltip: 'Volume Down',
-                    onPressed: _power != false && !_busy
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyVolDown);
-                          }
-                        : null),
-                new Expanded(
-                  child: new Slider(
+                IconButton(
+                  icon: const Icon(Icons.volume_down),
+                  tooltip: 'Volume Down',
+                  onPressed: _power != false && !_busy
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyVolDown);
+                        }
+                      : null,
+                ),
+                Expanded(
+                  child: Slider(
                     value: _userVolume ?? _volume?.toDouble() ?? 0.0,
-                    onChanged:
-                        _volume != null && !_busy ? _handleVolumeChanged : null,
-                    min: 0.0,
+                    onChanged: _volume != null && !_busy ? _handleVolumeChanged : null,
                     max: 100.0,
                     divisions: 100,
                   ),
                 ),
-                new IconButton(
-                    icon: new Icon(Icons.volume_up),
-                    tooltip: 'Volume Up',
-                    onPressed: _power != false && !_busy
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyVolUp);
-                          }
-                        : null),
-                new IconButton(
-                  icon: new Icon(
-                      _muted == true ? Icons.volume_off : Icons.volume_up),
-                  tooltip: 'Mute',
+                IconButton(
+                  icon: const Icon(Icons.volume_up),
+                  tooltip: 'Volume Up',
                   onPressed: _power != false && !_busy
                       ? () {
-                          _handleMute();
+                          _handleRemote(backend.TelevisionRemote.keyVolUp);
                         }
                       : null,
                 ),
+                IconButton(
+                  icon: Icon(_muted == true ? Icons.volume_off : Icons.volume_up),
+                  tooltip: 'Mute',
+                  onPressed: _power != false && !_busy ? _handleMute : null,
+                ),
               ],
             ),
-            new Form(
-              child: new Builder(
+            Form(
+              child: Builder(
                 builder: (BuildContext context) {
                   //String message;
-                  return new Row(
+                  return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     // https://github.com/flutter/flutter/issues/7037 :
                     // crossAxisAlignment: CrossAxisAlignment.baseline,
                     // textBaseline: TextBaseline.alphabetic,
                     children: <Widget>[
-                      new Expanded(
-                        child: new TextField(
-                          decoration: InputDecoration(
+                      Expanded(
+                        child: TextField(
+                          decoration: const InputDecoration(
                             labelText: 'Message to show on-screen',
                             hintText: 'Hello world!',
                           ),
@@ -764,16 +801,16 @@ class _TelevisionPageState extends State<TelevisionPage> {
                           },
                         ),
                       ),
-                      new Padding(
-                        padding: new EdgeInsets.only(bottom: 10.0),
-                        child: new FlatButton(
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: OutlinedButton(
                           onPressed: _power != false
                               ? () {
                                   Form.of(context).save();
                                   _handleDisplayMessage(message);
                                 }
                               : null,
-                          child: new Text('DISPLAY'),
+                          child: const Text('DISPLAY'),
                         ),
                       )
                     ],
@@ -781,619 +818,667 @@ class _TelevisionPageState extends State<TelevisionPage> {
                 },
               ),
             ),
-            new SizedBox(height: 24.0),
-            new Row(
+            const SizedBox(height: 24.0),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.power_settings_new,
-                    label: 'Power',
-                    onPressed: () {
-                      _handleRemote(backend.TelevisionRemote.keyPower);
-                    }),
-                new TVButtonGap(),
-                new TVButton(
-                    icon: Icons.help,
-                    label: 'Manual',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyManual);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.settings_power,
-                    label: 'Power (Source)',
-                    onPressed: () {
-                      _handleRemote(backend.TelevisionRemote.keyPowerSource);
-                    }),
+                TVButton(
+                  icon: Icons.power_settings_new,
+                  label: 'Power',
+                  onPressed: () {
+                    _handleRemote(backend.TelevisionRemote.keyPower);
+                  },
+                ),
+                const TVButtonGap(),
+                TVButton(
+                  icon: Icons.help,
+                  label: 'Manual',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyManual);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.settings_power,
+                  label: 'Power (Source)',
+                  onPressed: () {
+                    _handleRemote(backend.TelevisionRemote.keyPowerSource);
+                  },
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.fast_rewind,
-                    label: 'Rewind',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyRW);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.play_arrow,
-                    label: 'Play',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyPlay);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.fast_forward,
-                    label: 'Fast Forward',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyFF);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.pause,
-                    label: 'Pause',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyPause);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.fast_rewind,
+                  label: 'Rewind',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyRW);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.play_arrow,
+                  label: 'Play',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyPlay);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.fast_forward,
+                  label: 'Fast Forward',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyFF);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.pause,
+                  label: 'Pause',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyPause);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.skip_previous,
-                    label: 'Rewind',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyPrev);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.stop,
-                    label: 'Play',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyStop);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.skip_next,
-                    label: 'Fast Forward',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyNext);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.radio_button_checked,
-                    label: 'Option',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyOption);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.skip_previous,
+                  label: 'Rewind',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyPrev);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.stop,
+                  label: 'Play',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyStop);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.skip_next,
+                  label: 'Fast Forward',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyNext);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.radio_button_checked,
+                  label: 'Option',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyOption);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.picture_in_picture,
-                    label: 'Display',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyDisplay);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.av_timer,
-                    label: 'Sleep',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keySleep);
-                          }
-                        : null),
-                new TVButtonGap(),
-                new TVButton(
-                    icon: Icons.pause_circle_filled,
-                    label: 'Freeze',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyFreeze);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.picture_in_picture,
+                  label: 'Display',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyDisplay);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.av_timer,
+                  label: 'Sleep',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keySleep);
+                        }
+                      : null,
+                ),
+                const TVButtonGap(),
+                TVButton(
+                  icon: Icons.pause_circle_filled,
+                  label: 'Freeze',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyFreeze);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new FlatButton(
-                    child: new Text('1'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key1);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('2'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key2);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('3'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key3);
-                          }
-                        : null),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key1);
+                        }
+                      : null,
+                  child: const Text('1'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key2);
+                        }
+                      : null,
+                  child: const Text('2'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key3);
+                        }
+                      : null,
+                  child: const Text('3'),
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new FlatButton(
-                    child: new Text('4'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key4);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('5'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key5);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('6'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key6);
-                          }
-                        : null),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key4);
+                        }
+                      : null,
+                  child: const Text('4'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key5);
+                        }
+                      : null,
+                  child: const Text('5'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key6);
+                        }
+                      : null,
+                  child: const Text('6'),
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new FlatButton(
-                    child: new Text('7'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key7);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('8'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key8);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('9'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key9);
-                          }
-                        : null),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key7);
+                        }
+                      : null,
+                  child: const Text('7'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key8);
+                        }
+                      : null,
+                  child: const Text('8'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key9);
+                        }
+                      : null,
+                  child: const Text('9'),
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new FlatButton(
-                    child: new Text('·'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyDot);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('0'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key0);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('ENT'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyEnt);
-                          }
-                        : null),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyDot);
+                        }
+                      : null,
+                  child: const Text('·'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key0);
+                        }
+                      : null,
+                  child: const Text('0'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyEnt);
+                        }
+                      : null,
+                  child: const Text('ENT'),
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.closed_caption,
-                    label: 'Closed Captions',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyClosedCaptions);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.invert_colors,
-                    label: 'AV Mode',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyAvMode);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.settings_overscan,
-                    label: 'View Mode',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyViewMode);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.replay,
-                    label: 'Flashback',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyFlashback);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.closed_caption,
+                  label: 'Closed Captions',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyClosedCaptions);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.invert_colors,
+                  label: 'AV Mode',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyAvMode);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.settings_overscan,
+                  label: 'View Mode',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyViewMode);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.replay,
+                  label: 'Flashback',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyFlashback);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.volume_off,
-                    label: 'Mute',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyMute);
-                          }
-                        : null),
-                new Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                TVButton(
+                  icon: Icons.volume_off,
+                  label: 'Mute',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyMute);
+                        }
+                      : null,
+                ),
+                Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    new TVButton(
-                        icon: Icons.volume_up,
-                        label: 'Volume Up',
-                        onPressed: _power != false
-                            ? () {
-                                _handleRemote(
-                                    backend.TelevisionRemote.keyVolUp);
-                              }
-                            : null),
-                    new TVButton(
-                        icon: Icons.volume_down,
-                        label: 'Volume Down',
-                        onPressed: _power != false
-                            ? () {
-                                _handleRemote(
-                                    backend.TelevisionRemote.keyVolDown);
-                              }
-                            : null),
+                    TVButton(
+                      icon: Icons.volume_up,
+                      label: 'Volume Up',
+                      onPressed: _power != false
+                          ? () {
+                              _handleRemote(backend.TelevisionRemote.keyVolUp);
+                            }
+                          : null,
+                    ),
+                    TVButton(
+                      icon: Icons.volume_down,
+                      label: 'Volume Down',
+                      onPressed: _power != false
+                          ? () {
+                              _handleRemote(backend.TelevisionRemote.keyVolDown);
+                            }
+                          : null,
+                    ),
                   ],
                 ),
-                new Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    new TVButton(
-                        icon: Icons.add,
-                        label: 'Chanel Up',
-                        onPressed: _power != false
-                            ? () {
-                                _handleRemote(
-                                    backend.TelevisionRemote.keyChannelUp);
-                              }
-                            : null),
-                    new TVButton(
-                        icon: Icons.remove,
-                        label: 'Chanel Down',
-                        onPressed: _power != false
-                            ? () {
-                                _handleRemote(
-                                    backend.TelevisionRemote.keyChannelDown);
-                              }
-                            : null),
+                    TVButton(
+                      icon: Icons.add,
+                      label: 'Chanel Up',
+                      onPressed: _power != false
+                          ? () {
+                              _handleRemote(backend.TelevisionRemote.keyChannelUp);
+                            }
+                          : null,
+                    ),
+                    TVButton(
+                      icon: Icons.remove,
+                      label: 'Chanel Down',
+                      onPressed: _power != false
+                          ? () {
+                              _handleRemote(backend.TelevisionRemote.keyChannelDown);
+                            }
+                          : null,
+                    ),
                   ],
                 ),
-                new TVButton(
-                    icon: Icons.settings_input_hdmi,
-                    label: 'Input',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyInput);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.settings_input_hdmi,
+                  label: 'Input',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyInput);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.surround_sound,
-                    label: '2D/3D',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.key2D3D);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('MENU'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyMenu);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.home,
-                    label: 'Smart Central',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keySmartCentral);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.surround_sound,
+                  label: '2D/3D',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.key2D3D);
+                        }
+                      : null,
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyMenu);
+                        }
+                      : null,
+                  child: const Text('MENU'),
+                ),
+                TVButton(
+                  icon: Icons.home,
+                  label: 'Smart Central',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keySmartCentral);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButtonGap(),
-                new TVButton(
-                    icon: Icons.keyboard_arrow_up,
-                    label: 'Up',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyUp);
-                          }
-                        : null),
-                new TVButtonGap(),
+                const TVButtonGap(),
+                TVButton(
+                  icon: Icons.keyboard_arrow_up,
+                  label: 'Up',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyUp);
+                        }
+                      : null,
+                ),
+                const TVButtonGap(),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.keyboard_arrow_left,
-                    label: 'Left',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyLeft);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.keyboard_return,
-                    label: 'Enter',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyEnter);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.keyboard_arrow_right,
-                    label: 'Right',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyRight);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.keyboard_arrow_left,
+                  label: 'Left',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyLeft);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.keyboard_return,
+                  label: 'Enter',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyEnter);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.keyboard_arrow_right,
+                  label: 'Right',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyRight);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButtonGap(),
-                new TVButton(
-                    icon: Icons.keyboard_arrow_down,
-                    label: 'Down',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyDown);
-                          }
-                        : null),
-                new TVButtonGap(),
+                const TVButtonGap(),
+                TVButton(
+                  icon: Icons.keyboard_arrow_down,
+                  label: 'Down',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyDown);
+                        }
+                      : null,
+                ),
+                const TVButtonGap(),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.close,
-                    label: 'Exit',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyExit);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('NetFlix'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyNetFlix);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.undo,
-                    label: 'Return',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyReturn);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.close,
+                  label: 'Exit',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyExit);
+                        }
+                      : null,
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyNetFlix);
+                        }
+                      : null,
+                  child: const Text('NetFlix'),
+                ),
+                TVButton(
+                  icon: Icons.undo,
+                  label: 'Return',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyReturn);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.swap_horiz,
-                    label: 'Last Channel',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyCh);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.looks_one,
-                    label: 'App 1',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyApp1);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.looks_two,
-                    label: 'App 2',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyApp2);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.looks_3,
-                    label: 'App 3',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyApp3);
-                          }
-                        : null),
+                TVButton(
+                  icon: Icons.swap_horiz,
+                  label: 'Last Channel',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyCh);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.looks_one,
+                  label: 'App 1',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyApp1);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.looks_two,
+                  label: 'App 2',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyApp2);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.looks_3,
+                  label: 'App 3',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyApp3);
+                        }
+                      : null,
+                ),
               ],
             ),
-            new ButtonTheme(
+            ButtonTheme(
               minWidth: 52.0,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new FlatButton(
-                      child: new Text('A'),
-                      onPressed: _power != false
-                          ? () {
-                              _handleRemote(backend.TelevisionRemote.keyA);
-                            }
-                          : null,
-                      color: Colors.red[100]),
-                  new FlatButton(
-                      child: new Text('B'),
-                      onPressed: _power != false
-                          ? () {
-                              _handleRemote(backend.TelevisionRemote.keyB);
-                            }
-                          : null,
-                      color: Colors.green[100]),
-                  new FlatButton(
-                      child: new Text('C'),
-                      onPressed: _power != false
-                          ? () {
-                              _handleRemote(backend.TelevisionRemote.keyC);
-                            }
-                          : null,
-                      color: Colors.blue[100]),
-                  new FlatButton(
-                      child: new Text('D'),
-                      onPressed: _power != false
-                          ? () {
-                              _handleRemote(backend.TelevisionRemote.keyD);
-                            }
-                          : null,
-                      color: Colors.yellow[100]),
+                  OutlinedButton(
+                    onPressed: _power != false
+                        ? () {
+                            _handleRemote(backend.TelevisionRemote.keyA);
+                          }
+                        : null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red[100])),
+                    child: const Text('A'),
+                  ),
+                  OutlinedButton(
+                    onPressed: _power != false
+                        ? () {
+                            _handleRemote(backend.TelevisionRemote.keyB);
+                          }
+                        : null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green[100])),
+                    child: const Text('B'),
+                  ),
+                  OutlinedButton(
+                    onPressed: _power != false
+                        ? () {
+                            _handleRemote(backend.TelevisionRemote.keyC);
+                          }
+                        : null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[100])),
+                    child: const Text('C'),
+                  ),
+                  OutlinedButton(
+                    onPressed: _power != false
+                        ? () {
+                            _handleRemote(backend.TelevisionRemote.keyD);
+                          }
+                        : null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.yellow[100])),
+                    child: const Text('D'),
+                  ),
                 ],
               ),
             ),
-            new Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new TVButton(
-                    icon: Icons.fiber_manual_record,
-                    label: 'Record',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyRecord);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.fiber_smart_record,
-                    label: 'Record Stop',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyRecordStop);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.power_input,
-                    label: 'Power Saving',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyPowerSaving);
-                          }
-                        : null),
-                new TVButton(
-                    icon: Icons.healing,
-                    label: 'Support',
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(backend.TelevisionRemote.keyAAL);
-                          }
-                        : null),
-              ],
-            ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new FlatButton(
-                    child: new Text('Key 37'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyReserved37);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('Key 48'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyReserved48);
-                          }
-                        : null),
-                new FlatButton(
-                    child: new Text('Key 49'),
-                    onPressed: _power != false
-                        ? () {
-                            _handleRemote(
-                                backend.TelevisionRemote.keyReserved49);
-                          }
-                        : null),
-              ],
-            ),
-            new SizedBox(height: 24.0),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Expanded(
-                  child: new Text('Show demo overlay'),
+                TVButton(
+                  icon: Icons.fiber_manual_record,
+                  label: 'Record',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyRecord);
+                        }
+                      : null,
                 ),
-                new Switch(
-                  value: _demoOverlay != null ? _demoOverlay : false,
+                TVButton(
+                  icon: Icons.fiber_smart_record,
+                  label: 'Record Stop',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyRecordStop);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.power_input,
+                  label: 'Power Saving',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyPowerSaving);
+                        }
+                      : null,
+                ),
+                TVButton(
+                  icon: Icons.healing,
+                  label: 'Support',
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyAAL);
+                        }
+                      : null,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyReserved37);
+                        }
+                      : null,
+                  child: const Text('Key 37'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyReserved48);
+                        }
+                      : null,
+                  child: const Text('Key 48'),
+                ),
+                OutlinedButton(
+                  onPressed: _power != false
+                      ? () {
+                          _handleRemote(backend.TelevisionRemote.keyReserved49);
+                        }
+                      : null,
+                  child: const Text('Key 49'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Expanded(
+                  child: Text('Show demo overlay'),
+                ),
+                Switch(
+                  value: _demoOverlay ?? false,
                   onChanged: _power != false ? _handleDemoOverlay : null,
                 ),
               ],
@@ -1406,7 +1491,7 @@ class _TelevisionPageState extends State<TelevisionPage> {
 }
 
 class TVButton extends StatelessWidget {
-  TVButton({
+  const TVButton({
     Key key,
     this.icon,
     this.label,
@@ -1417,11 +1502,12 @@ class TVButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
 
+  @override
   Widget build(BuildContext context) {
-    return new Padding(
-      padding: new EdgeInsets.all(8.0),
-      child: new IconButton(
-        icon: new Icon(icon),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: IconButton(
+        icon: Icon(icon),
         tooltip: label,
         onPressed: onPressed,
       ),
@@ -1430,12 +1516,13 @@ class TVButton extends StatelessWidget {
 }
 
 class TVButtonGap extends StatelessWidget {
-  TVButtonGap({
+  const TVButtonGap({
     Key key,
   }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
-    return new SizedBox(
+    return const SizedBox(
       height: 56.0,
       width: 56.0,
     );

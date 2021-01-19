@@ -7,8 +7,9 @@ import 'backend.dart' as backend;
 import 'common.dart';
 
 class DoorsPage extends StatefulWidget {
+  const DoorsPage({ Key key }) : super(key: key);
   @override
-  _DoorsPageState createState() => new _DoorsPageState();
+  _DoorsPageState createState() => _DoorsPageState();
 }
 
 class _DoorsPageState extends State<DoorsPage> {
@@ -19,9 +20,10 @@ class _DoorsPageState extends State<DoorsPage> {
   }
 
   Future<void> _initCloudbit() async {
-    backend.BitDemultiplexer doorBits = backend.BitDemultiplexer(
+    final backend.BitDemultiplexer doorBits = backend.BitDemultiplexer(
         (await backend.cloud.getDevice(backend.houseSensorsId)).values, 3);
-    if (!mounted) return;
+    if (!mounted)
+      return;
     _bit1Subscription = doorBits[1].listen(_handleBit1);
     _bit2Subscription = doorBits[2].listen(_handleBit2);
     _bit3Subscription = doorBits[3].listen(_handleBit3);
@@ -63,13 +65,13 @@ class _DoorsPageState extends State<DoorsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new MainScreen(
+    return MainScreen(
       title: 'Doors',
-      body: new Container(
-        padding: new EdgeInsets.all(16.0),
-        child: new SizedBox.expand(
-          child: new FittedBox(
-            child: new DoorDiagram(
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox.expand(
+          child: FittedBox(
+            child: DoorDiagram(
               frontDoor: _frontDoor,
               garageDoor: _garageDoor,
               backDoor: _backDoor,
@@ -82,13 +84,13 @@ class _DoorsPageState extends State<DoorsPage> {
 }
 
 class DoorDiagram extends StatefulWidget {
-  DoorDiagram({
+  const DoorDiagram({
     Key key,
     this.frontDoor,
     this.garageDoor,
     this.backDoor,
-    this.duration: const Duration(milliseconds: 200),
-    this.curve: Curves.fastOutSlowIn,
+    this.duration = const Duration(milliseconds: 200),
+    this.curve = Curves.fastOutSlowIn,
   }) : super(key: key);
 
   final bool frontDoor;
@@ -97,7 +99,8 @@ class DoorDiagram extends StatefulWidget {
   final Duration duration;
   final Curve curve;
 
-  _DoorDiagramState createState() => new _DoorDiagramState();
+  @override
+  _DoorDiagramState createState() => _DoorDiagramState();
 }
 
 class _DoorDiagramState extends State<DoorDiagram>
@@ -134,7 +137,7 @@ class _DoorDiagramState extends State<DoorDiagram>
   }
 
   AnimationController _init(bool state) {
-    return new AnimationController(
+    return AnimationController(
       duration: widget.duration,
       value: state == true ? 1.0 : 0.0,
       vsync: this,
@@ -142,7 +145,7 @@ class _DoorDiagramState extends State<DoorDiagram>
   }
 
   Animation<double> _curve(Animation<double> parent) {
-    return new CurvedAnimation(parent: parent, curve: widget.curve)
+    return CurvedAnimation(parent: parent, curve: widget.curve)
       ..addListener(_tick);
   }
 
@@ -159,7 +162,8 @@ class _DoorDiagramState extends State<DoorDiagram>
   }
 
   void _update(AnimationController door, bool newState, bool oldState) {
-    if (newState == oldState || newState == null) return;
+    if (newState == oldState || newState == null)
+      return;
     if (oldState == null) {
       door.value = newState ? 1.0 : 0.0;
     } else if (newState) {
@@ -180,10 +184,11 @@ class _DoorDiagramState extends State<DoorDiagram>
     _backValue.removeListener(_tick);
   }
 
+  @override
   Widget build(BuildContext context) {
-    return new CustomPaint(
+    return CustomPaint(
       size: const Size(100.0, 100.0),
-      painter: new _DoorPainter(
+      painter: _DoorPainter(
           widget.frontDoor == null ? null : 1.0 - _frontValue.value,
           widget.garageDoor == null ? null : 1.0 - _garageValue.value,
           widget.backDoor == null ? null : 1.0 - _backValue.value,
@@ -194,11 +199,11 @@ class _DoorDiagramState extends State<DoorDiagram>
 
 class _DoorPainter extends CustomPainter {
   _DoorPainter(this.front, this.garage, this.back, this.color) {
-    _doorPaint = new Paint()
+    _doorPaint = Paint()
       ..strokeWidth = 100.0
       ..color = color
       ..style = PaintingStyle.stroke;
-    _houseOutlinePaint = new Paint()
+    _houseOutlinePaint = Paint()
       ..strokeWidth = 200.0
       ..color = Colors.black
       ..style = PaintingStyle.stroke;
@@ -212,29 +217,31 @@ class _DoorPainter extends CustomPainter {
   Paint _doorPaint;
   Paint _houseOutlinePaint;
 
-  void _paintSwingDoor(
-      Canvas canvas, Offset hinge, double length, double angle) {
-    canvas.save();
-    canvas.translate(hinge.dx, hinge.dy);
-    canvas.rotate(angle);
-    canvas.drawLine(Offset.zero, new Offset(length, 0.0), _doorPaint);
-    canvas.restore();
+  void _paintSwingDoor(Canvas canvas, Offset hinge, double length, double angle) {
+    canvas
+      ..save()
+      ..translate(hinge.dx, hinge.dy)
+      ..rotate(angle)
+      ..drawLine(Offset.zero, Offset(length, 0.0), _doorPaint)
+      ..restore();
   }
 
   void _paintSlideDoor(Canvas canvas, Offset start, Offset end, double state) {
-    Offset dy = new Offset(0.0, _doorPaint.strokeWidth / 2.0);
-    Offset middle = end + (start - end) / 2.0;
-    Offset slide = (middle - start) * state;
-    canvas.drawLine((start + -dy), (middle + -dy), _doorPaint);
-    canvas.drawLine((middle + dy) + -slide, (end + dy) + -slide, _doorPaint);
+    final Offset dy = Offset(0.0, _doorPaint.strokeWidth / 2.0);
+    final Offset middle = end + (start - end) / 2.0;
+    final Offset slide = (middle - start) * state;
+    canvas
+      ..drawLine(start + -dy, middle + -dy, _doorPaint)
+      ..drawLine(middle + dy + -slide, end + dy + -slide, _doorPaint);
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.save();
-    canvas.scale(size.width / 11710.0, size.height / 12090.0);
-    canvas.translate(50.0, 50.0);
-    Path houseOutline = new Path()
+    canvas
+      ..save()
+      ..scale(size.width / 11710.0, size.height / 12090.0)
+      ..translate(50.0, 50.0);
+    final Path houseOutline = Path()
       ..moveTo(5410.0, 0.0)
       ..relativeMoveTo(1980.0, 0.0) // back window
       ..relativeLineTo(4220.0, 0.0)

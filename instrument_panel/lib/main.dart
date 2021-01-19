@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'backend.dart' as backend;
 import 'cloudbits.dart';
+import 'components/auto_fade.dart';
 import 'doors.dart';
 import 'laundry.dart';
 import 'remy.dart';
 import 'solar.dart';
 import 'television.dart';
-import 'components/auto_fade.dart';
 
 enum HouseOfRoovesPage {
   cloudbits,
@@ -21,31 +21,31 @@ enum HouseOfRoovesPage {
 }
 
 class MainDrawer extends StatelessWidget {
-  MainDrawer({Key key, this.page, this.onPageChanged}) : super(key: key);
+  const MainDrawer({Key key, this.page, this.onPageChanged}) : super(key: key);
 
   final HouseOfRoovesPage page;
   final ValueChanged<HouseOfRoovesPage> onPageChanged;
 
   @override
   Widget build(BuildContext context) {
-    return new Drawer(
-      child: new ListView(
+    return Drawer(
+      child: ListView(
         children: <Widget>[
-          new Theme(
-            data: new ThemeData.dark(),
-            child: new DrawerHeader(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: new ExactAssetImage('images/drawer_header.jpeg'),
+          Theme(
+            data: ThemeData.dark(),
+            child: const DrawerHeader(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: ExactAssetImage('images/drawer_header.jpeg'),
                   fit: BoxFit.cover,
                 ),
               ),
-              child: new Text('House of Rooves'),
+              child: Text('House of Rooves'),
             ),
           ),
-          new ListTile(
-            leading: new Icon(Icons.assignment),
-            title: new Text('Remy'),
+          ListTile(
+            leading: const Icon(Icons.assignment),
+            title: const Text('Remy'),
             selected: page == HouseOfRoovesPage.remy,
             onTap: onPageChanged != null
                 ? () {
@@ -54,9 +54,9 @@ class MainDrawer extends StatelessWidget {
                   }
                 : null,
           ),
-          new ListTile(
-            leading: new Icon(Icons.wb_sunny),
-            title: new Text('Solar'),
+          ListTile(
+            leading: const Icon(Icons.wb_sunny),
+            title: const Text('Solar'),
             selected: page == HouseOfRoovesPage.solar,
             onTap: onPageChanged != null
                 ? () {
@@ -65,9 +65,9 @@ class MainDrawer extends StatelessWidget {
                   }
                 : null,
           ),
-          new ListTile(
-            leading: new Icon(Icons.store),
-            title: new Text('Doors'),
+          ListTile(
+            leading: const Icon(Icons.store),
+            title: const Text('Doors'),
             selected: page == HouseOfRoovesPage.doors,
             onTap: onPageChanged != null
                 ? () {
@@ -76,9 +76,9 @@ class MainDrawer extends StatelessWidget {
                   }
                 : null,
           ),
-          new ListTile(
-            leading: new Icon(Icons.tv),
-            title: new Text('Television'),
+          ListTile(
+            leading: const Icon(Icons.tv),
+            title: const Text('Television'),
             selected: page == HouseOfRoovesPage.television,
             onTap: onPageChanged != null
                 ? () {
@@ -87,9 +87,9 @@ class MainDrawer extends StatelessWidget {
                   }
                 : null,
           ),
-          new ListTile(
-            leading: new Icon(Icons.local_laundry_service),
-            title: new Text('Laundry'),
+          ListTile(
+            leading: const Icon(Icons.local_laundry_service),
+            title: const Text('Laundry'),
             selected: page == HouseOfRoovesPage.laundry,
             onTap: onPageChanged != null
                 ? () {
@@ -98,9 +98,9 @@ class MainDrawer extends StatelessWidget {
                   }
                 : null,
           ),
-          new ListTile(
-            leading: new Icon(Icons.memory),
-            title: new Text('CloudBits'),
+          ListTile(
+            leading: const Icon(Icons.memory),
+            title: const Text('CloudBits'),
             selected: page == HouseOfRoovesPage.cloudbits,
             onTap: onPageChanged != null
                 ? () {
@@ -120,31 +120,36 @@ class MainDrawer extends StatelessWidget {
 }
 
 class LoadingPage extends StatelessWidget {
+  const LoadingPage({ Key key }) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Loading'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Loading'),
       ),
-      body: new Center(
-        child: new Text('Please Stand By...'),
+      body: const Center(
+        child: Text('Please Stand By...'),
       ),
     );
   }
 }
 
 class HouseOfRooves extends StatefulWidget {
+  const HouseOfRooves({ Key key }) : super(key: key);
   @override
-  _HouseOfRoovesState createState() => new _HouseOfRoovesState();
+  _HouseOfRoovesState createState() => _HouseOfRoovesState();
 }
 
 class _HouseOfRoovesState extends State<HouseOfRooves> {
+  @override
   void initState() {
     super.initState();
     backend.onError = (String message) {
       // add to an in-memory log that can be shown somewhere
       //assert(() { print(message); return true; });
       ScaffoldMessenger.of(context)
-          .showSnackBar(new SnackBar(content: new Text(message)));
+          .showSnackBar(SnackBar(content: Text(message)));
     };
     backend.init().whenComplete(() {
       _handlePageChanged(HouseOfRoovesPage.remy);
@@ -160,20 +165,21 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
   }
 
   Widget _buildBody() {
-    if (_page == null) return new LoadingPage();
+    if (_page == null)
+      return const LoadingPage();
     switch (_page) {
       case HouseOfRoovesPage.remy:
-        return new RemyPage();
+        return const RemyPage();
       case HouseOfRoovesPage.cloudbits:
-        return new CloudBitsPage();
+        return const CloudBitsPage();
       case HouseOfRoovesPage.doors:
-        return new DoorsPage();
+        return const DoorsPage();
       case HouseOfRoovesPage.laundry:
-        return new LaundryPage();
+        return const LaundryPage();
       case HouseOfRoovesPage.solar:
-        return new SolarPage();
+        return const SolarPage();
       case HouseOfRoovesPage.television:
-        return new TelevisionPage();
+        return const TelevisionPage();
     }
     return null;
   }
@@ -182,7 +188,7 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
   Widget build(BuildContext context) {
     return Scaffold(
           drawer: _page != null
-              ? new MainDrawer(page: _page, onPageChanged: _handlePageChanged)
+              ? MainDrawer(page: _page, onPageChanged: _handlePageChanged)
               : null,
           body: AutoFade(
             duration: const Duration(seconds: 1),
@@ -194,7 +200,7 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
   }
 }
 
-Future<Null> main() async {
+Future<void> main() async {
   runApp(
     MaterialApp(
       title: 'House of Rooves',
@@ -203,7 +209,7 @@ Future<Null> main() async {
         accentColor: Colors.greenAccent[700],
         accentColorBrightness: Brightness.dark,
       ),
-      home: HouseOfRooves(),
+      home: const HouseOfRooves(),
     ),
   );
 }

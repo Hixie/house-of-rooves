@@ -4,8 +4,9 @@ import 'backend.dart' as backend;
 import 'common.dart';
 
 class RemyPage extends StatefulWidget {
+  const RemyPage({ Key key }) : super(key: key);
   @override
-  _RemyPageState createState() => new _RemyPageState();
+  _RemyPageState createState() => _RemyPageState();
 }
 
 class _RemyPageState extends State<RemyPage> {
@@ -35,35 +36,35 @@ class _RemyPageState extends State<RemyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new MainScreen(
+    return MainScreen(
       title: 'Remy',
-      body: new RemyMessageList(remy: _remy, ui: _ui),
+      body: RemyMessageList(remy: _remy, ui: _ui),
     );
   }
 }
 
 class RemyMessageList extends StatelessWidget {
-  RemyMessageList({Key key, this.remy, this.ui}) : super(key: key);
+  const RemyMessageList({Key key, this.remy, this.ui}) : super(key: key);
 
   final backend.Remy remy;
   final backend.RemyUi ui;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> messages = <Widget>[];
+    final List<Widget> messages = <Widget>[];
     if (ui == null) {
-      messages.add(new Card(
-        child: new Padding(
-          padding: new EdgeInsets.all(24.0),
-          child: new Text('Not connected.'),
+      messages.add(const Card(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Text('Not connected.'),
         ),
       ));
     } else {
-      for (backend.RemyMessage message in ui.messages) {
-        List<Widget> content = <Widget>[
-          new Padding(
-            padding: new EdgeInsets.all(16.0),
-            child: new Text(
+      for (final backend.RemyMessage message in ui.messages) {
+        final List<Widget> content = <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
               message.label,
               style: Theme.of(context).textTheme.subtitle1,
               textAlign: TextAlign.center,
@@ -71,41 +72,42 @@ class RemyMessageList extends StatelessWidget {
           )
         ];
         if (message.buttons.isNotEmpty) {
-          content.add(new Padding(
-            padding: new EdgeInsets.only(left: 8.0, right: 8.0),
-            child: new Wrap(
-              spacing: 16.0,
-              children: message.buttons.map((backend.RemyButton button) {
-                return RemyButtonWidget(remy: remy, button: button);
-              }).toList()
-            ),
-          ));
-          content.add(new Padding(
-            padding: new EdgeInsets.all(16.0),
-            child: new Text(
-              (message.classes.toList()
-                    ..remove("nomsg")
-                    ..remove("quiet")
-                    ..remove("important"))
-                  .join(", "),
-              style: Theme.of(context).textTheme.caption,
-              textAlign: TextAlign.right,
-            ),
-          ));
-          //content.add(new Container(height: 16.0));
+          content
+            ..add(Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: Wrap(
+                spacing: 16.0,
+                children: message.buttons.map((backend.RemyButton button) {
+                  return RemyButtonWidget(remy: remy, button: button);
+                }).toList()
+              ),
+            ))
+            ..add(Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                (message.classes.toList()
+                      ..remove('nomsg')
+                      ..remove('quiet')
+                      ..remove('important'))
+                    .join(', '),
+                style: Theme.of(context).textTheme.caption,
+                textAlign: TextAlign.right,
+              ),
+            ));
+            //..add(Container(height: 16.0));
         }
-        messages.add(new Padding(
-          padding: new EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-          child: new Card(
-            child: new Column(
+        messages.add(Padding(
+          padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+          child: Card(
+            child: Column(
               children: content,
             ),
           ),
         ));
       }
     }
-    return new ListView(
-      padding: new EdgeInsets.only(bottom: 16.0),
+    return ListView(
+      padding: const EdgeInsets.only(bottom: 16.0),
       children: messages,
     );
   }
@@ -123,24 +125,23 @@ class RemyButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Padding(
-      padding: new EdgeInsets.all(8.0),
-      child: new Material(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
         borderRadius: BorderRadius.circular(10),
         color: Colors.yellow.withGreen(230),
         clipBehavior: Clip.antiAlias,
-        child: new InkWell(
+        child: InkWell(
           onTap: () {
-            assert(() { print('pushing $button'); return true; }());
+            assert(() { print('pushing $button'); return true; }()); // ignore: avoid_print
             remy.pushButton(button);
           },
-          child: new Padding(
-            padding: new EdgeInsets.all(8.0),
-            child: new Text(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
               button.label,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
-              
             ),
           ),
         ),

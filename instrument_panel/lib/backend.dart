@@ -36,7 +36,7 @@ const String cloudBitTest1Id = '243c201dc805';
 const String cloudBitTest2Id = '243c201dcdfd';
 const String thermostatId = '00e04c0355d0';
 
-typedef void ErrorReporter(String message);
+typedef ErrorReporter = void Function(String message);
 
 ErrorReporter onError;
 
@@ -50,26 +50,28 @@ ErrorReporter onError;
 List<String> _credentials;
 SecurityContext _securityContext;
 
-Future<Null> init() async {
+Future<void> init() async {
   _credentials = await rootBundle.loadStructuredData('credentials.cfg', (String value) async {
     return value.split('\n');
   });
   if (_credentials.length < 5)
-    throw new Exception('credentials file incomplete or otherwise corrupted');
-  _solar = new SunPowerMonitor(
+    throw Exception('credentials file incomplete or otherwise corrupted');
+  _solar = SunPowerMonitor(
     customerUsername: _credentials[1],
     customerPassword: _credentials[2],
-    onLog: (dynamic error) {
-      if (onError != null) onError('SunPower: $error');
+    onLog: (Object error) {
+      if (onError != null)
+        onError('SunPower: $error');
     },
   );
-  _cloud = new LittleBitsCloud(
+  _cloud = LittleBitsCloud(
     authToken: _credentials[0],
-    onError: (dynamic error) async {
-      if (onError != null) onError('CloudBits: $error');
+    onError: (Object error) async {
+      if (onError != null)
+        onError('CloudBits: $error');
     },
   );
-  _television = new Television(
+  _television = Television(
     username: _credentials[4],
     password: _credentials[5],
   );
@@ -79,14 +81,15 @@ Future<Null> init() async {
 
 Remy openRemy(NotificationHandler onNotification, UiUpdateHandler onUiUpdate) {
   assert(_credentials != null);
-  return new Remy(
+  return Remy(
     username: 'house-of-rooves app on ${Platform.localHostname} (${Platform.operatingSystem})',
     password: _credentials[3],
     securityContext: _securityContext,
     onNotification: onNotification,
     onUiUpdate: onUiUpdate,
-    onLog: (dynamic error) {
-      if (onError != null) onError('Remy: $error');
+    onLog: (Object error) {
+      if (onError != null)
+        onError('Remy: $error');
     },
   );
 }

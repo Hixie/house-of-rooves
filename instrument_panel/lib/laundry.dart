@@ -9,8 +9,9 @@ final StreamTransformer<bool, bool> debouncer =
     backend.debouncer(const Duration(milliseconds: 500));
 
 class LaundryPage extends StatefulWidget {
+  const LaundryPage({ Key key }) : super(key: key);
   @override
-  _LaundryPageState createState() => new _LaundryPageState();
+  _LaundryPageState createState() => _LaundryPageState();
 }
 
 class _LaundryPageState extends State<LaundryPage> {
@@ -21,9 +22,10 @@ class _LaundryPageState extends State<LaundryPage> {
   }
 
   Future<void> _initCloudbit() async {
-    backend.BitDemultiplexer laundryBits = new backend.BitDemultiplexer(
+    final backend.BitDemultiplexer laundryBits = backend.BitDemultiplexer(
         (await backend.cloud.getDevice(backend.laundryId)).values, 4);
-    if (!mounted) return;
+    if (!mounted)
+      return;
     _bit1Subscription = laundryBits[1]
         .transform(debouncer)
         .listen(_handleDoneLedBit); // 5 - Done
@@ -83,16 +85,16 @@ class _LaundryPageState extends State<LaundryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new MainScreen(
+    return MainScreen(
       title: 'Laundry',
-      body: new Container(
-        padding: new EdgeInsets.all(4.0),
-        child: new SizedBox.expand(
-          child: new FittedBox(
-            alignment: new FractionalOffset(0.5, 0.15),
-            child: new CustomPaint(
+      body: Container(
+        padding: const EdgeInsets.all(4.0),
+        child: SizedBox.expand(
+          child: FittedBox(
+            alignment: const FractionalOffset(0.5, 0.15),
+            child: CustomPaint(
               size: const Size(100.0, 100.0),
-              painter: new _LaundryPainter(
+              painter: _LaundryPainter(
                 washerSensorsLed: _washerSensorsLed,
                 washerDoneLed: _washerDoneLed,
                 dryerDrying: _dryerDrying,
@@ -111,14 +113,16 @@ class _LaundryPageState extends State<LaundryPage> {
   }
 }
 
+@immutable
 class _TextPainterConfig {
-  _TextPainterConfig({
+  const _TextPainterConfig({
     this.text,
     this.fontSize,
     this.textAlign,
     this.width,
     this.style,
   });
+
   final String text;
   final double fontSize;
   final TextAlign textAlign;
@@ -126,9 +130,9 @@ class _TextPainterConfig {
   final TextStyle style;
 
   TextPainter createTextPainter() {
-    return new TextPainter(
+    return TextPainter(
       textDirection: TextDirection.ltr,
-      text: new TextSpan(
+      text: TextSpan(
         text: text,
         style: style.copyWith(fontSize: fontSize),
       ),
@@ -138,8 +142,9 @@ class _TextPainterConfig {
 
   @override
   bool operator ==(Object other) {
-    if (other.runtimeType != runtimeType) return false;
-    _TextPainterConfig typedOther = other;
+    if (other.runtimeType != runtimeType)
+      return false;
+    final _TextPainterConfig typedOther = other as _TextPainterConfig;
     return typedOther.text == text &&
         typedOther.fontSize == fontSize &&
         typedOther.textAlign == textAlign &&
@@ -160,13 +165,13 @@ class _LaundryPainter extends CustomPainter {
     this.color,
     this.style,
   }) {
-    _ledOnPaint = new Paint()
+    _ledOnPaint = Paint()
       ..color = color
       ..style = PaintingStyle.fill;
-    _ledOffPaint = new Paint()
+    _ledOffPaint = Paint()
       ..color = color.withOpacity(0.1)
       ..style = PaintingStyle.fill;
-    _outlinePaint = new Paint()
+    _outlinePaint = Paint()
       ..strokeWidth = 2.0
       ..color = Colors.black
       ..style = PaintingStyle.stroke;
@@ -183,35 +188,33 @@ class _LaundryPainter extends CustomPainter {
   Paint _ledOffPaint;
   Paint _outlinePaint;
 
-  static Map<_TextPainterConfig, TextPainter> _painters =
-      <_TextPainterConfig, TextPainter>{};
+  static final Map<_TextPainterConfig, TextPainter> _painters = <_TextPainterConfig, TextPainter>{};
 
   void _paintLed(Canvas canvas, Offset position, String text,
       {bool on, bool labelAfter, double radius, double width}) {
     canvas.drawCircle(
         position, radius, on == true ? _ledOnPaint : _ledOffPaint);
-    _TextPainterConfig config = new _TextPainterConfig(
+    final _TextPainterConfig config = _TextPainterConfig(
       text: text,
       fontSize: radius * 2.0,
       textAlign: labelAfter ? TextAlign.left : TextAlign.right,
       width: width,
       style: style,
     );
-    TextPainter painter =
-        _painters.putIfAbsent(config, () => config.createTextPainter());
-    Offset textTopLeft = position -
-        new Offset(
-            labelAfter ? radius * -2.0 : painter.size.width + radius * 2.0,
-            radius * 1.5);
+    final TextPainter painter = _painters.putIfAbsent(config, config.createTextPainter);
+    final Offset textTopLeft = position - Offset(
+      labelAfter ? radius * -2.0 : painter.size.width + radius * 2.0,
+      radius * 1.5,
+    );
     painter.paint(canvas, textTopLeft);
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    double horizontalUnit = size.width / 13.0;
-    double verticalUnit = size.height / 10.0;
+    final double horizontalUnit = size.width / 13.0;
+    final double verticalUnit = size.height / 10.0;
 
-    Path path = new Path()
+    final Path path = Path()
       ..moveTo(horizontalUnit, verticalUnit * 2.0)
       ..relativeLineTo(5.0 * horizontalUnit, 0.0)
       ..relativeLineTo(0.0, 6.0 * verticalUnit)
@@ -228,53 +231,52 @@ class _LaundryPainter extends CustomPainter {
       ..relativeLineTo(5.0 * horizontalUnit, 0.0);
     canvas.drawPath(path, _outlinePaint);
 
-    _paintLed(canvas, new Offset(horizontalUnit * 1.75, verticalUnit * 2.55),
+    _paintLed(canvas, Offset(horizontalUnit * 1.75, verticalUnit * 2.55),
         'Sensing',
         on: washerSensorsLed,
         labelAfter: true,
         radius: horizontalUnit * 0.25,
         width: horizontalUnit * 3.25);
     _paintLed(
-        canvas, new Offset(horizontalUnit * 5.25, verticalUnit * 3.45), 'Done',
+        canvas, Offset(horizontalUnit * 5.25, verticalUnit * 3.45), 'Done',
         on: washerDoneLed,
         labelAfter: false,
         radius: horizontalUnit * 0.25,
         width: horizontalUnit * 3.25);
     _paintLed(
-        canvas, new Offset(horizontalUnit * 8.0, verticalUnit * 3.0), 'Drying',
+        canvas, Offset(horizontalUnit * 8.0, verticalUnit * 3.0), 'Drying',
         on: dryerDrying,
         labelAfter: true,
         radius: horizontalUnit * 0.25,
         width: horizontalUnit * 3.0);
     _paintLed(
-        canvas, new Offset(horizontalUnit * 5.25, verticalUnit * 5.0), 'Button',
+        canvas, Offset(horizontalUnit * 5.25, verticalUnit * 5.0), 'Button',
         on: washerFullButton,
         labelAfter: false,
         radius: horizontalUnit * 0.25,
         width: horizontalUnit * 3.25);
 
     _TextPainterConfig config;
-    TextPainter painter;
 
-    config = new _TextPainterConfig(
+    config = _TextPainterConfig(
       text: 'WASHER',
       fontSize: verticalUnit * 0.25,
       textAlign: TextAlign.center,
       width: horizontalUnit * 5.0,
       style: style,
     );
-    painter = _painters.putIfAbsent(config, () => config.createTextPainter());
-    painter.paint(canvas, new Offset(horizontalUnit, verticalUnit * 8.5));
+    _painters.putIfAbsent(config, () => config.createTextPainter())
+      .paint(canvas, Offset(horizontalUnit, verticalUnit * 8.5));
 
-    config = new _TextPainterConfig(
+    config = _TextPainterConfig(
       text: 'DRYER',
       fontSize: verticalUnit * 0.25,
       textAlign: TextAlign.center,
       width: horizontalUnit * 5.0,
       style: style,
     );
-    painter = _painters.putIfAbsent(config, () => config.createTextPainter());
-    painter.paint(canvas, new Offset(horizontalUnit * 7.0, verticalUnit * 8.5));
+    _painters.putIfAbsent(config, () => config.createTextPainter())
+      .paint(canvas, Offset(horizontalUnit * 7.0, verticalUnit * 8.5));
   }
 
   @override

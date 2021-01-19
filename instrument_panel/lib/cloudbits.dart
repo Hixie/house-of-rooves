@@ -7,8 +7,9 @@ import 'backend.dart' as backend;
 import 'common.dart';
 
 class CloudBitsPage extends StatefulWidget {
+  const CloudBitsPage({ Key key }) : super(key: key);
   @override
-  _CloudBitsPageState createState() => new _CloudBitsPageState();
+  _CloudBitsPageState createState() => _CloudBitsPageState();
 }
 
 class _CloudBitsPageState extends State<CloudBitsPage> {
@@ -16,13 +17,14 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
   backend.CloudBit _cloudBit;
   bool _loaded = false;
 
-  Map<backend.CloudBit, String> _labels = <backend.CloudBit, String>{};
+  final Map<backend.CloudBit, String> _labels = <backend.CloudBit, String>{};
 
+  @override
   void initState() {
     super.initState();
-    initLabels().catchError((dynamic exception) {
+    initLabels().catchError((Object exception) {
       assert(() {
-        print(exception);
+        print(exception); // ignore: avoid_print
       }());
     });
   }
@@ -37,8 +39,9 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
     } else {
       _selectCloudBit(_cloudBits.first);
     }
-    if (_cloudBits == null) return null;
-    for (backend.CloudBit bit in _cloudBits)
+    if (_cloudBits == null)
+      return;
+    for (final backend.CloudBit bit in _cloudBits)
       setState(() {
         _labels[bit] = bit.displayName;
       });
@@ -52,21 +55,21 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new MainScreen(
+    return MainScreen(
       title: 'CloudBits',
-      body: new ListView(
+      body: ListView(
         children: <Widget>[
-          new Padding(
-            padding: new EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: _loaded
                 ? _cloudBits != null
-                    ? new DropdownButton(
+                    ? DropdownButton<backend.CloudBit>(
                         items: _cloudBits
-                            .map/*<DropdownMenuItem<backend.CloudBit>>*/(
+                            .map<DropdownMenuItem<backend.CloudBit>>(
                                 (backend.CloudBit bit) {
-                          return new DropdownMenuItem(
+                          return DropdownMenuItem<backend.CloudBit>(
                             value: bit,
-                            child: new Text(_labels.containsKey(bit)
+                            child: Text(_labels.containsKey(bit)
                                 ? _labels[bit]
                                 : bit.deviceId),
                           );
@@ -74,17 +77,17 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
                         value: _cloudBit,
                         onChanged: _selectCloudBit,
                       )
-                    : new Text('No CloudBits.')
-                : new Text('Connecting...'),
+                    : const Text('No CloudBits.')
+                : const Text('Connecting...'),
           ),
-          new Padding(
-            padding: new EdgeInsets.all(24.0),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
             child: _cloudBit != null
-                ? new CloudBitCard(cloudBit: _cloudBit)
-                : new Card(
-                    child: new Padding(
-                      padding: new EdgeInsets.all(24.0),
-                      child: new Text('No CloudBit selected.'),
+                ? CloudBitCard(cloudBit: _cloudBit)
+                : const Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(24.0),
+                      child: Text('No CloudBit selected.'),
                     ),
                   ),
           ),
@@ -95,9 +98,10 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
 }
 
 class CloudBitCard extends StatefulWidget {
-  CloudBitCard({Key key, this.cloudBit}) : super(key: key);
+  const CloudBitCard({Key key, this.cloudBit}) : super(key: key);
   final backend.CloudBit cloudBit;
-  _CloudBitCardState createState() => new _CloudBitCardState();
+  @override
+  _CloudBitCardState createState() => _CloudBitCardState();
 }
 
 class _CloudBitCardState extends State<CloudBitCard> {
@@ -110,6 +114,7 @@ class _CloudBitCardState extends State<CloudBitCard> {
   double _outputVolts;
   int _outputBitfield;
 
+  @override
   void initState() {
     super.initState();
     _updateSubscription();
@@ -118,9 +123,11 @@ class _CloudBitCardState extends State<CloudBitCard> {
   @override
   void didUpdateWidget(CloudBitCard oldwidget) {
     super.didUpdateWidget(oldwidget);
-    if (oldwidget.cloudBit != widget.cloudBit) _updateSubscription();
+    if (oldwidget.cloudBit != widget.cloudBit)
+      _updateSubscription();
   }
 
+  @override
   void dispose() {
     _subscription?.cancel();
     super.dispose();
@@ -135,10 +142,9 @@ class _CloudBitCardState extends State<CloudBitCard> {
     _outputNumber = null;
     _outputVolts = null;
     _subscription = widget.cloudBit.values.listen((int value) {
-      int number = value != null ? ((value / 1023.0) * 99.0).round() : null;
-      double volts =
-          value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
-      int bitfield = value != null
+      final int number = value != null ? ((value / 1023.0) * 99.0).round() : null;
+      final double volts = value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
+      final int bitfield = value != null
           ? backend.BitDemultiplexer.valueToBitField(value, 4)
           : null;
       setState(() {
@@ -150,10 +156,9 @@ class _CloudBitCardState extends State<CloudBitCard> {
   }
 
   void _setOutputValue(double value) {
-    int number = value != null ? ((value / 1023.0) * 99.0).round() : null;
-    double volts =
-        value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
-    int bitfield = value != null
+    final int number = value != null ? ((value / 1023.0) * 99.0).round() : null;
+    final double volts = value != null ? ((value / 1023.0) * 50.0).round() / 10.0 : null;
+    final int bitfield = value != null
         ? backend.BitDemultiplexer.valueToBitField(value.round(), 4)
         : null;
     setState(() {
@@ -165,6 +170,7 @@ class _CloudBitCardState extends State<CloudBitCard> {
     widget.cloudBit.setValue(value.round());
   }
 
+  @override
   Widget build(BuildContext context) {
     final TextStyle labelStyle = Theme.of(context).textTheme.headline5;
     final TextStyle valueStyle =
@@ -172,91 +178,90 @@ class _CloudBitCardState extends State<CloudBitCard> {
     final TextStyle smallLabelStyle = Theme.of(context).textTheme.caption;
     final TextStyle smallValueStyle =
         smallLabelStyle.copyWith(color: Theme.of(context).accentColor);
-    return new Card(
-      child: new ListBody(
+    return Card(
+      child: ListBody(
         children: <Widget>[
-          new Padding(
-            padding: new EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-            child: new Row(
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new RichText(
-                  text: new TextSpan(
+                RichText(
+                  text: TextSpan(
                     style: labelStyle,
                     text: 'Input value: ',
                     children: <TextSpan>[
-                      new TextSpan(
+                      TextSpan(
                           text: _inputNumber != null ? '$_inputNumber' : '-',
                           style: valueStyle),
-                      new TextSpan(text: ' (', style: labelStyle),
-                      new TextSpan(
+                      TextSpan(text: ' (', style: labelStyle),
+                      TextSpan(
                           text: _inputVolts != null
                               ? _inputVolts.toStringAsFixed(1)
                               : '-',
                           style: valueStyle),
-                      new TextSpan(
+                      TextSpan(
                           text: 'V',
                           style: labelStyle.apply(fontSizeFactor: 0.7)),
-                      new TextSpan(text: ') ', style: labelStyle),
+                      TextSpan(text: ') ', style: labelStyle),
                     ],
                   ),
                 ),
-                new Leds(value: _inputBitfield, bitCount: 4, size: 15.0),
+                Leds(value: _inputBitfield, bitCount: 4, size: 15.0),
               ],
             ),
           ),
-          new Padding(
-            padding: new EdgeInsets.all(16.0),
-            child: new ListBody(
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListBody(
               children: <Widget>[
-                new Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    new RichText(
-                      text: new TextSpan(
+                    RichText(
+                      text: TextSpan(
                         style: labelStyle,
                         text: 'Output value: ',
                         children: <TextSpan>[
-                          new TextSpan(
+                          TextSpan(
                               text: _outputNumber != null
                                   ? '$_outputNumber'
                                   : '-',
                               style: valueStyle),
-                          new TextSpan(text: ' (', style: labelStyle),
-                          new TextSpan(
+                          TextSpan(text: ' (', style: labelStyle),
+                          TextSpan(
                               text: _outputVolts != null
                                   ? _outputVolts.toStringAsFixed(1)
                                   : '-',
                               style: valueStyle),
-                          new TextSpan(
+                          TextSpan(
                               text: 'V',
                               style: labelStyle.apply(fontSizeFactor: 0.7)),
-                          new TextSpan(text: ') ', style: labelStyle),
+                          TextSpan(text: ') ', style: labelStyle),
                         ],
                       ),
                     ),
-                    new Leds(value: _outputBitfield, bitCount: 4, size: 15.0),
+                    Leds(value: _outputBitfield, bitCount: 4, size: 15.0),
                   ],
                 ),
-                new Slider(
+                Slider(
                   value: _outputValue,
                   onChanged: _setOutputValue,
-                  min: 0.0,
                   max: 1023.0,
                   label: _outputVolts?.toStringAsFixed(1) ?? '?',
                 ),
               ],
             ),
           ),
-          new Divider(height: 1.0),
-          new Padding(
-            padding: new EdgeInsets.all(16.0),
-            child: new RichText(
-              text: new TextSpan(
+          const Divider(height: 1.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: RichText(
+              text: TextSpan(
                 style: smallLabelStyle,
                 text: 'Device ID: ',
                 children: <TextSpan>[
-                  new TextSpan(
+                  TextSpan(
                       text: widget.cloudBit != null
                           ? widget.cloudBit.deviceId
                           : '-',
@@ -272,7 +277,7 @@ class _CloudBitCardState extends State<CloudBitCard> {
 }
 
 class Leds extends StatelessWidget {
-  Leds({
+  const Leds({
     Key key,
     @required this.value,
     @required this.bitCount,
@@ -285,24 +290,25 @@ class Leds extends StatelessWidget {
   final Color color;
   final double size;
 
+  @override
   Widget build(BuildContext context) {
-    Color color = value != null
+    final Color color = value != null
         ? this.color ?? Theme.of(context).accentColor
         : Theme.of(context).disabledColor;
-    List<Widget> dots = <Widget>[];
+    final List<Widget> dots = <Widget>[];
     for (int i = 1; i <= bitCount; i += 1) {
-      dots.add(new Container(
-        margin: new EdgeInsets.all(2.0),
-        decoration: new BoxDecoration(
+      dots.add(Container(
+        margin: const EdgeInsets.all(2.0),
+        decoration: BoxDecoration(
           color:
               (value != null) && (value & (1 << (i - 1)) != 0) ? color : null,
           shape: BoxShape.circle,
-          border: new Border.all(width: size / 10.0, color: color),
+          border: Border.all(width: size / 10.0, color: color),
         ),
         height: size,
         width: size,
       ));
     }
-    return new Row(children: dots);
+    return Row(children: dots);
   }
 }
