@@ -8,6 +8,8 @@ ios/.generated/
 packages
 credentials.cfg
 ca.cert.pem
+ca.cert.der
+ca.cert.pkcs12
 .dart_tool/
 .vscode
 *.iml

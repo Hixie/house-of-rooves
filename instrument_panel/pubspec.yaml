@@ -16,3 +16,5 @@ flutter:
    - images/drawer_header.jpeg
    - credentials.cfg
    - ca.cert.pem
+   - ca.cert.der
+   - ca.cert.pkcs12

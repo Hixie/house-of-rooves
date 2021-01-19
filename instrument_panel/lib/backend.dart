@@ -73,12 +73,19 @@ Future<Null> init() async {
     username: _credentials[4],
     password: _credentials[5],
   );
-  _securityContext = SecurityContext()
-    ..setTrustedCertificatesBytes((await rootBundle.load('ca.cert.pem')).buffer.asUint8List());
+  _securityContext = SecurityContext();
+  if (Platform.isIOS) {
+    _securityContext.setTrustedCertificatesBytes((await rootBundle.load('ca.cert.der')).buffer.asUint8List());
+  } else if (Platform.isMacOS) {
+    _securityContext.setTrustedCertificatesBytes((await rootBundle.load('ca.cert.pkcs12')).buffer.asUint8List(), password: 'rooves.house');
+  } else {
+    _securityContext.setTrustedCertificatesBytes((await rootBundle.load('ca.cert.pem')).buffer.asUint8List());
+  }
 }
 
 Remy openRemy(NotificationHandler onNotification, UiUpdateHandler onUiUpdate) {
   assert(_credentials != null);
+  assert(_securityContext != null);
   return new Remy(
     username: 'house-of-rooves app on ${Platform.localHostname} (${Platform.operatingSystem})',
     password: _credentials[3],
