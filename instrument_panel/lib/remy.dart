@@ -76,26 +76,7 @@ class RemyMessageList extends StatelessWidget {
             child: new Wrap(
               spacing: 16.0,
               children: message.buttons.map((backend.RemyButton button) {
-                return new Padding(
-                  padding: new EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: new Material(
-                    color: Theme.of(context).accentColor,
-                    child: new InkWell(
-                      onTap: () {
-                        assert(() { print('pushing $button'); return true; }());
-                        remy.pushButton(button);
-                      },
-                      child: new Padding(
-                        padding: new EdgeInsets.all(8.0),
-                        child: new Text(
-                          button.label,
-                          style: Theme.of(context).accentTextTheme.subtitle1,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                return RemyButtonWidget(remy: remy, button: button);
               }).toList()
             ),
           ));
@@ -126,6 +107,44 @@ class RemyMessageList extends StatelessWidget {
     return new ListView(
       padding: new EdgeInsets.only(bottom: 16.0),
       children: messages,
+    );
+  }
+}
+
+class RemyButtonWidget extends StatelessWidget {
+  const RemyButtonWidget({
+    Key key,
+    @required this.remy,
+    @required this.button,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyButton button;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: new EdgeInsets.all(8.0),
+      child: new Material(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.yellow.withGreen(230),
+        clipBehavior: Clip.antiAlias,
+        child: new InkWell(
+          onTap: () {
+            assert(() { print('pushing $button'); return true; }());
+            remy.pushButton(button);
+          },
+          child: new Padding(
+            padding: new EdgeInsets.all(8.0),
+            child: new Text(
+              button.label,
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+              
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
