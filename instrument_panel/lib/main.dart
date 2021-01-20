@@ -15,6 +15,8 @@ import 'television.dart';
 // TODO(ianh): add uradmonitor console
 // TODO(ianh): add tts console
 // TODO(ianh): add thermostat console
+// TODO(ianh): add "people", "pets" console based on remy statuses
+// TODO(ianh): add "hot tub" console
 
 enum HouseOfRoovesPage {
   cloudbits,
