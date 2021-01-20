@@ -7,9 +7,6 @@ import 'backend.dart' as backend;
 import 'common.dart';
 
 // TODO(ianh): 'group', 'warning', escalation levels, 'status', 'failure', 'done', buttons without a message
-// TODO(ianh): make the filter chips prettier, improve the spacing between them and the icons
-// TODO(ianh): performance when scrolling
-// TODO(ianh): improve 'not connected' UI
 // TODO(ianh): going to the other pages isn't working any more
 
 const Set<String> handledClasses = <String>{ // alphabetical
@@ -176,12 +173,7 @@ class _RemyPageState extends State<RemyPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> actions = <Widget>[
-      _buildFilter(null, 'ALL'),
-      _buildFilter('ian', 'IAN'),
-      _buildFilter('carey', 'CAREY'),
-      _buildFilter('eli', 'ELI'),
-    ];
+    final List<Widget> actions = <Widget>[];
     if (_ui != null) {
       for (final backend.RemyMessage message in _ui.messages) {
         if (message.label.startsWith(iconPrefix)) {
@@ -194,6 +186,14 @@ class _RemyPageState extends State<RemyPage> {
         }
       }
     }
+    actions.addAll(<Widget>[
+      const SizedBox(width: 24.0),
+      _buildFilter(null, 'ALL'),
+      _buildFilter('ian', 'IAN'),
+      _buildFilter('carey', 'CAREY'),
+      _buildFilter('eli', 'ELI'),
+      const SizedBox(width: 18.0),
+    ]);
     return MainScreen(
       title: 'Remy',
       actions: actions,
@@ -203,7 +203,7 @@ class _RemyPageState extends State<RemyPage> {
   }
 }
 
-class RemyMessageList extends StatelessWidget {
+class RemyMessageList extends StatefulWidget {
   const RemyMessageList({Key key, this.remy, this.ui, this.filter}) : super(key: key);
 
   final backend.Remy remy;
@@ -211,45 +211,79 @@ class RemyMessageList extends StatelessWidget {
   final String filter;
 
   @override
-  Widget build(BuildContext context) {
-    final List<Widget> messages = <Widget>[];
-    if (ui == null) {
-      messages.add(const Card(
-        child: Padding(
-          padding: EdgeInsets.all(24.0),
-          child: Text('Not connected.'),
-        ),
-      ));
-    } else {
+  State<RemyMessageList> createState() => _RemyMessageListState();
+}
+
+class _RemyMessageListState extends State<RemyMessageList> {
+  @override
+  void initState() {
+    super.initState();
+    _updateData();
+  }
+
+  @override
+  void didUpdateWidget(RemyMessageList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if ((widget.ui != oldWidget.ui) || (widget.filter != oldWidget.filter))
+      _updateData();
+  }
+
+  bool _hasChores = false;
+  List<backend.RemyMessage> _messages;
+
+  void _updateData() {
+    if (widget.ui != null) {
+      _messages = widget.ui.messages.toList();
       int chores = 0;
-      for (final backend.RemyMessage message in ui.messages) {
-        if ((filter != null) && !message.classes.contains(filter) && !message.classes.contains('group'))
+      for (final backend.RemyMessage message in _messages) {
+        if ((widget.filter != null) && !message.classes.contains(widget.filter) && !message.classes.contains('group'))
           continue;
         if (message.classes.contains('automatic'))
           continue;
         if (!message.classes.contains('notice'))
           chores += 1;
-        Widget child;
-        if (message.classes.contains('remote')) {
-          child = RemyRemoteWidget(remy: remy, message: message);
-        } else if (message.classes.contains('test-strip')) {
-          child = RemyTestStripWidget(remy: remy, message: message);
-        } else {
-          child = RemyMessageWidget(remy: remy, message: message);
-        }
-        messages.add(child);
       }
-      if (chores == 0) {
-        messages.insert(0, RemyImageMessageWidget(
-          message: Text('Have fun!', style: Theme.of(context).textTheme.headline1),
-          image: Image.network('https://remy.rooves.house/images/looking-right.gif'),
-          imageHeight: 382.0,
-        ));
-      }
+      _hasChores = chores > 0;
     }
-    return ListView(
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.ui == null) {
+      return const Center(
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(24.0),
+            child: Text('Not connected.'),
+          ),
+        ),
+      );
+    }
+    return ListView.builder(
       padding: const EdgeInsets.only(bottom: 16.0),
-      children: messages,
+      itemCount: _messages.length + (_hasChores ? 0 : 1),
+      itemBuilder: (BuildContext context, int index) {
+        if (!_hasChores) {
+          if (index == 0) {
+            return RemyImageMessageWidget(
+              message: Text('Have fun!', style: Theme.of(context).textTheme.headline1),
+              image: Image.network('https://remy.rooves.house/images/looking-right.gif'),
+              imageHeight: 382.0,
+            );
+          }
+          index -= 1;
+        }
+        final backend.RemyMessage message = _messages[index];
+        if ((widget.filter != null) && !message.classes.contains(widget.filter) && !message.classes.contains('group'))
+          return const SizedBox.shrink();
+        if (message.classes.contains('automatic'))
+          return const SizedBox.shrink();
+        if (message.classes.contains('remote'))
+          return RemyRemoteWidget(remy: widget.remy, message: message);
+        if (message.classes.contains('test-strip'))
+          return RemyTestStripWidget(remy: widget.remy, message: message);
+        return RemyMessageWidget(remy: widget.remy, message: message);
+      },
     );
   }
 }
@@ -515,7 +549,7 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
   bool _active = false;
   Stopwatch _pressed;
 
-  static const Duration _highlightDuration = Duration(milliseconds: 1000);
+  static const Duration _highlightDuration = Duration(milliseconds: 500);
 
   RemyStyleSet _computeStyleSet(RemyStyle style) {
     if (_active)
@@ -546,16 +580,17 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
       clipBehavior: Clip.antiAlias,
       child: GestureDetector(
         onTapDown: (TapDownDetails details) {
-          widget.remy.pushButton(widget.button);
           _pressed = Stopwatch()..start();
           setState(() { _active = true; });
         },
         onTapUp: (TapUpDetails details) {
-          Timer(_pressed.elapsed - _highlightDuration, () {
+          Timer(_highlightDuration - _pressed.elapsed, () {
             if (mounted) {
               setState(() { _active = false; });
+              widget.remy.pushButton(widget.button);
             }
           });
+          _pressed = null;
         },
         onTapCancel: () {
           setState(() { _active = false; });
