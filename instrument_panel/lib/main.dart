@@ -6,7 +6,6 @@ import 'backend.dart' as backend;
 import 'cloudbits.dart';
 import 'components/auto_fade.dart';
 import 'doors.dart';
-import 'laundry.dart';
 import 'remy.dart';
 import 'solar.dart';
 import 'television.dart';
@@ -14,7 +13,6 @@ import 'television.dart';
 enum HouseOfRoovesPage {
   cloudbits,
   doors,
-  laundry,
   remy,
   solar,
   television,
@@ -83,17 +81,6 @@ class MainDrawer extends StatelessWidget {
             onTap: onPageChanged != null
                 ? () {
                     onPageChanged(HouseOfRoovesPage.television);
-                    Navigator.pop(context);
-                  }
-                : null,
-          ),
-          ListTile(
-            leading: const Icon(Icons.local_laundry_service),
-            title: const Text('Laundry'),
-            selected: page == HouseOfRoovesPage.laundry,
-            onTap: onPageChanged != null
-                ? () {
-                    onPageChanged(HouseOfRoovesPage.laundry);
                     Navigator.pop(context);
                   }
                 : null,
@@ -174,8 +161,6 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
         return const CloudBitsPage();
       case HouseOfRoovesPage.doors:
         return const DoorsPage();
-      case HouseOfRoovesPage.laundry:
-        return const LaundryPage();
       case HouseOfRoovesPage.solar:
         return const SolarPage();
       case HouseOfRoovesPage.television:

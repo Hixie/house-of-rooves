@@ -6,92 +6,30 @@ import 'package:flutter/foundation.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
+// TODO(ianh): hide the "input value" feature if the value is not known
+// TODO(ianh): include information about the button if the value is known
+// TODO(ianh): add LED controls
+
 class CloudBitsPage extends StatefulWidget {
   const CloudBitsPage({ Key key }) : super(key: key);
+
   @override
   _CloudBitsPageState createState() => _CloudBitsPageState();
 }
 
 class _CloudBitsPageState extends State<CloudBitsPage> {
-  List<backend.CloudBit> _cloudBits;
-  backend.CloudBit _cloudBit;
-  bool _loaded = false;
-
-  final Map<backend.CloudBit, String> _labels = <backend.CloudBit, String>{};
-
-  @override
-  void initState() {
-    super.initState();
-    initLabels().catchError((Object exception) {
-      assert(() {
-        print(exception); // ignore: avoid_print
-      }());
-    });
-  }
-
-  Future<void> initLabels() async {
-    _cloudBits = await backend.cloud.listDevices().toList();
-    _loaded = true;
-    if (_cloudBits.isEmpty) {
-      setState(() {
-        _cloudBits = null;
-      });
-    } else {
-      _selectCloudBit(_cloudBits.first);
-    }
-    if (_cloudBits == null)
-      return;
-    for (final backend.CloudBit bit in _cloudBits)
-      setState(() {
-        _labels[bit] = bit.displayName;
-      });
-  }
-
-  void _selectCloudBit(backend.CloudBit value) {
-    setState(() {
-      _cloudBit = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MainScreen(
       title: 'CloudBits',
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: _loaded
-                ? _cloudBits != null
-                    ? DropdownButton<backend.CloudBit>(
-                        items: _cloudBits
-                            .map<DropdownMenuItem<backend.CloudBit>>(
-                                (backend.CloudBit bit) {
-                          return DropdownMenuItem<backend.CloudBit>(
-                            value: bit,
-                            child: Text(_labels.containsKey(bit)
-                                ? _labels[bit]
-                                : bit.deviceId),
-                          );
-                        }).toList(),
-                        value: _cloudBit,
-                        onChanged: _selectCloudBit,
-                      )
-                    : const Text('No CloudBits.')
-                : const Text('Connecting...'),
-          ),
-          Padding(
+      body: ListView.builder(
+        itemCount: backend.cloudBits.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
             padding: const EdgeInsets.all(24.0),
-            child: _cloudBit != null
-                ? CloudBitCard(cloudBit: _cloudBit)
-                : const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(24.0),
-                      child: Text('No CloudBit selected.'),
-                    ),
-                  ),
-          ),
-        ],
+            child: CloudBitCard(cloudBit: backend.cloudBits[index])
+          );
+        },
       ),
     );
   }
@@ -99,7 +37,9 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
 
 class CloudBitCard extends StatefulWidget {
   const CloudBitCard({Key key, this.cloudBit}) : super(key: key);
-  final backend.CloudBit cloudBit;
+
+  final backend.Localbit cloudBit;
+
   @override
   _CloudBitCardState createState() => _CloudBitCardState();
 }
@@ -182,6 +122,11 @@ class _CloudBitCardState extends State<CloudBitCard> {
       child: ListBody(
         children: <Widget>[
           Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
+            child: Text(widget.cloudBit.displayName, style: Theme.of(context).textTheme.headline4),
+          ),
+          const Divider(),
+          Padding(
             padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,21 +199,45 @@ class _CloudBitCardState extends State<CloudBitCard> {
             ),
           ),
           const Divider(height: 1.0),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: RichText(
-              text: TextSpan(
-                style: smallLabelStyle,
-                text: 'Device ID: ',
-                children: <TextSpan>[
-                  TextSpan(
-                      text: widget.cloudBit != null
-                          ? widget.cloudBit.deviceId
-                          : '-',
-                      style: smallValueStyle),
-                ],
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: RichText(
+                    text: TextSpan(
+                      style: smallLabelStyle,
+                      text: 'Device ID: ',
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: widget.cloudBit != null
+                              ? widget.cloudBit.deviceId
+                              : '-',
+                          style: smallValueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: RichText(
+                  text: TextSpan(
+                    style: smallLabelStyle,
+                    text: 'Hostname: ',
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: widget.cloudBit != null
+                            ? widget.cloudBit.hostname
+                            : '-',
+                        style: smallValueStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

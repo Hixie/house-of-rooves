@@ -7,7 +7,7 @@ import 'package:home_automation_tools/all.dart';
 export 'package:home_automation_tools/all.dart'
     show
         BitDemultiplexer,
-        CloudBit,
+        Localbit,
         debouncer,
         Remy,
         RemyNotification,
@@ -23,18 +23,18 @@ export 'package:home_automation_tools/all.dart'
 SunPowerMonitor get solar => _solar;
 SunPowerMonitor _solar;
 
-LittleBitsCloud get cloud => _cloud;
-LittleBitsCloud _cloud;
+LittleBitsLocalServer get cloud => _cloud;
+LittleBitsLocalServer _cloud;
+
+final List<Localbit> cloudBits = <Localbit>[];
 
 Television get television => _television;
 Television _television;
 
+const String cloudBitTestId = '00e04c02bd93';
 const String houseSensorsId = '243c201de435';
-const String laundryId = '00e04c02bd93';
 const String solarDisplayId = '243c201ddaf1';
-const String cloudBitTest1Id = '243c201dc805';
-const String cloudBitTest2Id = '243c201dcdfd';
-const String thermostatId = '00e04c0355d0';
+const String showerDayId = '00e04c0355d0';
 
 typedef ErrorReporter = void Function(String message);
 
@@ -64,13 +64,28 @@ Future<void> init() async {
         onError('SunPower: $error');
     },
   );
-  _cloud = LittleBitsCloud(
-    authToken: _credentials[0],
-    onError: (Object error) async {
+  _cloud = LittleBitsLocalServer(
+    onIdentify: (String deviceId) {
+      if (deviceId == cloudBitTestId)
+        return const LocalCloudBitDeviceDescription('cloudbit test device', 'cloudbit-test.rooves.house');
+      if (deviceId == houseSensorsId)
+        return const LocalCloudBitDeviceDescription('house sensors', 'cloudbit-housesensors.rooves.house');
+      if (deviceId == solarDisplayId)
+        return const LocalCloudBitDeviceDescription('solar display', 'cloudbit-solar.rooves.house');
+      if (deviceId == showerDayId)
+        return const LocalCloudBitDeviceDescription('shower day display', 'cloudbit-shower.rooves.house');
+      throw Exception('Unknown cloudbit device ID: $deviceId');
+    },
+    onLog: (String deviceId, String message) async {
       if (onError != null)
-        onError('CloudBits: $error');
+        onError('CloudBits: [$deviceId] $message');
     },
   );
+  cloudBits
+    ..add(_cloud.getDeviceSync(cloudBitTestId))
+    ..add(_cloud.getDeviceSync(houseSensorsId))
+    ..add(_cloud.getDeviceSync(solarDisplayId))
+    ..add(_cloud.getDeviceSync(showerDayId));
   _television = Television(
     username: _credentials[4],
     password: _credentials[5],
