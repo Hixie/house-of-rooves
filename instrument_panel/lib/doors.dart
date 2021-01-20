@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
+// TODO(ianh): update this to use remy rather than cloudbits
+// TODO(ianh): change this from just "doors" to all automation data we can show (e.g. dishwasher, dryer)
+
 class DoorsPage extends StatefulWidget {
   const DoorsPage({ Key key }) : super(key: key);
   @override

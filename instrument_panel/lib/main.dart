@@ -10,6 +10,12 @@ import 'remy.dart';
 import 'solar.dart';
 import 'television.dart';
 
+// TODO(ianh): add dishwasher console
+// TODO(ianh): add database console
+// TODO(ianh): add uradmonitor console
+// TODO(ianh): add tts console
+// TODO(ianh): add thermostat console
+
 enum HouseOfRoovesPage {
   cloudbits,
   doors,

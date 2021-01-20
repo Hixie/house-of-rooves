@@ -9,6 +9,7 @@ import 'common.dart';
 // TODO(ianh): hide the "input value" feature if the value is not known
 // TODO(ianh): include information about the button if the value is known
 // TODO(ianh): add LED controls
+// TODO(ianh): silence the snackbar messages for cloudbits
 
 class CloudBitsPage extends StatefulWidget {
   const CloudBitsPage({ Key key }) : super(key: key);

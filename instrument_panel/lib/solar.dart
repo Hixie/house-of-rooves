@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
+// TODO(ianh): fix this page, it throws on open today
+
 class SolarPage extends StatefulWidget {
   const SolarPage({ Key key }) : super(key: key);
   @override
