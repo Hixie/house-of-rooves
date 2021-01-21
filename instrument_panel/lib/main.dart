@@ -137,18 +137,34 @@ class HouseOfRooves extends StatefulWidget {
 }
 
 class _HouseOfRoovesState extends State<HouseOfRooves> {
+  String _lastError;
+  Timer _timer;
+
   @override
   void initState() {
     super.initState();
     backend.onError = (String message) {
-      // add to an in-memory log that can be shown somewhere
-      //assert(() { print(message); return true; });
+      if (message == _lastError)
+        return;
+      _lastError = message;
+      _timer?.cancel();
+      _timer = Timer(const Duration(seconds: 5), () {
+        _timer = null;
+        _lastError = null;
+      });
+      // TODO(ianh): add to an in-memory log that can be shown somewhere, so that you can look at the recent error logs
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(message)));
     };
     backend.init().whenComplete(() {
       _handlePageChanged(HouseOfRoovesPage.remy);
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   HouseOfRoovesPage _page;

@@ -8,6 +8,7 @@ export 'package:home_automation_tools/all.dart'
     show
         BitDemultiplexer,
         Localbit,
+        LedColor,
         debouncer,
         Remy,
         RemyNotification,
@@ -76,9 +77,9 @@ Future<void> init() async {
         return const LocalCloudBitDeviceDescription('shower day display', 'cloudbit-shower.rooves.house');
       throw Exception('Unknown cloudbit device ID: $deviceId');
     },
-    onLog: (String deviceId, String message) async {
+    onError: (Object error) async {
       if (onError != null)
-        onError('CloudBits: [$deviceId] $message');
+        onError('CloudBits: $error');
     },
   );
   cloudBits

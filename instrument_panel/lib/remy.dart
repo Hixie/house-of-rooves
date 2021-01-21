@@ -594,6 +594,7 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
         },
         onTapCancel: () {
           setState(() { _active = false; });
+          _pressed = null;
         },
         child: Padding(
           padding: style.buttonPadding,

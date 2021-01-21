@@ -6,10 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
-// TODO(ianh): hide the "input value" feature if the value is not known
 // TODO(ianh): include information about the button if the value is known
-// TODO(ianh): add LED controls
-// TODO(ianh): silence the snackbar messages for cloudbits
 
 class CloudBitsPage extends StatefulWidget {
   const CloudBitsPage({ Key key }) : super(key: key);
@@ -27,7 +24,7 @@ class _CloudBitsPageState extends State<CloudBitsPage> {
         itemCount: backend.cloudBits.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.only(top: index == 0 ? 24.0 : 0.0, left: 24.0, right: 24.0, bottom: 24.0),
             child: CloudBitCard(cloudBit: backend.cloudBits[index])
           );
         },
@@ -111,6 +108,15 @@ class _CloudBitCardState extends State<CloudBitCard> {
     widget.cloudBit.setValue(value.round());
   }
 
+  Widget _buildLed(backend.LedColor color) {
+    return CloudBitLedButton(
+      color: color,
+      onPressed: () {
+        widget.cloudBit.setLedColor(color);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextStyle labelStyle = Theme.of(context).textTheme.headline5;
@@ -127,38 +133,39 @@ class _CloudBitCardState extends State<CloudBitCard> {
             child: Text(widget.cloudBit.displayName, style: Theme.of(context).textTheme.headline4),
           ),
           const Divider(),
+          if (_inputNumber != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  RichText(
+                    text: TextSpan(
+                      style: labelStyle,
+                      text: 'Input value: ',
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: _inputNumber != null ? '$_inputNumber' : '-',
+                            style: valueStyle),
+                        TextSpan(text: ' (', style: labelStyle),
+                        TextSpan(
+                            text: _inputVolts != null
+                                ? _inputVolts.toStringAsFixed(1)
+                                : '-',
+                            style: valueStyle),
+                        TextSpan(
+                            text: 'V',
+                            style: labelStyle.apply(fontSizeFactor: 0.7)),
+                        TextSpan(text: ') ', style: labelStyle),
+                      ],
+                    ),
+                  ),
+                  Leds(value: _inputBitfield, bitCount: 4, size: 15.0),
+                ],
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                    style: labelStyle,
-                    text: 'Input value: ',
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: _inputNumber != null ? '$_inputNumber' : '-',
-                          style: valueStyle),
-                      TextSpan(text: ' (', style: labelStyle),
-                      TextSpan(
-                          text: _inputVolts != null
-                              ? _inputVolts.toStringAsFixed(1)
-                              : '-',
-                          style: valueStyle),
-                      TextSpan(
-                          text: 'V',
-                          style: labelStyle.apply(fontSizeFactor: 0.7)),
-                      TextSpan(text: ') ', style: labelStyle),
-                    ],
-                  ),
-                ),
-                Leds(value: _inputBitfield, bitCount: 4, size: 15.0),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
             child: ListBody(
               children: <Widget>[
                 Row(
@@ -197,6 +204,15 @@ class _CloudBitCardState extends State<CloudBitCard> {
                   label: _outputVolts?.toStringAsFixed(1) ?? '?',
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 48.0),
+              child: FittedBox(
+                child: Row(children: backend.LedColor.values.map<Widget>(_buildLed).toList()),
+              ),
             ),
           ),
           const Divider(height: 1.0),
@@ -280,5 +296,82 @@ class Leds extends StatelessWidget {
       ));
     }
     return Row(children: dots);
+  }
+}
+
+class CloudBitLedButton extends StatefulWidget {
+  const CloudBitLedButton({ Key key, this.onPressed, this.color }) : super(key: key);
+
+  final VoidCallback onPressed;
+  final backend.LedColor color;
+
+  @override
+  _CloudBitLedButton createState() => _CloudBitLedButton();
+}
+
+class _CloudBitLedButton extends State<CloudBitLedButton> {
+  Timer _timer;
+  Stopwatch _pressed;
+
+  static const Duration _highlightDuration = Duration(milliseconds: 500);
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer = null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Color((0xFF000000)
+      | ((widget.color.index & 0x02 > 0) ? 0x00FF0000 : 0)
+      | ((widget.color.index & 0x04 > 0) ? 0x0000FF00 : 0)
+      | ((widget.color.index & 0x01 > 0) ? 0x000000FF : 0)
+    );
+    return AnimatedContainer(
+      margin: const EdgeInsets.symmetric(horizontal: 1.0),
+      height: 8.0,
+      width: 8.0,
+      decoration: ShapeDecoration(
+        gradient: RadialGradient(
+          center: const Alignment(-0.2, -0.2),
+          colors: _pressed == null ? <Color>[Color.lerp(Colors.white, color, 0.5), color]
+                                   : <Color>[color, Color.lerp(Colors.black, color, 0.5)],
+        ),
+        shape: const CircleBorder(
+          side: BorderSide(width: 0.0, color: Colors.grey),
+        ),
+      ),
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOutQuart,
+      child: GestureDetector(
+        onTapDown: (TapDownDetails details) {
+          setState(() {
+            _timer?.cancel();
+            _timer = null;
+            _pressed = Stopwatch()..start();
+          });
+        },
+        onTapUp: (TapUpDetails details) {
+          if (widget.onPressed != null)
+            widget.onPressed();
+          _timer = Timer(_highlightDuration - _pressed.elapsed, () {
+            if (mounted) {
+              setState(() {
+                _timer = null;
+                _pressed = null;
+              });
+            }
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            _timer?.cancel();
+            _timer = null;
+            _pressed = null;
+          });
+        },
+      ),
+    );
   }
 }
