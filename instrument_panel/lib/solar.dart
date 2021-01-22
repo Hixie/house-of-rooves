@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'backend.dart' as backend;
 import 'common.dart';
 
-// TODO(ianh): fix this page, it throws on open today
-
 class SolarPage extends StatefulWidget {
   const SolarPage({ Key key }) : super(key: key);
   @override
@@ -19,15 +17,6 @@ class _SolarPageState extends State<SolarPage> {
   void initState() {
     super.initState();
     _subscription = backend.solar.power.listen(_handleData);
-    _initCloudbit();
-  }
-
-  Future<void> _initCloudbit() async {
-    final Stream<int> value =
-        (await backend.cloud.getDevice(backend.solarDisplayId)).values;
-    if (!mounted)
-      return;
-    _monitor = value.listen(_handleMonitor);
   }
 
   StreamSubscription<double> _subscription;
@@ -51,14 +40,6 @@ class _SolarPageState extends State<SolarPage> {
     });
   }
 
-  bool _monitorConnected = false;
-
-  void _handleMonitor(int monitor) {
-    setState(() {
-      _monitorConnected = monitor != null;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MainScreen(
@@ -79,36 +60,28 @@ class _SolarPageState extends State<SolarPage> {
                       child: DialMeter(low: 0.0, high: 5.0, value: _power),
                     ),
                   ),
-                  AnimatedCrossFade(
-                    firstChild: Text(
-                      'Not connected.',
-                      style: Theme.of(context).textTheme.headline3,
-                      textAlign: TextAlign.center,
+                  Center(
+                    child: AnimatedCrossFade(
+                      firstChild: Text(
+                        'Not connected.',
+                        style: Theme.of(context).textTheme.headline3,
+                        textAlign: TextAlign.center,
+                      ),
+                      firstCurve: Curves.fastOutSlowIn,
+                      secondChild: Text(
+                        'Generating\n${_powerString}kW',
+                        style: Theme.of(context).textTheme.headline3,
+                        textAlign: TextAlign.center,
+                      ),
+                      secondCurve: Curves.fastOutSlowIn,
+                      sizeCurve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 250),
+                      crossFadeState: _power == null
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
                     ),
-                    firstCurve: Curves.fastOutSlowIn,
-                    secondChild: Text(
-                      'Generating\n${_powerString}kW',
-                      style: Theme.of(context).textTheme.headline3,
-                      textAlign: TextAlign.center,
-                    ),
-                    secondCurve: Curves.fastOutSlowIn,
-                    sizeCurve: Curves.fastOutSlowIn,
-                    duration: const Duration(milliseconds: 250),
-                    crossFadeState: _power == null
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
                   ),
                 ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 24.0),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(
-                'Living room wall-mounted status display ${_monitorConnected ? "active" : "offline"}.',
-                textAlign: TextAlign.center,
               ),
             ),
           ),

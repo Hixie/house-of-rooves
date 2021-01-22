@@ -6,7 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'backend.dart' as backend;
 import 'common.dart';
 
-// TODO(ianh): 'group', 'warning', escalation levels, 'status', 'failure', 'done', buttons without a message
+// TODO(ianh): 'group', 'warning', escalation levels, 'failure', 'done', buttons without a message
 // TODO(ianh): going to the other pages isn't working any more
 
 const Set<String> handledClasses = <String>{ // alphabetical
@@ -37,7 +37,8 @@ class RemyStyleSet {
 
 @immutable
 class RemyStyle {
-  const RemyStyle(this.cardBorderRadius, this.card, this.buttonMargin, this.buttonPadding, this.buttonFontSize, this.buttonBorderRadius, this.normalButton, this.pressedButton, this.activeButton, this.selectedButton);
+  const RemyStyle(this.cardFontSize, this.cardBorderRadius, this.card, this.buttonMargin, this.buttonPadding, this.buttonFontSize, this.buttonBorderRadius, this.normalButton, this.pressedButton, this.activeButton, this.selectedButton);
+  final double cardFontSize;
   final BorderRadius cardBorderRadius;
   final RemyStyleSet card;
   final EdgeInsets buttonMargin;
@@ -51,6 +52,7 @@ class RemyStyle {
 }
 
 const RemyStyle messageStyle = RemyStyle(
+  24.0,
   BorderRadius.all(Radius.circular(2.0)),
   RemyStyleSet(Color(0xFFFFFFEE), Color(0xFF000000), BorderSide(color: Color(0xFF999900), width: 0.0)),
   EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -63,11 +65,26 @@ const RemyStyle messageStyle = RemyStyle(
   RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
 );
 
+const RemyStyle statusStyle = RemyStyle(
+  24.0,
+  BorderRadius.all(Radius.circular(16.0)),
+  RemyStyleSet(Color(0xFFFFFFC0), Color(0xFF000000), BorderSide(color: Color(0xFF999900), width: 0.0)),
+  null, // no buttons
+  null, // no buttons
+  null, // no buttons
+  null, // no buttons
+  null, // no buttons
+  null, // no buttons
+  null, // no buttons
+  null, // no buttons
+);
+
 const RemyStyle hotTubStyle = RemyStyle(
+  24.0,
   BorderRadius.all(Radius.circular(2.0)),
   RemyStyleSet(Color(0xFFEEEEFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
   EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-  EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+  EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
   24.0,
   BorderRadius.all(Radius.circular(24.0)),
   RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
@@ -77,11 +94,12 @@ const RemyStyle hotTubStyle = RemyStyle(
 );
 
 const RemyStyle testStripStyle = RemyStyle(
+  16.0,
   BorderRadius.all(Radius.circular(2.0)),
   RemyStyleSet(Color(0xFFEEEEFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
   EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),  
   EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-  14.0,
+  16.0,
   BorderRadius.all(Radius.circular(14.0)),
   RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
   RemyStyleSet(Color(0xFF000099), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF000099), width: 0.0)),
@@ -90,6 +108,7 @@ const RemyStyle testStripStyle = RemyStyle(
 );
 
 const RemyStyle remoteStyle = RemyStyle(
+  24.0,
   BorderRadius.all(Radius.circular(8.0)),
   RemyStyleSet(Color(0xFF000000), Color(0xFFFFFFFF), null),
   EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
@@ -260,7 +279,7 @@ class _RemyMessageListState extends State<RemyMessageList> {
       );
     }
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(top: 4.0, bottom: 12.0), // Cards have top/bottom margins of 4px
       itemCount: _messages.length + (_hasChores ? 0 : 1),
       itemBuilder: (BuildContext context, int index) {
         if (!_hasChores) {
@@ -274,53 +293,19 @@ class _RemyMessageListState extends State<RemyMessageList> {
           index -= 1;
         }
         final backend.RemyMessage message = _messages[index];
+        final Key key = Key(message.label);
         if ((widget.filter != null) && !message.classes.contains(widget.filter) && !message.classes.contains('group'))
-          return const SizedBox.shrink();
+          return SizedBox.shrink(key: key);
         if (message.classes.contains('automatic'))
-          return const SizedBox.shrink();
+          return SizedBox.shrink(key: key);
         if (message.classes.contains('remote'))
-          return RemyRemoteWidget(remy: widget.remy, message: message);
+          return RemyRemoteWidget(key: key, remy: widget.remy, message: message);
         if (message.classes.contains('test-strip'))
-          return RemyTestStripWidget(remy: widget.remy, message: message);
-        return RemyMessageWidget(remy: widget.remy, message: message);
+          return RemyTestStripWidget(key: key, remy: widget.remy, message: message);
+        if (message.classes.contains('status') && message.buttons.isEmpty)
+          return RemyStatusWidget(key: key, remy: widget.remy, message: message);
+        return RemyMessageWidget(key: key, remy: widget.remy, message: message);
       },
-    );
-  }
-}
-
-class RemyImageMessageWidget extends StatelessWidget {
-  const RemyImageMessageWidget({
-    Key key,
-    @required this.message,
-    @required this.image,
-    @required this.imageHeight,
-  }) : super(key: key);
-
-  final Widget message;
-  final Widget image;
-  final double imageHeight;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: imageHeight / MediaQuery.of(context).devicePixelRatio),
-              child: image,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: message,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -333,6 +318,8 @@ RemyStyle selectStyle(backend.RemyMessage message) {
   }
   if (message.classes.contains('remote'))
     return remoteStyle;
+  if (message.classes.contains('status'))
+    return statusStyle;
   return messageStyle;
 }
 
@@ -357,7 +344,7 @@ class RemyMessageWidget extends StatelessWidget {
     }).toList();
     final RemyStyle style = selectStyle(message);
     return Padding(
-      padding: const EdgeInsets.only(top: 4.0, left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 12.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: style.cardBorderRadius,
@@ -384,7 +371,10 @@ class RemyMessageWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                 child: Text(
                   message.label,
-                  style: Theme.of(context).textTheme.headline5.copyWith(color: style.card.textColor),
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: style.cardFontSize,
+                    color: style.card.textColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -420,6 +410,45 @@ class RemyMessageWidget extends StatelessWidget {
   }
 }
 
+class RemyStatusWidget extends StatelessWidget {
+  const RemyStatusWidget({
+    Key key,
+    @required this.remy,
+    @required this.message,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+
+  @override
+  Widget build(BuildContext context) {
+    assert(message.buttons.isEmpty);
+    final RemyStyle style = selectStyle(message);
+    return Padding(
+      padding: const EdgeInsets.only(left: 96.0, right: 96.0, top: 12.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: style.cardBorderRadius,
+          side: style.card.border ?? BorderSide.none,
+        ),
+        color: style.card.backgroundColor,
+        elevation: 2.0,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            message.label,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+              fontSize: style.cardFontSize,
+              color: style.card.textColor,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class RemyTestStripWidget extends StatelessWidget {
   const RemyTestStripWidget({
     Key key,
@@ -448,7 +477,10 @@ class RemyTestStripWidget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 6.0, right: 6.0, top: 4.0),
               child: Text(
                 message.label,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(color: style.card.textColor),
+                 style: Theme.of(context).textTheme.bodyText1.copyWith(
+                   fontSize: style.cardFontSize,
+                   color: style.card.textColor,
+                 ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -487,7 +519,7 @@ class RemyRemoteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final RemyStyle style = selectStyle(message);
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: 8.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 12.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: style.cardBorderRadius,
@@ -500,7 +532,10 @@ class RemyRemoteWidget extends StatelessWidget {
             const SizedBox(height: 4.0),
             Text(
               message.label,
-              style: Theme.of(context).textTheme.headline6.copyWith(color: style.card.textColor),
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                fontSize: style.cardFontSize,
+                color: style.card.textColor,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4.0),
@@ -518,6 +553,43 @@ class RemyRemoteWidget extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: 8.0),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RemyImageMessageWidget extends StatelessWidget {
+  const RemyImageMessageWidget({
+    Key key,
+    @required this.message,
+    @required this.image,
+    @required this.imageHeight,
+  }) : super(key: key);
+
+  final Widget message;
+  final Widget image;
+  final double imageHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: imageHeight / MediaQuery.of(context).devicePixelRatio),
+              child: image,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: message,
+            ),
           ],
         ),
       ),
@@ -566,7 +638,7 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
   Widget build(BuildContext context) {
     final RemyStyle style = selectStyle(widget.message);
     final RemyStyleSet styleSet = _computeStyleSet(style);
-    final TextStyle font = Theme.of(context).textTheme.headline5.copyWith(
+    final TextStyle font = Theme.of(context).textTheme.bodyText1.copyWith(
       fontSize: style.buttonFontSize,
       color: styleSet.textColor,
     );
@@ -602,6 +674,7 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
             widget.upperCase ? widget.button.label.toUpperCase() : widget.button.label,
             style: font,
             textAlign: TextAlign.center,
+            textWidthBasis: TextWidthBasis.longestLine,
           ),
         ),
       ),

@@ -801,18 +801,15 @@ class _TelevisionPageState extends State<TelevisionPage> {
                           },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: OutlinedButton(
-                          onPressed: _power != false
-                              ? () {
-                                  Form.of(context).save();
-                                  _handleDisplayMessage(message);
-                                }
-                              : null,
-                          child: const Text('DISPLAY'),
-                        ),
-                      )
+                      OutlinedButton(
+                        onPressed: _power != false
+                            ? () {
+                                Form.of(context).save();
+                                _handleDisplayMessage(message);
+                              }
+                            : null,
+                        child: const Text('DISPLAY'),
+                      ),
                     ],
                   );
                 },

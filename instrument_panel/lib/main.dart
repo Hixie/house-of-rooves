@@ -146,15 +146,17 @@ class _HouseOfRoovesState extends State<HouseOfRooves> {
     backend.onError = (String message) {
       if (message == _lastError)
         return;
-      _lastError = message;
-      _timer?.cancel();
-      _timer = Timer(const Duration(seconds: 5), () {
-        _timer = null;
-        _lastError = null;
+      scheduleMicrotask(() {
+        _lastError = message;
+        _timer?.cancel();
+        _timer = Timer(const Duration(seconds: 5), () {
+          _timer = null;
+          _lastError = null;
+        });
+        // TODO(ianh): add to an in-memory log that can be shown somewhere, so that you can look at the recent error logs
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(message)));
       });
-      // TODO(ianh): add to an in-memory log that can be shown somewhere, so that you can look at the recent error logs
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
     };
     backend.init().whenComplete(() {
       _handlePageChanged(HouseOfRoovesPage.remy);
