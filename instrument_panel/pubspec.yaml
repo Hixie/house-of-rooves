@@ -8,9 +8,9 @@ dependencies:
   home_automation_tools:
     git: git://github.com/Hixie/dart-home-automation-tools.git
   material_design_icons_flutter: any
-dependency_overrides:
-  home_automation_tools:
-    path: ../../dart-home-automation-tools/
+  # dependency_overrides:
+  # home_automation_tools:
+  # path: ../../dart-home-automation-tools/
 flutter:
   uses-material-design: true
   assets:

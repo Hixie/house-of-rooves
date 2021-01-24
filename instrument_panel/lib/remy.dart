@@ -51,6 +51,20 @@ class RemyStyle {
   final RemyStyleSet selectedButton; // highlighted with multi-stage
 }
 
+const RemyStyle groupStyle = RemyStyle(
+  10.0,
+  BorderRadius.all(Radius.circular(8.0)),
+  null,
+  EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
+  EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+  10.0,
+  BorderRadius.all(Radius.circular(4.0)),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), null),
+  RemyStyleSet(Color(0xFFBBBBBB), Color(0xFFFFFFFF), null),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide()),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide()),
+);
+
 const RemyStyle messageStyle = RemyStyle(
   24.0,
   BorderRadius.all(Radius.circular(2.0)),
@@ -97,7 +111,7 @@ const RemyStyle testStripStyle = RemyStyle(
   16.0,
   BorderRadius.all(Radius.circular(2.0)),
   RemyStyleSet(Color(0xFFEEEEFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
-  EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),  
+  EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
   EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
   16.0,
   BorderRadius.all(Radius.circular(14.0)),
@@ -188,7 +202,7 @@ class _RemyPageState extends State<RemyPage> {
         selected: _filter == code,
       ),
     );
-  }  
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -304,6 +318,8 @@ class _RemyMessageListState extends State<RemyMessageList> {
           return RemyTestStripWidget(key: key, remy: widget.remy, message: message);
         if (message.classes.contains('status') && message.buttons.isEmpty)
           return RemyStatusWidget(key: key, remy: widget.remy, message: message);
+        if (message.classes.contains('group'))
+          return RemyGroupWidget(key: key, remy: widget.remy, message: message);
         return RemyMessageWidget(key: key, remy: widget.remy, message: message);
       },
     );
@@ -320,7 +336,48 @@ RemyStyle selectStyle(backend.RemyMessage message) {
     return remoteStyle;
   if (message.classes.contains('status'))
     return statusStyle;
+  if (message.classes.contains('group'))
+    return groupStyle;
   return messageStyle;
+}
+
+class RemyGroupWidget extends StatefulWidget {
+
+  const RemyGroupWidget({Key key, this.remy, this.message}) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+
+  @override
+  State<StatefulWidget> createState() => _RemyGroupWidgetState();
+}
+class _RemyGroupWidgetState extends State<RemyGroupWidget> {
+  bool open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          GestureDetector(
+            onTapDown: (TapDownDetails details) => setState(() => open =! open),
+            child: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey,),
+                child: Row(
+                  children: <Widget>[
+                    Icon(!open ? Icons.arrow_right_outlined : Icons.arrow_downward_outlined),
+                    Text(widget.message.label),
+                  ],
+                ),
+              ),
+            ),
+            ...open ? widget.message.buttons.map((backend.RemyButton button) => RemyButtonWidget(remy: widget.remy, message: widget.message, button: button)) : <Widget>[],
+        ],
+      ),
+    );
+  }
 }
 
 class RemyMessageWidget extends StatelessWidget {
@@ -477,10 +534,10 @@ class RemyTestStripWidget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 6.0, right: 6.0, top: 4.0),
               child: Text(
                 message.label,
-                 style: Theme.of(context).textTheme.bodyText1.copyWith(
-                   fontSize: style.cardFontSize,
-                   color: style.card.textColor,
-                 ),
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: style.cardFontSize,
+                  color: style.card.textColor,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
