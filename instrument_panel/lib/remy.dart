@@ -51,6 +51,20 @@ class RemyStyle {
   final RemyStyleSet selectedButton; // highlighted with multi-stage
 }
 
+const RemyStyle groupStyle = RemyStyle(
+  10.0,
+  BorderRadius.all(Radius.circular(8.0)),
+  null,
+  EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
+  EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+  10.0,
+  BorderRadius.all(Radius.circular(4.0)),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), null),
+  RemyStyleSet(Color(0xFFBBBBBB), Color(0xFFFFFFFF), null),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide()),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide()),
+);
+
 const RemyStyle messageStyle = RemyStyle(
   24.0,
   BorderRadius.all(Radius.circular(2.0)),
@@ -312,6 +326,21 @@ class _RemyMessageListState extends State<RemyMessageList> {
   }
 }
 
+RemyStyle selectStyle(backend.RemyMessage message) {
+  if (message.classes.contains('hottub')) {
+    if (message.classes.contains('test-strip'))
+      return testStripStyle;
+    return hotTubStyle;
+  }
+  if (message.classes.contains('remote'))
+    return remoteStyle;
+  if (message.classes.contains('status'))
+    return statusStyle;
+  if (message.classes.contains('group'))
+    return groupStyle;
+  return messageStyle;
+}
+
 class RemyGroupWidget extends StatefulWidget {
 
   const RemyGroupWidget({Key key, this.remy, this.message}) : super(key: key);
@@ -327,32 +356,28 @@ class _RemyGroupWidgetState extends State<RemyGroupWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (TapDownDetails details) => setState(() => open =! open),
-      child: Container(
-        color: Colors.grey,
-        child: Row(
-          children: <Widget>[
-            Icon(open ? Icons.arrow_right_outlined : Icons.arrow_downward_outlined),
-            Text(widget.message.label),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          GestureDetector(
+            onTapDown: (TapDownDetails details) => setState(() => open =! open),
+            child: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey,),
+                child: Row(
+                  children: <Widget>[
+                    Icon(!open ? Icons.arrow_right_outlined : Icons.arrow_downward_outlined),
+                    Text(widget.message.label),
+                  ],
+                ),
+              ),
+            ),
+            ...open ? widget.message.buttons.map((backend.RemyButton button) => RemyButtonWidget(remy: widget.remy, message: widget.message, button: button)) : <Widget>[],
+        ],
       ),
     );
   }
-}
-
-RemyStyle selectStyle(backend.RemyMessage message) {
-  if (message.classes.contains('hottub')) {
-    if (message.classes.contains('test-strip'))
-      return testStripStyle;
-    return hotTubStyle;
-  }
-  if (message.classes.contains('remote'))
-    return remoteStyle;
-  if (message.classes.contains('status'))
-    return statusStyle;
-  return messageStyle;
 }
 
 class RemyMessageWidget extends StatelessWidget {
