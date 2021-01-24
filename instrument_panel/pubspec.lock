@@ -23,9 +23,11 @@ packages:
   home_automation_tools:
     dependency: "direct main"
     description:
-      path: "../../dart-home-automation-tools"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "844cadc93ffcfd0030f3a87e26ba759f08604f95"
+      url: "git://github.com/Hixie/dart-home-automation-tools.git"
+    source: git
     version: "0.0.0"
   material_design_icons_flutter:
     dependency: "direct main"
