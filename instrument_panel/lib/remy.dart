@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -6,14 +7,17 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'backend.dart' as backend;
 import 'common.dart';
 
-// TODO(ianh): 'warning', escalation levels, 'failure', 'done', buttons without a message
+// TODO(ianh): 'warning', escalation levels, buttons without a message
+// TODO(ianh): doesn't notice server restart
 
 const Set<String> handledClasses = <String>{ // alphabetical
   'automatic',
   'carey',
   'console-cat-litter',
   'console-laundry',
+  'done',
   'eli',
+  'failure',
   'group',
   'guests',
   'hottub',
@@ -37,7 +41,7 @@ class RemyStyleSet {
 
 @immutable
 class RemyStyle {
-  const RemyStyle(this.cardFontSize, this.cardBorderRadius, this.card, this.buttonMargin, this.buttonPadding, this.buttonFontSize, this.buttonBorderRadius, this.normalButton, this.pressedButton, this.activeButton, this.selectedButton);
+  const RemyStyle(this.cardFontSize, this.cardBorderRadius, this.card, this.buttonMargin, this.buttonPadding, this.buttonFontSize, this.buttonBorderRadius, this.normalButton, this.pressedButton, this.selectedButton);
   final double cardFontSize;
   final BorderRadius cardBorderRadius;
   final RemyStyleSet card;
@@ -47,8 +51,7 @@ class RemyStyle {
   final BorderRadius buttonBorderRadius;
   final RemyStyleSet normalButton;
   final RemyStyleSet pressedButton;
-  final RemyStyleSet activeButton; // highlighted without multi-stage
-  final RemyStyleSet selectedButton; // highlighted with multi-stage
+  final RemyStyleSet selectedButton;
 }
 
 const RemyStyle messageStyle = RemyStyle(
@@ -61,7 +64,6 @@ const RemyStyle messageStyle = RemyStyle(
   BorderRadius.all(Radius.circular(24.0)),
   RemyStyleSet(Color(0xFFDDDD00), Color(0xFF000000), BorderSide(color: Color(0xFF999900), width: 0.0)),
   RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF999900), width: 0.0)),
-  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFF000000), width: 2.0)), // ignore: avoid_redundant_argument_values
   RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
 );
 
@@ -69,7 +71,6 @@ const RemyStyle statusStyle = RemyStyle(
   24.0,
   BorderRadius.all(Radius.circular(16.0)),
   RemyStyleSet(Color(0xFFFFFFC0), Color(0xFF000000), BorderSide(color: Color(0xFF999900), width: 0.0)),
-  null, // no buttons
   null, // no buttons
   null, // no buttons
   null, // no buttons
@@ -89,8 +90,7 @@ const RemyStyle hotTubStyle = RemyStyle(
   BorderRadius.all(Radius.circular(24.0)),
   RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
   RemyStyleSet(Color(0xFF000099), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF000099), width: 0.0)),
-  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFF000000), width: 2.0)), // ignore: avoid_redundant_argument_values
-  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
+  RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 2.0)),
 );
 
 const RemyStyle testStripStyle = RemyStyle(
@@ -98,13 +98,12 @@ const RemyStyle testStripStyle = RemyStyle(
   BorderRadius.all(Radius.circular(2.0)),
   RemyStyleSet(Color(0xFFEEEEFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
   EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-  EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+  EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
   16.0,
   BorderRadius.all(Radius.circular(14.0)),
   RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 0.0)),
   RemyStyleSet(Color(0xFF000099), Color(0xFFFFFFFF), BorderSide(color: Color(0xFF000099), width: 0.0)),
-  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFF000000), width: 2.0)), // ignore: avoid_redundant_argument_values
-  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF666666), BorderSide(color: Color(0xFFDDDDDD), width: 2.0)),
+  RemyStyleSet(Color(0xFFCCCCFF), Color(0xFF000000), BorderSide(color: Color(0xFF000099), width: 2.0)),
 );
 
 const RemyStyle remoteStyle = RemyStyle(
@@ -118,7 +117,6 @@ const RemyStyle remoteStyle = RemyStyle(
   RemyStyleSet(Color(0xFFDDDD99), Color(0xFF000000), null),
   RemyStyleSet(Color(0xFF999900), Color(0xFF000000), null),
   RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), null),
-  RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), null),
 );
 
 const RemyStyle groupStyle = RemyStyle(
@@ -131,7 +129,6 @@ const RemyStyle groupStyle = RemyStyle(
   BorderRadius.all(Radius.circular(12.0)),
   RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF000000), BorderSide(color: Color(0xFFCCCCCC), width: 0.0)),
   RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide(color: Color(0xFFCCCCCC), width: 0.0)),
-  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF000000), BorderSide(color: Color(0xFF999999), width: 4.0)),
   RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF000000), BorderSide(color: Color(0xFF999999), width: 4.0)),
 );
 
@@ -262,41 +259,48 @@ class _RemyMessageListState extends State<RemyMessageList> {
   }
 
   bool _hasChores = false;
+  bool _hasFailure = false;
   List<backend.RemyMessage> _messages;
 
   void _updateData() {
     if (widget.ui != null) {
       _messages = widget.ui.messages.toList();
-      int chores = 0;
+      _hasChores = false;
+      _hasFailure = false;
       for (final backend.RemyMessage message in _messages) {
+        if (message.classes.contains('failure'))
+          _hasFailure = true;
         if ((widget.filter != null) && !message.classes.contains(widget.filter) && !message.classes.contains('group'))
           continue;
         if (message.classes.contains('automatic'))
           continue;
         if (!message.classes.contains('notice'))
-          chores += 1;
+          _hasChores = true;
       }
-      _hasChores = chores > 0;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.ui == null) {
-      return const Center(
+      return Center(
         child: Card(
+          color: Colors.grey.shade200,
           child: Padding(
-            padding: EdgeInsets.all(24.0),
-            child: Text('Not connected.'),
+            padding: const EdgeInsets.all(24.0),
+            child: Text(
+              'Not connected.',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.black),
+            ),
           ),
         ),
       );
     }
     return ListView.builder(
       padding: const EdgeInsets.only(top: 4.0, bottom: 12.0), // Cards have top/bottom margins of 4px
-      itemCount: _messages.length + (_hasChores ? 0 : 1),
+      itemCount: _messages.length + (_hasFailure || _hasChores ? 0 : 1),
       itemBuilder: (BuildContext context, int index) {
-        if (!_hasChores) {
+        if (!_hasChores && !_hasFailure) {
           if (index == 0) {
             return RemyImageMessageWidget(
               message: Text('Have fun!', style: Theme.of(context).textTheme.headline1),
@@ -308,6 +312,8 @@ class _RemyMessageListState extends State<RemyMessageList> {
         }
         final backend.RemyMessage message = _messages[index];
         final Key key = Key(message.label);
+        if (_hasFailure && !message.classes.contains('failure'))
+          return SizedBox.shrink(key: key);
         if ((widget.filter != null) && !message.classes.contains(widget.filter) && !message.classes.contains('group'))
           return SizedBox.shrink(key: key);
         if (message.classes.contains('automatic'))
@@ -480,45 +486,59 @@ class RemyTestStripWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RemyStyle style = selectStyle(message);
-    return Padding(
-      padding: const EdgeInsets.only(left: 32.0, right: 32.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: style.cardBorderRadius,
-          side: style.card.border ?? BorderSide.none,
-        ),
-        color: style.card.backgroundColor,
-        elevation: 1.0,
-        child: Column(
-          children: <Widget>[
+    final bool done = message.classes.contains('done');
+    Widget result = Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: style.cardBorderRadius,
+        side: style.card.border ?? BorderSide.none,
+      ),
+      color: style.card.backgroundColor,
+      elevation: 1.0,
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 6.0, right: 6.0, top: 4.0),
+            child: Text(
+              message.label,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                fontSize: style.cardFontSize,
+                color: style.card.textColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 2.0),
+          if (message.buttons.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, top: 4.0),
-              child: Text(
-                message.label,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontSize: style.cardFontSize,
-                  color: style.card.textColor,
-                ),
-                textAlign: TextAlign.center,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Wrap(
+                spacing: 2.0,
+                runSpacing: 2.0,
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: message.buttons.map((backend.RemyButton button) {
+                  return RemyButtonWidget(remy: remy, message: message, button: button, mini: true);
+                }).toList(),
               ),
             ),
-            const SizedBox(height: 2.0),
-            if (message.buttons.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Wrap(
-                  spacing: 2.0,
-                  runSpacing: 2.0,
-                  alignment: WrapAlignment.center,
-                  children: message.buttons.map((backend.RemyButton button) {
-                    return RemyButtonWidget(remy: remy, message: message, button: button, mini: true);
-                  }).toList(),
-                ),
-              ),
-            const SizedBox(height: 4.0),
-          ],
-        ),
+          const SizedBox(height: 4.0),
+        ],
       ),
+    );
+    if (done) {
+      result = ColorFiltered(
+        colorFilter: const ColorFilter.matrix(<double>[
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0,      0,      0,      1, 0,
+        ]),
+        child: result,
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+      child: result,
     );
   }
 }
@@ -566,6 +586,7 @@ class RemyRemoteWidget extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 8.0,
               alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: message.buttons.map((backend.RemyButton button) {
                 return RemyButtonWidget(remy: remy, message: message, button: button, upperCase: true);
               }).toList(),
@@ -706,13 +727,18 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
   static const Duration _highlightDuration = Duration(milliseconds: 500);
 
   RemyStyleSet _computeStyleSet(RemyStyle style) {
+    if (widget.button.classes.contains('highlighted')) {
+      if (_active) {
+        return RemyStyleSet(
+          style.pressedButton.backgroundColor,
+          style.pressedButton.textColor,
+          style.selectedButton.border,
+        );
+      }
+      return style.selectedButton;
+    }
     if (_active)
       return style.pressedButton;
-    if (widget.button.classes.contains('highlighted')) {
-      if (widget.message.classes.contains('multi-stage'))
-        return style.selectedButton;
-      return style.activeButton;
-    }
     return style.normalButton;
   }
 
@@ -720,6 +746,9 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
   Widget build(BuildContext context) {
     final RemyStyle style = selectStyle(widget.message);
     final RemyStyleSet styleSet = _computeStyleSet(style);
+    String label = widget.upperCase ? widget.button.label.toUpperCase() : widget.button.label;
+    if (widget.message.classes.contains('multi-stage') && widget.button.classes.contains('highlighted'))
+      label = '✔ $label';
     final TextStyle font = Theme.of(context).textTheme.bodyText1.copyWith(
       fontSize: style.buttonFontSize,
       color: styleSet.textColor,
@@ -753,7 +782,7 @@ class RemyButtonWidgetState extends State<RemyButtonWidget> {
         child: Padding(
           padding: style.buttonPadding,
           child: Text(
-            widget.upperCase ? widget.button.label.toUpperCase() : widget.button.label,
+            label,
             style: font,
             textAlign: TextAlign.center,
             textWidthBasis: TextWidthBasis.longestLine,
