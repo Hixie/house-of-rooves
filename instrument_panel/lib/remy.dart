@@ -6,8 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'backend.dart' as backend;
 import 'common.dart';
 
-// TODO(ianh): 'group', 'warning', escalation levels, 'failure', 'done', buttons without a message
-// TODO(ianh): going to the other pages isn't working any more
+// TODO(ianh): 'warning', escalation levels, 'failure', 'done', buttons without a message
 
 const Set<String> handledClasses = <String>{ // alphabetical
   'automatic',
@@ -15,6 +14,7 @@ const Set<String> handledClasses = <String>{ // alphabetical
   'console-cat-litter',
   'console-laundry',
   'eli',
+  'group',
   'guests',
   'hottub',
   'ian',
@@ -50,20 +50,6 @@ class RemyStyle {
   final RemyStyleSet activeButton; // highlighted without multi-stage
   final RemyStyleSet selectedButton; // highlighted with multi-stage
 }
-
-const RemyStyle groupStyle = RemyStyle(
-  10.0,
-  BorderRadius.all(Radius.circular(8.0)),
-  null,
-  EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
-  EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
-  10.0,
-  BorderRadius.all(Radius.circular(4.0)),
-  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), null),
-  RemyStyleSet(Color(0xFFBBBBBB), Color(0xFFFFFFFF), null),
-  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide()),
-  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide()),
-);
 
 const RemyStyle messageStyle = RemyStyle(
   24.0,
@@ -133,6 +119,20 @@ const RemyStyle remoteStyle = RemyStyle(
   RemyStyleSet(Color(0xFF999900), Color(0xFF000000), null),
   RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), null),
   RemyStyleSet(Color(0xFF999900), Color(0xFFFFFFFF), null),
+);
+
+const RemyStyle groupStyle = RemyStyle(
+  16.0,
+  BorderRadius.all(Radius.circular(16.0)),
+  RemyStyleSet(Color(0xFFEEEEEE), Color(0xFF000000), null),
+  EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+  EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+  16.0,
+  BorderRadius.all(Radius.circular(12.0)),
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF000000), BorderSide(color: Color(0xFFCCCCCC), width: 0.0)),
+  RemyStyleSet(Color(0xFF999999), Color(0xFFFFFFFF), BorderSide(color: Color(0xFFCCCCCC), width: 0.0)),
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF000000), BorderSide(color: Color(0xFF999999), width: 4.0)),
+  RemyStyleSet(Color(0xFFDDDDDD), Color(0xFF000000), BorderSide(color: Color(0xFF999999), width: 4.0)),
 );
 
 class RemyPage extends StatefulWidget {
@@ -230,7 +230,7 @@ class _RemyPageState extends State<RemyPage> {
     return MainScreen(
       title: 'Remy',
       actions: actions,
-      color: Colors.grey.shade300,
+      color: Colors.white,//Colors.grey.shade300,
       body: RemyMessageList(remy: _remy, ui: _ui, filter: _filter),
     );
   }
@@ -339,45 +339,6 @@ RemyStyle selectStyle(backend.RemyMessage message) {
   if (message.classes.contains('group'))
     return groupStyle;
   return messageStyle;
-}
-
-class RemyGroupWidget extends StatefulWidget {
-
-  const RemyGroupWidget({Key key, this.remy, this.message}) : super(key: key);
-
-  final backend.Remy remy;
-  final backend.RemyMessage message;
-
-  @override
-  State<StatefulWidget> createState() => _RemyGroupWidgetState();
-}
-class _RemyGroupWidgetState extends State<RemyGroupWidget> {
-  bool open = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          GestureDetector(
-            onTapDown: (TapDownDetails details) => setState(() => open =! open),
-            child: Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey,),
-                child: Row(
-                  children: <Widget>[
-                    Icon(!open ? Icons.arrow_right_outlined : Icons.arrow_downward_outlined),
-                    Text(widget.message.label),
-                  ],
-                ),
-              ),
-            ),
-            ...open ? widget.message.buttons.map((backend.RemyButton button) => RemyButtonWidget(remy: widget.remy, message: widget.message, button: button)) : <Widget>[],
-        ],
-      ),
-    );
-  }
 }
 
 class RemyMessageWidget extends StatelessWidget {
@@ -612,6 +573,70 @@ class RemyRemoteWidget extends StatelessWidget {
             const SizedBox(height: 8.0),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class RemyGroupWidget extends StatefulWidget {
+  const RemyGroupWidget({
+    Key key,
+    this.remy,
+    this.message,
+  }) : super(key: key);
+
+  final backend.Remy remy;
+  final backend.RemyMessage message;
+
+  @override
+  State<StatefulWidget> createState() => _RemyGroupWidgetState();
+}
+
+class _RemyGroupWidgetState extends State<RemyGroupWidget> {
+  bool open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final RemyStyle style = selectStyle(widget.message);
+    return Padding(
+      padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 12.0),
+      child: ListBody(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                open = !open;
+              });
+            },
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 3.0),
+              decoration: BoxDecoration(
+                borderRadius: !open ? style.cardBorderRadius : BorderRadius.only(
+                  topLeft: style.cardBorderRadius.topLeft,
+                  topRight: style.cardBorderRadius.topRight,
+                ),
+                color: style.card.backgroundColor,
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                (open ? '▼ ' : '▶ ') + widget.message.label,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: style.cardFontSize,
+                  fontWeight: FontWeight.bold,
+                  color: style.card.textColor,
+                ),
+              ),
+            ),
+          ),
+          if (open)
+            ...widget.message.buttons.map(
+              (backend.RemyButton button) => RemyButtonWidget(
+                remy: widget.remy,
+                message: widget.message,
+                button: button,
+              ),
+            ),
+        ],
       ),
     );
   }
